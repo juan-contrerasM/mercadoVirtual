@@ -1,0 +1,45 @@
+.imagen {
+    -fx-scale-x: 1.0;
+    -fx-scale-y: 1.0;
+    -fx-border-radius: 5;
+    -fx-border-color: black;
+}
+
+.imagen:hover {
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-border-color: red;
+}
+
+#paneHerramientas,#paneBuscador{
+
+    -fx-background-color: white; /* Color de fondo del Pane */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 20, 0, 0, 0); /* Efecto de sombra */
+
+}
+
+.button{
+    -fx-font-size: 14px; /* Tamaño de fuente predeterminado */
+    -fx-cursor: hand; /* Cambiar el cursor del ratón */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0); /* Efecto de sombra */
+    -fx-border-color: #e1e6ff;
+}
+.button:hover{
+    -fx-effect: dropshadow(gaussian, #7a0ed9, 30, 0, 0, 0); /* Efecto de sombra */
+    -fx-scale-x: 1.1; /* Agranda el botón horizontalmente */
+    -fx-scale-y: 1.1; /* Agranda el botón verticalmente */
+}
+.pane{
+    -fx-background-color: white; /* Color de fondo del Pane */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 20, 0, 0, 0); /* Efecto de sombra */
+
+}
+#paneDatos{
+
+    -fx-background-color: white; /* Color de fondo del Pane */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 20, 0, 0, 0); /* Efecto de sombra */
+}
+
+
+
+
