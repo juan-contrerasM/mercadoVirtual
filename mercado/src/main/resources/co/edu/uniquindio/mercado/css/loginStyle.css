@@ -1,0 +1,9 @@
+#PaneContenedor{
+
+    -fx-background-color:
+            linear-gradient(to top, darkgrey, white); /* Degradado de  /* Color de fondo del Pane */
+
+
+}
+
+

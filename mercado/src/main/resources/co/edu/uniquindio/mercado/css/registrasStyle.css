@@ -1,0 +1,7 @@
+
+
+#paneInformacionUsuario, #panePadre {
+    -fx-background-color: linear-gradient(to bottom, darkgrey, lightgrey); /* Degradado de  /* Color de fondo del Pane */
+-fx-effect: dropshadow(gaussian, white, 20, 0, 0, 0); /* Efecto de sombra */
+
+}

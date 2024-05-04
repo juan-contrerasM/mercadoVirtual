@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXRadioButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.legacy.MFXLegacyComboBox?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="panePadre" prefHeight="681.0" prefWidth="562.0" stylesheets="@../css/registrasStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.mercado.controllerView.RegistrarVendedoresController">
+    <children>
+        <Pane fx:id="paneInformacionUsuario" layoutX="7.0" layoutY="138.0" prefHeight="406.0" prefWidth="547.0" stylesheets="@../css/registrasStyle.css">
+            <MFXTextField fx:id="txtEdad" floatingText="Edad" layoutX="290.0" layoutY="14.0" prefHeight="51.0" prefWidth="223.0" stylesheets="@../csj/MFXTextField.css" />
+            <MFXTextField fx:id="txtNombre" floatingText="Nombre" layoutX="33.0" layoutY="14.0" prefHeight="51.0" prefWidth="223.0" stylesheets="@../csj/MFXTextField.css" />
+            <MFXTextField fx:id="txtCelular" floatingText="Numero de celular" layoutX="33.0" layoutY="130.0" prefHeight="51.0" prefWidth="223.0" stylesheets="@../csj/MFXTextField.css" />
+            <MFXTextField fx:id="txtCedula" floatingText="Cedula" layoutX="290.0" layoutY="130.0" prefHeight="51.0" prefWidth="223.0" stylesheets="@../csj/MFXTextField.css" />
+            <MFXTextField fx:id="txtCorreo" floatingText="Correo" layoutX="33.0" layoutY="235.0" prefHeight="51.0" prefWidth="223.0" stylesheets="@../csj/MFXTextField.css" />
+            <MFXTextField fx:id="txtNombreUsuario" floatingText="Nombre de Usuario" layoutX="291.0" layoutY="328.0" prefHeight="51.0" prefWidth="223.0" stylesheets="@../csj/MFXTextField.css" />
+            <MFXTextField fx:id="txtContrasenia" floatingText="Contraseña" layoutX="33.0" layoutY="334.0" prefHeight="51.0" prefWidth="223.0" stylesheets="@../csj/MFXTextField.css" />
+            <MFXLegacyComboBox fx:id="boxTipoUsuario" layoutX="291.0" layoutY="235.0" prefHeight="51.0" prefWidth="223.0" promptText="Tipo de usuario" stylesheets="@../csj/legacy/MFXComboBox.css" />
+        </Pane>
+         <MFXButton fx:id="btnCrearPerfil" layoutX="169.0" layoutY="602.0" onAction="#crearPerfil" prefHeight="51.0" prefWidth="223.0" text="Crear Perfil">
+         <stylesheets>
+            <URL value="@../csj/MFXButton.css" />
+            <URL value="@../css/principalStyle.css" />
+         </stylesheets></MFXButton>
+
+         <Label alignment="CENTER" layoutX="34.0" layoutY="66.0" prefHeight="77.0" prefWidth="505.0" text="Para crear un perfil en la APP TRADEHUB, la cual es un mercado virtual, donde &#10;vas a poder publicar productos que desees vender,debes rellenar todos los campos " />
+      <Label layoutX="14.0" layoutY="66.0" />
+      <Label layoutX="228.0" layoutY="43.0" text="Registrarse">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <MFXRadioButton fx:id="radioAceptaCondiciones" layoutX="34.0" layoutY="558.0" text="Acepta terminos y condiciones?" />
+      <Label layoutX="34.0" layoutY="14.0" prefHeight="44.0" prefWidth="132.0" text="TRADEHUB">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

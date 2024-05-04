@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.legacy.MFXLegacyComboBox?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="PaneContenedor" prefHeight="459.0" prefWidth="414.0" stylesheets="@../css/loginStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.mercado.controllerView.LoginControllerView">
+   <children>
+      <MFXButton fx:id="btnInicoSesion" buttonType="RAISED" depthLevel="LEVEL5" layoutX="148.0" layoutY="366.0" onAction="#iniciarSesion" prefHeight="36.0" prefWidth="118.0" text="Iniciar Sesion">
+         <stylesheets>
+            <URL value="@../csj/MFXButton.css" />
+            <URL value="@../css/principalStyle.css" />
+         </stylesheets></MFXButton>
+      <MFXTextField fx:id="txtNombreUsuario" alignment="CENTER" floatMode="BORDER" floatingText="Nombre de usuario" layoutX="95.0" layoutY="149.0" prefHeight="51.0" prefWidth="225.0" stylesheets="@../csj/MFXTextField.css" />
+      <Label layoutX="141.0" layoutY="95.0" text="Iniciar sesion">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="63.0" fitWidth="67.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imagenes/logo.jpeg" />
+         </image>
+      </ImageView>
+      <Label layoutX="252.0" layoutY="26.0" text="TRADEHUB">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblRecuperarClave" layoutX="17.0" layoutY="426.0" onMouseClicked="#recuperarContraseña" text="Recuperar contraseña?" />
+      <MFXPasswordField fx:id="txtClave" floatingText="Contraseña" layoutX="95.0" layoutY="215.0" prefHeight="51.0" prefWidth="225.0" stylesheets="@../csj/MFXPasswordField.css" />
+      <MFXLegacyComboBox fx:id="comboTipoUsuario" layoutX="95.0" layoutY="284.0" prefHeight="51.0" prefWidth="225.0" promptText="Tipo de usuario" stylesheets="@../csj/legacy/MFXComboBox.css" />
+   </children>
+</AnchorPane>

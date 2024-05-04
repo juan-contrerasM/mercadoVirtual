@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.legacy.MFXLegacyComboBox?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="PanePrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.mercado.controllerView.PrincipalControllerView">
+
+
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      <Pane fx:id="paneHerramientas" prefHeight="72.0" prefWidth="877.0" stylesheets="@../css/principalStyle.css">
+          <children>
+              <ImageView fx:id="imgLogo" fitHeight="54.0" fitWidth="68.0" layoutX="50.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                      <Image url="@../imagenes/logo.jpeg" />
+                  </image>
+              </ImageView>
+              <ImageView fx:id="imgAmigos" fitHeight="35.0" fitWidth="39.0" layoutX="395.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
+                  <image>
+                      <Image url="@../imagenes/imgAmigos.png" />
+                  </image>
+              </ImageView>
+         <Pane fx:id="paneAgregarPublicacion" layoutX="520.0" layoutY="8.0" prefHeight="45.0" prefWidth="54.0">
+            <children>
+                    <ImageView fx:id="imgSuma" fitHeight="35.0" fitWidth="35.0" layoutX="10.0" layoutY="5.0" onMouseClicked="#abrirCrearPublicacion" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
+                        <image>
+                            <Image url="@../imagenes/imgSuma.png" />
+                        </image>
+                    </ImageView>
+            </children>
+         </Pane>
+         <Pane fx:id="paneEstadisticas" layoutX="652.0" layoutY="8.0" prefHeight="45.0" prefWidth="54.0">
+            <children>
+                    <ImageView fx:id="imgEstadistica" fitHeight="39.0" fitWidth="45.0" layoutX="8.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
+                        <image>
+                            <Image url="@../imagenes/estadistica.png" />
+                        </image>
+                    </ImageView>
+            </children>
+         </Pane>
+         <Pane fx:id="paneMensajes" layoutX="770.0" layoutY="9.0" prefHeight="45.0" prefWidth="54.0">
+            <children>
+                    <ImageView fx:id="imgMensajes" fitHeight="39.0" fitWidth="45.0" layoutX="8.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
+                        <image>
+                            <Image url="@../imagenes/mensajes.png" />
+                        </image>
+                    </ImageView>
+            </children>
+         </Pane>
+          </children>
+      </Pane>
+      <ScrollPane layoutX="350.0" layoutY="72.0" prefHeight="536.0" prefWidth="529.0">
+          <content>
+              <Pane fx:id="panePublicaciones" prefHeight="1000.0" prefWidth="517.0">
+            <children>
+               <Label layoutX="13.0" layoutY="18.0" prefHeight="45.0" prefWidth="207.0" text=" PUBLICACIONES">
+                  <font>
+                     <Font name="System Bold" size="25.0" />
+                  </font>
+               </Label>
+               <MFXButton fx:id="btnRefrescar" layoutX="415.0" layoutY="19.0" onAction="#refrescarPublicaciones" prefHeight="35.0" prefWidth="90.0" stylesheets="@../csj/MFXButton.css" text="Refrescar" />
+            </children>
+         </Pane>
+          </content>
+      </ScrollPane>
+      <Pane fx:id="paneBuscador" layoutX="-2.0" layoutY="68.0" prefHeight="536.0" prefWidth="352.0" stylesheets="@../css/principalStyle.css">
+          <children>
+              <ImageView fx:id="imgLupa" fitHeight="27.0" fitWidth="35.0" layoutX="309.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
+                  <image>
+                      <Image url="@../imagenes/imgLupa.png" />
+                  </image>
+              </ImageView>
+         <Label layoutX="13.0" prefHeight="45.0" prefWidth="169.0" text="TRADEHUB">
+            <font>
+               <Font name="System Bold" size="30.0" />
+            </font>
+         </Label>
+         <Label layoutX="9.0" layoutY="215.0" prefHeight="45.0" prefWidth="155.0" text="FILTROS">
+            <font>
+               <Font name="System Bold" size="21.0" />
+            </font>
+         </Label>
+         <Label layoutX="16.0" layoutY="259.0" text="Precio">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+         <Label layoutX="12.0" layoutY="358.0" text="Categoria">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+         <Label layoutX="14.0" layoutY="447.0" text="Estado">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+         <Label layoutX="177.0" layoutY="306.0" text="a" textFill="#111111">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Label>
+         <MFXTextField fx:id="txtMinFiltro" floatingText="Min" floatingTextGap="2.0" layoutX="21.0" layoutY="294.0" prefHeight="50.0" prefWidth="135.0" styleClass="mfx-text-field" stylesheets="@../csj/MFXTextField.css" />
+         <MFXTextField fx:id="txtMaxFiltro" floatingText="Max." floatingTextGap="2.0" layoutX="203.0" layoutY="294.0" prefHeight="50.0" prefWidth="135.0" stylesheets="@../csj/MFXTextField.css" />
+         <MFXTextField fx:id="txtBuscador" floatingText="Buscador" floatingTextGap="2.0" layoutX="23.0" layoutY="64.0" prefHeight="50.0" prefWidth="279.0" stylesheets="@../csj/MFXTextField.css" />
+         <MFXLegacyComboBox fx:id="boxCategoria" cache="true" cacheHint="SCALE" invalidLineColor="#ed6be7" layoutX="21.0" layoutY="396.0" lineColor="#db32ca" prefHeight="35.0" prefWidth="317.0" promptText="Categoria" stylesheets="@../csj/legacy/MFXComboBox.css" unfocusedLineColor="#f8f5f5" />
+         <MFXLegacyComboBox fx:id="boxEstado" cache="true" cacheHint="SCALE" invalidLineColor="#ed6be7" layoutX="20.0" layoutY="474.0" lineColor="#db32ca" prefHeight="35.0" prefWidth="317.0" promptText="Estado">
+            <stylesheets>
+               <URL value="@../csj/MFXComboBox.css" />
+               <URL value="@../csj/legacy/MFXComboBox.css" />
+            </stylesheets></MFXLegacyComboBox>
+          </children>
+      </Pane>
+
+
+</AnchorPane>
