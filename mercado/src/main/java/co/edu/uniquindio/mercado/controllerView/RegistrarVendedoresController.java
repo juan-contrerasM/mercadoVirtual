@@ -17,8 +17,7 @@ public class RegistrarVendedoresController {
     @FXML
     private MFXButton btnCrearPerfil;
 
-    @FXML
-    private Pane paneInformacionUsuario;
+
 
     @FXML
     private AnchorPane panePadre;

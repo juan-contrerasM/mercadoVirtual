@@ -90,6 +90,8 @@ public class PrincipalControllerView implements Initializable {
 
     @FXML
     void abrirCrearPublicacion(MouseEvent event) {
+
+        // sirve para abrir ventanas
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("crearPublicacion.fxml"));
             Parent root = loader.load();

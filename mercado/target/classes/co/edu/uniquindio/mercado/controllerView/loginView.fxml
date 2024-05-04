@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="PaneContenedor" prefHeight="459.0" prefWidth="414.0" stylesheets="@../css/loginStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.mercado.controllerView.LoginControllerView">
    <children>
-      <MFXButton fx:id="btnInicoSesion" buttonType="RAISED" depthLevel="LEVEL5" layoutX="148.0" layoutY="366.0" onAction="#iniciarSesion" prefHeight="36.0" prefWidth="118.0" text="Iniciar Sesion">
+      <MFXButton fx:id="btnInicoSesion" buttonType="RAISED" depthLevel="LEVEL5" layoutX="150.0" layoutY="360.0" onAction="#iniciarSesion" prefHeight="36.0" prefWidth="118.0" text="Iniciar Sesion">
          <stylesheets>
             <URL value="@../csj/MFXButton.css" />
             <URL value="@../css/principalStyle.css" />
@@ -35,7 +35,8 @@
          </font>
       </Label>
       <Label fx:id="lblRecuperarClave" layoutX="17.0" layoutY="426.0" onMouseClicked="#recuperarContraseña" text="Recuperar contraseña?" />
-      <MFXPasswordField fx:id="txtClave" floatingText="Contraseña" layoutX="95.0" layoutY="215.0" prefHeight="51.0" prefWidth="225.0" stylesheets="@../csj/MFXPasswordField.css" />
+      <MFXPasswordField fx:id="txtClave" floatingText="Contraseña" floatingTextGap="10.0" layoutX="95.0" layoutY="215.0" prefHeight="51.0" prefWidth="225.0" stylesheets="@../csj/MFXPasswordField.css" />
       <MFXLegacyComboBox fx:id="comboTipoUsuario" layoutX="95.0" layoutY="284.0" prefHeight="51.0" prefWidth="225.0" promptText="Tipo de usuario" stylesheets="@../csj/legacy/MFXComboBox.css" />
+      <Label fx:id="labelRegistrarse" alignment="TOP_RIGHT" layoutX="177.0" layoutY="426.0" onMouseClicked="#AbrirVentanaRegistrarse" prefHeight="19.0" prefWidth="225.0" text="Crea una nueva cuenta aqui. " />
    </children>
 </AnchorPane>

@@ -7,11 +7,16 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.controls.legacy.MFXLegacyComboBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -33,6 +38,23 @@ public class LoginControllerView implements Initializable {
     private MFXTextField txtNombreUsuario;
     @FXML
     private MFXLegacyComboBox<TipoUsuario> comboTipoUsuario;
+    @FXML
+    private Label labelRegistrarse;
+    @FXML
+    void AbrirVentanaRegistrarse(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("registrarVendedores.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            RegistrarVendedoresController controller = loader.getController();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
     @FXML
     void iniciarSesion(ActionEvent event) {
 

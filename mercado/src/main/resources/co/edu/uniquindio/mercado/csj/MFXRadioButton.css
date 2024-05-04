@@ -21,7 +21,7 @@
 @import "MFXColors.css";
 
 .mfx-radio-button {
-  -mfx-main: #6200EE;
+  -mfx-main: #000000;
   -mfx-secondary: #424242;
   -fx-font-family: "Open Sans Regular";
   -fx-text-fill: -mfx-text-he;
@@ -40,7 +40,7 @@
 
 .mfx-radio-button .mfx-ripple-generator {
   -mfx-animation-speed: 2;
-  -mfx-ripple-color: derive(-mfx-main, 110%);
+  -mfx-ripple-color: derive(#000000, 110%);
   -mfx-ripple-radius: 8;
 }
 
