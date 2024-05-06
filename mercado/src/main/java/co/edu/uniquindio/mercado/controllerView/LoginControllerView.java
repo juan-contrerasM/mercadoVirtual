@@ -40,6 +40,8 @@ public class LoginControllerView implements Initializable {
     private MFXLegacyComboBox<TipoUsuario> comboTipoUsuario;
     @FXML
     private Label labelRegistrarse;
+
+
     @FXML
     void AbrirVentanaRegistrarse(MouseEvent event) {
         try {
@@ -62,7 +64,19 @@ public class LoginControllerView implements Initializable {
 
     @FXML
     void recuperarContraseña(MouseEvent event) {
-
+       abrirVentaConfirmacionCorreo();// abre la ventana de  recuperar clave
+    }
+    private void abrirVentaConfirmacionCorreo() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("validacionCorreo.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            ConfirmarCorreoControllerView confirmarCorreoControllerView=loader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="paneContenedor" prefHeight="319.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.mercado.controllerView.ConfirmarCorreoControllerView">
+   <children>
+      <Label layoutX="22.0" layoutY="14.0" text="TRADEHUB">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="142.0" layoutY="68.0" text="Verificacion de correo electronico">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="85.0" layoutY="98.0" prefHeight="56.0" prefWidth="468.0" text="Se te va enviar  un codigo de confirmaciona a  tu correo. el cual debes ingresar&#10; para poder cambiar  tu contraseña en la app:&#10;" />
+      <MFXTextField fx:id="txtNombreUsuario" floatMode="BORDER" floatingText="Nombre de usaurio" floatingTextGap="10.0" layoutX="130.0" layoutY="168.0" stylesheets="@../csj/MFXTextField.css" />
+      <MFXTextField fx:id="txtCedula" floatMode="BORDER" floatingText="Cedula" floatingTextGap="10.0" layoutX="319.0" layoutY="168.0" prefHeight="39.0" prefWidth="131.0" stylesheets="@../csj/MFXTextField.css" />
+      <MFXButton fx:id="btnVerificar" layoutX="219.0" layoutY="237.0" onAction="#verificar" prefHeight="39.0" prefWidth="146.0" stylesheets="@../csj/MFXButton.css" text="Verificar" />
+   </children>
+   <stylesheets>
+      <URL value="@../csj/MFXTextField.css" />
+      <URL value="@../css/registrasStyle.css" />
+   </stylesheets>
+</AnchorPane>

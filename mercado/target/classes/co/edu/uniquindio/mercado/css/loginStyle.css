@@ -5,5 +5,16 @@
 
 
 }
+#labelRegistrarse:hover{
+    -fx-text-fill: #707070;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+#lblRecuperarClave:hover{
+    -fx-text-fill: #707070;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
 
 
