@@ -11,10 +11,10 @@ import java.io.IOException;
 public class ModelFactoryController {
     private Mercado mercado = new Mercado();
 
-    public String obtenerCodigoVerificacionCorreo() {
-        return mercado.generarCodigo();
-    }
 
+
+
+    // periste teer una intancia uncia del model factory y la clase mercado
 
     private static class SingletonHolder {
         private final static ModelFactoryController eINSTANCE = new ModelFactoryController();
@@ -39,7 +39,23 @@ public class ModelFactoryController {
 
     }
 
+    public Vendedor obtenerVendedor(String nombreUsuario, String cedula, String clave) throws IOException {
+        mercado.getListaVendedores().eliminarTodo();// elimina todo lo que haya en la lista
+        mercado.setListaVendedores(Persistencia.cargarVendedores()); // se vuelvea cargar los datos a la lista princpial
+        Persistencia.guardarVendedores(mercado.getListaVendedores());// vuelve y guarda los vendedores en el txt
+        return mercado.obtenerVendedor(nombreUsuario, cedula,clave);
+    }
 
+    public void cambiarContraseniaVendedor(Vendedor vendedor) throws IOException {
+        mercado.getListaVendedores().eliminarTodo();// elimina todo lo que haya en la lista
+        mercado.setListaVendedores(Persistencia.cargarVendedores()); // se vuelvea cargar los datos a la lista princpial
+        mercado.cambiarContraseniaVendedor(vendedor);
+        Persistencia.guardarVendedores(mercado.getListaVendedores());// vuelve y guarda los vendedores en el txt
+
+    }
+    public void estadoGlobalVendedor(Vendedor vendedor) {
+        mercado.setEstadoGlobalVendedor(vendedor);
+    }
     //-----------------------------------------METODOS ADMINISTRADOR----------------------------------------
 
     // crea un administrador
@@ -50,4 +66,26 @@ public class ModelFactoryController {
         Persistencia.guardarAdministrador(mercado.getListaAdministrador());
         return administrador;
     }
+
+    public String obtenerCodigoVerificacionCorreo() {
+        return mercado.generarCodigo();
+    }
+    public Administrador obtenerAdministrador(String nombreUsuario, String cedula,String clave) throws IOException {
+        mercado.getListaAdministrador().borrarLista();// elimina todo lo que haya en la lista
+        mercado.setListaAdministrador(Persistencia.cargarAdministradores()); // se vuelvea cargar los datos a la lista princpial
+        Persistencia.guardarAdministrador(mercado.getListaAdministrador());// vuelve y guarda los vendedores en el txt
+        return mercado.obtenerAdministrador(nombreUsuario, cedula,clave);
+    }
+    public void cambiarContraseniaAdmisnitrador(Administrador administrador) throws IOException {
+        mercado.getListaAdministrador().borrarLista();// elimina todo lo que haya en la lista
+        mercado.setListaAdministrador(Persistencia.cargarAdministradores()); // se vuelvea cargar los datos a la lista princpial
+        mercado.cambiarContraseniaAdministrador(administrador);
+        Persistencia.guardarAdministrador(mercado.getListaAdministrador());// vuelve y guarda los vendedores en el txt
+
+    }
+    public void estadoGlobalAdministrador(Administrador administrador) {
+        mercado.setEstadoGlobalAdministrador(administrador);
+    }
+
 }
+

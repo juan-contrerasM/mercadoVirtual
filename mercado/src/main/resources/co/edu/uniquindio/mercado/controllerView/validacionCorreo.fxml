@@ -1,28 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="paneContenedor" prefHeight="319.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.mercado.controllerView.ConfirmarCorreoControllerView">
+<AnchorPane fx:id="paneContenedor" minHeight="-Infinity" prefHeight="497.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.mercado.controllerView.ConfirmarCorreoControllerView">
    <children>
       <Label layoutX="22.0" layoutY="14.0" text="TRADEHUB">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="142.0" layoutY="68.0" text="Verificacion de correo electronico">
+      <Label layoutX="206.0" layoutY="68.0" text="Verificacion de correo electronico">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="85.0" layoutY="98.0" prefHeight="56.0" prefWidth="468.0" text="Se te va enviar  un codigo de confirmaciona a  tu correo. el cual debes ingresar&#10; para poder cambiar  tu contraseña en la app:&#10;" />
-      <MFXTextField fx:id="txtNombreUsuario" floatMode="BORDER" floatingText="Nombre de usaurio" floatingTextGap="10.0" layoutX="130.0" layoutY="168.0" stylesheets="@../csj/MFXTextField.css" />
-      <MFXTextField fx:id="txtCedula" floatMode="BORDER" floatingText="Cedula" floatingTextGap="10.0" layoutX="319.0" layoutY="168.0" prefHeight="39.0" prefWidth="131.0" stylesheets="@../csj/MFXTextField.css" />
-      <MFXButton fx:id="btnVerificar" layoutX="219.0" layoutY="237.0" onAction="#verificar" prefHeight="39.0" prefWidth="146.0" stylesheets="@../csj/MFXButton.css" text="Verificar" />
+      <Label fx:id="labelDatos" layoutX="36.0" layoutY="98.0" prefHeight="56.0" prefWidth="609.0" text="Se te va enviar  un codigo de confirmaciona a  tu correo. el cual debes ingresar para poder cambiar  tu &#10;contraseña en la app:&#10;" />
+      <MFXTextField fx:id="txtNombreUsuario" floatMode="BORDER" floatingText="Nombre de usaurio" floatingTextGap="10.0" layoutX="30.0" layoutY="169.0" prefHeight="30.0" prefWidth="146.0" stylesheets="@../csj/MFXTextField.css" />
+      <MFXTextField fx:id="txtCedula" floatMode="BORDER" floatingText="Cedula" floatingTextGap="10.0" layoutX="185.0" layoutY="169.0" prefHeight="30.0" prefWidth="146.0" stylesheets="@../csj/MFXTextField.css" />
+      <MFXButton fx:id="btnVerificar" layoutX="510.0" layoutY="296.0" onAction="#verificar" prefHeight="51.0" prefWidth="146.0" text="Verificar">
+         <stylesheets>
+            <URL value="@../csj/MFXButton.css" />
+            <URL value="@../css/principalStyle.css" />
+         </stylesheets></MFXButton>
+      <MFXButton fx:id="btnEnviar" layoutX="510.0" layoutY="169.0" onAction="#EnviarCorreo" prefHeight="42.0" prefWidth="146.0" text="Enviar">
+         <stylesheets>
+            <URL value="@../csj/MFXButton.css" />
+            <URL value="@../css/loginStyle.css" />
+            <URL value="@../css/crearPublicacion.css" />
+         </stylesheets>
+      </MFXButton>
+      <MFXTextField fx:id="txtDigito1" alignment="CENTER" layoutX="40.0" layoutY="302.0" prefHeight="51.0" prefWidth="97.0" promptText="1" stylesheets="@../csj/MFXTextField.css" />
+      <MFXTextField fx:id="txtDigito2" alignment="CENTER" layoutX="158.0" layoutY="302.0" prefHeight="51.0" prefWidth="97.0" promptText="2" stylesheets="@../csj/MFXTextField.css" />
+      <MFXTextField fx:id="txtDigito3" alignment="CENTER" layoutX="276.0" layoutY="302.0" prefHeight="51.0" prefWidth="97.0" promptText="3" stylesheets="@../csj/MFXTextField.css" />
+      <Label fx:id="labelCodigo" layoutX="35.0" layoutY="227.0" prefHeight="56.0" prefWidth="609.0" text="Debes ingresar el codigo que se te envio al corre registrado a ese nombre de usuario que  escribio en las &#10;anteriores casillas &#10;&#10;" />
+      <MFXTextField fx:id="txtDigito4" alignment="CENTER" layoutX="391.0" layoutY="302.0" prefHeight="51.0" prefWidth="97.0" promptText="4" stylesheets="@../csj/MFXTextField.css" />
+      <MFXComboBox fx:id="boxTipoUsuario" floatMode="BORDER" floatingText="Tipo de usuario" layoutX="342.0" layoutY="168.0" prefHeight="42.0" prefWidth="154.0" stylesheets="@../csj/legacy/MFXComboBox.css" />
+      <Label fx:id="labelCambiarContrasenia" layoutX="32.0" layoutY="359.0" prefHeight="56.0" prefWidth="609.0" text="Se ha verificado correctamente los datos de la cuenta, ingrese una contraseña segura:&#10;&#10;" />
+      <MFXTextField fx:id="txtcontrasenniaNueva" floatMode="BORDER" floatingText="Contraseña nueva" floatingTextGap="10.0" layoutX="36.0" layoutY="415.0" prefHeight="39.0" prefWidth="205.0" stylesheets="@../csj/MFXTextField.css" />
+      <MFXTextField fx:id="txtConfirmacion" floatMode="BORDER" floatingText="Confirmar contraseña" floatingTextGap="10.0" layoutX="262.0" layoutY="415.0" prefHeight="39.0" prefWidth="205.0" stylesheets="@../csj/MFXTextField.css" />
+      <MFXButton fx:id="btnCambiar" layoutX="510.0" layoutY="415.0" onAction="#cambiar" prefHeight="39.0" prefWidth="146.0" text="Cambiar">
+         <stylesheets>
+            <URL value="@../csj/MFXButton.css" />
+            <URL value="@../css/principalStyle.css" />
+         </stylesheets>
+      </MFXButton>
    </children>
    <stylesheets>
       <URL value="@../csj/MFXTextField.css" />

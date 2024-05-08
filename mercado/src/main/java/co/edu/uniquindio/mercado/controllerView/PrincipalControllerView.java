@@ -80,6 +80,9 @@ public class PrincipalControllerView implements Initializable {
 
     @FXML
     private MFXTextField txtMinFiltro;
+
+    @FXML
+    private MFXButton btnCerrar;
     private PaneDinamico paneDinamico;
 
     //coordenadas
@@ -137,5 +140,10 @@ public class PrincipalControllerView implements Initializable {
 
         boxCategoria.getItems().addAll(TipoCategoria.values());
         boxEstado.getItems().addAll(TipoEstado.values());
+    }
+
+    @FXML
+    void cerrarSesion(ActionEvent event) {
+
     }
 }

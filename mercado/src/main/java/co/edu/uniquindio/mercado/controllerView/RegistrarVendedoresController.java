@@ -106,11 +106,11 @@ public class RegistrarVendedoresController implements Initializable {
         }
         if (txtCelular.getText().isEmpty()) {
             mensaje += "El campo celular debe llenarlo\n";
-        } else {// se muestra un mensaje y se captura un exception si ingrean un string en vez de un numero
+        } else {
             try {
-                int numCelular = Integer.parseInt(txtCelular.getText());
+                long numCelular = Long.parseLong(txtCelular.getText());
             } catch (NumberFormatException e) {
-                mensaje += "El campo numero celular debe ser un número válido\n";
+                mensaje += "El campo número celular debe ser un número válido\n";
             }
         }
         if (txtContrasenia.getText().isEmpty()) {
