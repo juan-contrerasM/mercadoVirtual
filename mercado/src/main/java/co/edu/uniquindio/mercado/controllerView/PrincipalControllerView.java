@@ -1,5 +1,8 @@
 package co.edu.uniquindio.mercado.controllerView;
 
+import co.edu.uniquindio.mercado.controller.PrincipalController;
+import co.edu.uniquindio.mercado.model.Administrador;
+import co.edu.uniquindio.mercado.model.Vendedor;
 import co.edu.uniquindio.mercado.model.enums.TipoCategoria;
 import co.edu.uniquindio.mercado.model.enums.TipoEstado;
 import co.edu.uniquindio.mercado.modelInterfaz.PaneDinamico;
@@ -12,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -83,6 +87,8 @@ public class PrincipalControllerView implements Initializable {
 
     @FXML
     private MFXButton btnCerrar;
+    @FXML
+    private Label lblNombreUsuario;
     private PaneDinamico paneDinamico;
 
     //coordenadas
@@ -90,6 +96,12 @@ public class PrincipalControllerView implements Initializable {
     private int layaoutXPanePublicaciones;
     private int layaoutYPanePublicaciones;
 
+    // controller
+    PrincipalController principalController;
+
+    private Vendedor vendedorGlobal;
+
+    private Administrador administradorGlobal;
 
     @FXML
     void abrirCrearPublicacion(MouseEvent event) {
@@ -134,16 +146,54 @@ public class PrincipalControllerView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // inicializa valores de componentes de la interfaz
         paneDinamico = new PaneDinamico();
         layaoutXPanePublicaciones = 26;
         layaoutYPanePublicaciones = 83;
-
         boxCategoria.getItems().addAll(TipoCategoria.values());
         boxEstado.getItems().addAll(TipoEstado.values());
+        principalController= new PrincipalController();// controller de la clase
+
+        // obtiene el vendedor o administrado que haya iniciado sesion
+        vendedorGlobal=principalController.obtenerVendedorGlobal();
+        administradorGlobal=principalController.obtenerAdministradorGlobal();
+        cambiarNombreLabel();
+    }
+    private void  cambiarNombreLabel(){
+        if(vendedorGlobal!=null){
+            lblNombreUsuario.setText(vendedorGlobal.getNombreUsuario());
+        }else {
+            lblNombreUsuario.setText(administradorGlobal.getNombreUsuario());
+        }
     }
 
+
+
+
+    //cierra la ventana  y abre la de login
     @FXML
     void cerrarSesion(ActionEvent event) {
+        Stage stage = (Stage) PanePrincipal.getScene().getWindow();
+        stage.close();
+        abrirLogin();// abre la ventana de login
+    }
+
+
+    private  void abrirLogin() {
+        // sirve para abrir ventanas
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("loginView.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            LoginControllerView loginControllerView = loader.getController();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
+
+
 }

@@ -44,8 +44,15 @@
                       <Image url="@../imagenes/mensajes.png" />
                   </image>
               </ImageView>
-         <Label layoutX="761.0" layoutY="9.0" prefHeight="19.0" prefWidth="112.0" text="Label" />
-         <MFXButton fx:id="btnCerrar" layoutX="761.0" layoutY="31.0" onAction="#cerrarSesion" prefHeight="32.0" prefWidth="112.0" text="Cerrar Sesion" />
+         <Label fx:id="lblNombreUsuario" alignment="CENTER" layoutX="761.0" layoutY="9.0" prefHeight="19.0" prefWidth="112.0" text="Label">
+            <font>
+               <Font name="System Bold" size="13.0" />
+            </font></Label>
+         <MFXButton fx:id="btnCerrar" layoutX="761.0" layoutY="31.0" onAction="#cerrarSesion" prefHeight="32.0" prefWidth="112.0" text="Cerrar Sesion">
+            <stylesheets>
+               <URL value="@../css/principalStyle.css" />
+               <URL value="@../csj/MFXButton.css" />
+            </stylesheets></MFXButton>
           </children>
       </Pane>
       <ScrollPane layoutX="350.0" layoutY="72.0" prefHeight="536.0" prefWidth="529.0">

@@ -2,10 +2,14 @@ package co.edu.uniquindio.mercado.model;
 
 import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.ListaDoble;
 import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.ListaSimple;
+import co.edu.uniquindio.mercado.model.enums.TipoCategoria;
+import co.edu.uniquindio.mercado.model.enums.TipoEstado;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.util.HashMap;
 
 @Data
 // Esta anotación genera automáticamente getters, setters, toString, equals y hashCode para todos los campos de la clase.
@@ -19,6 +23,7 @@ public class Mercado {
     private Boolean verificacionCorreo = false;
     private  Vendedor estadoGlobalVendedor=new Vendedor();
     private Administrador estadoGlobalAdministrador=new Administrador();
+    private HashMap<String, Producto> productos = new HashMap<>();
 
     //---------------------------------------------------------------------------
 //-------------------------metodos vendedor--------------------------------------
@@ -150,6 +155,13 @@ public class Mercado {
 
     public Administrador getEstadoGlobalAdministrador() {
         return estadoGlobalAdministrador;
+    }
+
+    //--------------------------------------------metodoProducto------------------------------------
+    public Producto guardarProducto (String url, String precio, String nombreProducto, TipoEstado tipoEstado, TipoCategoria tipoCategoria){
+        Producto producto = new Producto(nombreProducto, url, precio, tipoCategoria, tipoEstado);// cre un producto
+        productos.put(nombreProducto, producto);// lo guarda en el map
+        return producto;// return el productoGuardado
     }
 }
 

@@ -11,7 +11,9 @@ import lombok.*;
 public class Producto {
     private String nombre;
     private String urlImagen;
-    private Double precio;
+    private String precio;
     private TipoCategoria tipoCategoria;
     private TipoEstado tipoEstado;
+
+
 }

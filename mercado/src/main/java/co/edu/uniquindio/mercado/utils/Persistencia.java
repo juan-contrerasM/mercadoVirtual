@@ -6,13 +6,18 @@ import co.edu.uniquindio.banco.bancouq.model.*;*/
 import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.ListaDoble;
 import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.ListaSimple;
 import co.edu.uniquindio.mercado.model.Administrador;
+import co.edu.uniquindio.mercado.model.Producto;
 import co.edu.uniquindio.mercado.model.TipoUsuario;
 import co.edu.uniquindio.mercado.model.Vendedor;
+import co.edu.uniquindio.mercado.model.enums.TipoCategoria;
+import co.edu.uniquindio.mercado.model.enums.TipoEstado;
 
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Persistencia {
@@ -22,7 +27,7 @@ public class Persistencia {
     public static final String RUTA_ARCHIVO_VENDEDORES = "src/main/resources/co/edu/uniquindio/mercado/archivos/vendedores";
     public static final String RUTA_ARCHIVO_ADMINISTRADOR = "src/main/resources/co/edu/uniquindio/mercado/archivos/administrador";
     public static final String RUTA_ARCHIVO_LOG = "mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/log";
-
+    public static  final  String RUTA_ARCHIVO_PRODUCTO="src/main/resources/co/edu/uniquindio/mercado/archivos/productos";
 
     /**
      * Guarda en un archivo de texto todos la información de las personas almacenadas en el ArrayList
@@ -57,6 +62,18 @@ public class Persistencia {
         }
         ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_ADMINISTRADOR, contenido, false);
     }
+    public static void guardarProductos(ListaDoble<Administrador> listaAdministrador) throws IOException {
+        // TODO Auto-generated method stub
+        String contenido = "";
+        Administrador administrador = new Administrador();
+        for (int i = 0; i < listaAdministrador.getTamanio(); i++) {
+            administrador=listaAdministrador.obtenerValorNodo(i);
+            contenido += administrador.getNombreUsuario() + "--" + administrador.getContrasenia() + "--" + administrador.getNombre() + "--" +
+                    administrador.getEdad() + "--" + administrador.getCorreo() + "--" + administrador.getNumeroCelular() + "--" + administrador.getTipoUsuario() +
+                    "--" + administrador.getCedula() + "\n";
+        }
+        ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_ADMINISTRADOR, contenido, false);
+    }
 
 
 //	--------------------------------------------CARGAR ARCHIVOS----------------------------------------------------------
@@ -69,11 +86,6 @@ public class Persistencia {
      * @throws IOException
      */
 
-/*
-vendedor.getNombreUsuario() + "--" + vendedor.getContrasenia() + "--" + vendedor.getNombre() + "--" +
-                    vendedor.getEdad() + "--" + vendedor.getCorreo() + "--" + vendedor.getNumeroCelular() + "--" + vendedor.getTipoUsuario() +
-                    "--" + vendedor.getCedula() + "\n";
- */
     public static ListaSimple<Vendedor> cargarVendedores() throws FileNotFoundException, IOException {
         ListaSimple<Vendedor> listaVendedores = new ListaSimple<>();
         ArrayList<String> contenido = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_VENDEDORES);
@@ -115,6 +127,37 @@ vendedor.getNombreUsuario() + "--" + vendedor.getContrasenia() + "--" + vendedor
         }
         return listaVendedores;
     }
+    public static void guardarProductos(HashMap<String, Producto> productos) throws IOException {
+        StringBuilder contenido = new StringBuilder();
+
+        for (Map.Entry<String, Producto> entry : productos.entrySet()) {
+            Producto producto = entry.getValue();
+            contenido.append(producto.getNombre()).append("--")
+                    .append(producto.getUrlImagen()).append("--")
+                    .append(producto.getPrecio()).append("--")
+                    .append(producto.getTipoCategoria()).append("--")
+                    .append(producto.getTipoEstado()).append("\n");
+        }
+
+        ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_PRODUCTO, contenido.toString(), false);
+    }
+
+    // Método para cargar productos desde un archivo de texto y devolver un HashMap
+    public static HashMap<String, Producto> cargarProductos() throws IOException {
+        HashMap<String, Producto> productos = new HashMap<>();
+        ArrayList<String> contenido = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_PRODUCTO);
+
+        for (String linea : contenido) {
+            String[] partes = linea.split("--");
+            Producto producto = new Producto(partes[0], partes[1], partes[2],
+                    TipoCategoria.valueOf(partes[3]), TipoEstado.valueOf(partes[4]));
+            productos.put(partes[0], producto);
+        }
+
+        return productos;
+    }
+
+
 
 
 

@@ -75,8 +75,8 @@ public class LoginControllerView implements Initializable {
             if (comboTipoUsuario.getValue() == TipoUsuario.VENDEDOR) {// valida si es un vendedor el que necesita recupera la clave
                  vendedor=loginController.obtenerVendedor(txtNombreUsuario.getText(),null, txtClave.getText());// obtenie la informacio del vendedor
                 if (vendedor != null) {// si devuelve null es porque el perfil nofue encontrado
-                    abrirVentanaPrincipal();
                     loginController.estadoGlobalVendedor(vendedor);
+                    abrirVentanaPrincipal();
                     cerrarVentana();
                 } else {
                     mostrarMensaje("Sesion incorrecta","No se pudo Iniciar sesion","la consatraseña o el nombre de usario estan incorrectos", Alert.AlertType.INFORMATION);
@@ -85,8 +85,9 @@ public class LoginControllerView implements Initializable {
             }else { // sino es un vendedor es un administrador y hace lo mismo
                 administrador = loginController.obtenerAdministrador(txtNombreUsuario.getText(),null, txtClave.getText());
                 if (administrador != null) {
-                    abrirVentanaPrincipal();
                     loginController.estadoGlobalAdministrador(administrador);
+                    abrirVentanaPrincipal();
+
                     cerrarVentana();
                 } else {
                     mostrarMensaje("Sesion incorrecta","No se pudo Iniciar sesion","la consatraseña o el nombre de usario estan incorrectos", Alert.AlertType.INFORMATION);
@@ -98,6 +99,7 @@ public class LoginControllerView implements Initializable {
 
     }
 
+    //sirve para ceerar la ventana
     private void cerrarVentana(){
         Stage stage = (Stage) PaneContenedor.getScene().getWindow();
         stage.close();
