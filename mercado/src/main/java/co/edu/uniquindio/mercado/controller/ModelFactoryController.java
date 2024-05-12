@@ -1,18 +1,17 @@
 package co.edu.uniquindio.mercado.controller;
 
 
-import co.edu.uniquindio.mercado.model.Administrador;
-import co.edu.uniquindio.mercado.model.Mercado;
-import co.edu.uniquindio.mercado.model.Producto;
-import co.edu.uniquindio.mercado.model.Vendedor;
+import co.edu.uniquindio.mercado.model.*;
 import co.edu.uniquindio.mercado.model.enums.TipoCategoria;
 import co.edu.uniquindio.mercado.model.enums.TipoEstado;
 import co.edu.uniquindio.mercado.utils.Persistencia;
 
 import java.io.IOException;
+import java.util.TreeMap;
 
 public class ModelFactoryController {
     private Mercado mercado = new Mercado();
+
 
 
 
@@ -46,7 +45,7 @@ public class ModelFactoryController {
         mercado.getListaVendedores().eliminarTodo();// elimina todo lo que haya en la lista
         mercado.setListaVendedores(Persistencia.cargarVendedores()); // se vuelvea cargar los datos a la lista princpial
         Persistencia.guardarVendedores(mercado.getListaVendedores());// vuelve y guarda los vendedores en el txt
-        return mercado.obtenerVendedor(nombreUsuario, cedula,clave);
+        return mercado.obtenerVendedor(nombreUsuario, cedula, clave);
     }
 
     // cambia la contaseña d eun vendedor
@@ -57,10 +56,12 @@ public class ModelFactoryController {
         Persistencia.guardarVendedores(mercado.getListaVendedores());// vuelve y guarda los vendedores en el txt
 
     }
+
     //obteien al vendedor que ingreso a la app
     public Vendedor obtenerVendedorGlobal() {
         return mercado.getEstadoGlobalVendedor();
     }
+
     // guarda quien es el que ingresa a la aplicacion de los vendedor
     public void estadoGlobalVendedor(Vendedor vendedor) {
         mercado.setEstadoGlobalVendedor(vendedor);
@@ -76,12 +77,12 @@ public class ModelFactoryController {
         return administrador;
     }
 
-  //sirve para obtener un abminstrador
-    public Administrador obtenerAdministrador(String nombreUsuario, String cedula,String clave) throws IOException {
+    //sirve para obtener un abminstrador
+    public Administrador obtenerAdministrador(String nombreUsuario, String cedula, String clave) throws IOException {
         mercado.getListaAdministrador().borrarLista();// elimina todo lo que haya en la lista
         mercado.setListaAdministrador(Persistencia.cargarAdministradores()); // se vuelvea cargar los datos a la lista princpial
         Persistencia.guardarAdministrador(mercado.getListaAdministrador());// vuelve y guarda los vendedores en el txt
-        return mercado.obtenerAdministrador(nombreUsuario, cedula,clave);
+        return mercado.obtenerAdministrador(nombreUsuario, cedula, clave);
     }
 
     // cambia la contraseña del un administrador
@@ -92,6 +93,7 @@ public class ModelFactoryController {
         Persistencia.guardarAdministrador(mercado.getListaAdministrador());// vuelve y guarda los vendedores en el txt
 
     }
+
     //guarda el adminitrador que inicia a la aplicacion
     public void estadoGlobalAdministrador(Administrador administrador) {
         mercado.setEstadoGlobalAdministrador(administrador);
@@ -106,7 +108,7 @@ public class ModelFactoryController {
     public Producto crearProducto(String url, String precio, String nombreProducto, TipoEstado tipoEstado, TipoCategoria tipoCategoria) throws IOException {
         mercado.getProductos().clear();
         mercado.setProductos(Persistencia.cargarProductos());
-        Producto producto=mercado.guardarProducto(url,precio,nombreProducto,tipoEstado,tipoCategoria);
+        Producto producto = mercado.guardarProducto(url, precio, nombreProducto, tipoEstado, tipoCategoria);
         Persistencia.guardarProductos(mercado.getProductos());
         return producto;
     }
@@ -117,5 +119,18 @@ public class ModelFactoryController {
         return mercado.generarCodigo();
     }
 
+    //----------------------------metodos Publicaciones-----------------------
+    public Publicacion crearPublicacion(Producto producto, String decripcion, String titulo) throws IOException {
+        mercado.getPublicaciones().clear();
+        mercado.setPublicaciones(Persistencia.cargarPublicaciones());
+        Publicacion publicacion = mercado.guadarPublicaion(producto, decripcion, titulo);
+        Persistencia.guardarPublicaciones(mercado.getPublicaciones());
+        return publicacion;
+    }
+    public TreeMap<String, Publicacion> obtenerPublicaiones() throws IOException {
+        mercado.setPublicaciones(Persistencia.cargarPublicaciones());
+        Persistencia.guardarPublicaciones(mercado.getPublicaciones());
+        return  mercado.getPublicaciones();
+    }
 }
 

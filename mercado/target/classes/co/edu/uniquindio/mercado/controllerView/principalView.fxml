@@ -55,18 +55,9 @@
             </stylesheets></MFXButton>
           </children>
       </Pane>
-      <ScrollPane layoutX="350.0" layoutY="72.0" prefHeight="536.0" prefWidth="529.0">
+      <ScrollPane layoutX="350.0" layoutY="150.0" prefHeight="458.0" prefWidth="529.0">
           <content>
-              <Pane fx:id="panePublicaciones" prefHeight="1000.0" prefWidth="517.0">
-            <children>
-               <Label layoutX="13.0" layoutY="18.0" prefHeight="45.0" prefWidth="207.0" text=" PUBLICACIONES">
-                  <font>
-                     <Font name="System Bold" size="25.0" />
-                  </font>
-               </Label>
-               <MFXButton fx:id="btnRefrescar" layoutX="415.0" layoutY="19.0" onAction="#refrescarPublicaciones" prefHeight="35.0" prefWidth="90.0" stylesheets="@../csj/MFXButton.css" text="Refrescar" />
-            </children>
-         </Pane>
+              <Pane fx:id="panePublicaciones" prefHeight="882.0" prefWidth="517.0" />
           </content>
       </ScrollPane>
       <Pane fx:id="paneBuscador" layoutX="-2.0" layoutY="68.0" prefHeight="536.0" prefWidth="352.0" stylesheets="@../css/principalStyle.css">
@@ -117,6 +108,12 @@
             </stylesheets></MFXLegacyComboBox>
           </children>
       </Pane>
+   <Label fx:id="lblPublicaiones" layoutX="363.0" layoutY="90.0" prefHeight="45.0" prefWidth="207.0" text=" PUBLICACIONES">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
+   <MFXButton fx:id="btnRefrescar" layoutX="743.0" layoutY="102.0" onAction="#refrescarPublicaciones" prefHeight="35.0" prefWidth="90.0" stylesheets="@../csj/MFXButton.css" text="Refrescar" />
 
 
 </AnchorPane>

@@ -9,5 +9,5 @@ import lombok.ToString;
 // Esta anotación genera automáticamente getters, setters, toString, equals y hashCode para todos los campos de la clase.
 @NoArgsConstructor // Esta anotación genera un constructor sin argumentos.
 @ToString // Esta anotación genera automáticamente el método toString para la clase.
-public class Comentario {
+public class Comentario extends  Mercado {
 }

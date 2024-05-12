@@ -1,6 +1,7 @@
 package co.edu.uniquindio.mercado.controller;
 
 import co.edu.uniquindio.mercado.model.Producto;
+import co.edu.uniquindio.mercado.model.Publicacion;
 import co.edu.uniquindio.mercado.model.enums.TipoCategoria;
 import co.edu.uniquindio.mercado.model.enums.TipoEstado;
 import io.github.palexdev.materialfx.controls.legacy.MFXLegacyComboBox;
@@ -19,5 +20,9 @@ public class CrearPublicacionController {
 
     public Producto guadarProducto(String url, String precio, String nombreProducto, TipoEstado tipoEstado, TipoCategoria comboTipoCategoria) throws IOException {
         return modelfactoryController.crearProducto(url, precio, nombreProducto,  tipoEstado, comboTipoCategoria);
+    }
+
+    public Publicacion guardarPublicacion(Producto producto, String decripcion, String titulo) throws IOException {
+        return  modelfactoryController.crearPublicacion(producto,decripcion,titulo);
     }
 }

@@ -14,6 +14,7 @@ public class Producto {
     private String precio;
     private TipoCategoria tipoCategoria;
     private TipoEstado tipoEstado;
+    private int id;
 
 
 }

@@ -2,6 +2,7 @@ package co.edu.uniquindio.mercado.controllerView;
 
 import co.edu.uniquindio.mercado.controller.PrincipalController;
 import co.edu.uniquindio.mercado.model.Administrador;
+import co.edu.uniquindio.mercado.model.Publicacion;
 import co.edu.uniquindio.mercado.model.Vendedor;
 import co.edu.uniquindio.mercado.model.enums.TipoCategoria;
 import co.edu.uniquindio.mercado.model.enums.TipoEstado;
@@ -21,10 +22,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import lombok.SneakyThrows;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.TreeMap;
 
 public class PrincipalControllerView implements Initializable {
 
@@ -74,7 +79,8 @@ public class PrincipalControllerView implements Initializable {
     private Pane paneMensajes;
 
     @FXML
-    private Pane panePublicaciones;
+    private Pane panePublicaciones = new Pane();
+
 
     @FXML
     private MFXTextField txtBuscador;
@@ -89,6 +95,8 @@ public class PrincipalControllerView implements Initializable {
     private MFXButton btnCerrar;
     @FXML
     private Label lblNombreUsuario;
+    @FXML
+    private Label lblPublicaiones;
     private PaneDinamico paneDinamico;
 
     //coordenadas
@@ -102,6 +110,7 @@ public class PrincipalControllerView implements Initializable {
     private Vendedor vendedorGlobal;
 
     private Administrador administradorGlobal;
+    private TreeMap<String, Publicacion>mapaPublicaciones;
 
     @FXML
     void abrirCrearPublicacion(MouseEvent event) {
@@ -122,8 +131,15 @@ public class PrincipalControllerView implements Initializable {
     }
 
     @FXML
-    void refrescarPublicaciones(ActionEvent event) {
-        agregarPane(paneDinamico.buildPane());
+    void refrescarPublicaciones(ActionEvent event) throws IOException {
+        //obtenemos denuevo las publicaiones creadas
+        restablcerAjutesPanePublicaiones();
+        mapaPublicaciones=principalController.obtenerPublicaciones();
+        for (Map.Entry<String, Publicacion> entry : mapaPublicaciones.entrySet()) {
+            String clave = entry.getKey();
+            Publicacion publicacion = entry.getValue();
+            agregarPane(PaneDinamico.buildPane(publicacion.getTitulo(),publicacion.getProducto().getUrlImagen()));
+        }
     }
 
 
@@ -139,11 +155,15 @@ public class PrincipalControllerView implements Initializable {
         } else {
             layaoutXPanePublicaciones += 274;
         }
-
-
+    }
+    private void restablcerAjutesPanePublicaiones(){
+        panePublicaciones.getChildren().clear();
+        layaoutXPanePublicaciones = 26;
+        layaoutYPanePublicaciones = 83;
     }
 
 
+    @SneakyThrows
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // inicializa valores de componentes de la interfaz
@@ -158,6 +178,18 @@ public class PrincipalControllerView implements Initializable {
         vendedorGlobal=principalController.obtenerVendedorGlobal();
         administradorGlobal=principalController.obtenerAdministradorGlobal();
         cambiarNombreLabel();
+
+
+        //cargar publicaiones
+        restablcerAjutesPanePublicaiones();
+        mapaPublicaciones=principalController.obtenerPublicaciones();
+        for (Map.Entry<String, Publicacion> entry : mapaPublicaciones.entrySet()) {
+            String clave = entry.getKey();
+            Publicacion publicacion = entry.getValue();
+            agregarPane(PaneDinamico.buildPane(publicacion.getTitulo(),publicacion.getProducto().getUrlImagen()));
+        }
+
+
     }
     private void  cambiarNombreLabel(){
         if(vendedorGlobal!=null){

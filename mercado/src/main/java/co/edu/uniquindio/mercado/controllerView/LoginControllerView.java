@@ -87,7 +87,6 @@ public class LoginControllerView implements Initializable {
                 if (administrador != null) {
                     loginController.estadoGlobalAdministrador(administrador);
                     abrirVentanaPrincipal();
-
                     cerrarVentana();
                 } else {
                     mostrarMensaje("Sesion incorrecta","No se pudo Iniciar sesion","la consatraseña o el nombre de usario estan incorrectos", Alert.AlertType.INFORMATION);

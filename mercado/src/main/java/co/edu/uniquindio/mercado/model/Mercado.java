@@ -9,7 +9,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 @Data
 // Esta anotación genera automáticamente getters, setters, toString, equals y hashCode para todos los campos de la clase.
@@ -21,9 +24,11 @@ public class Mercado {
     private ListaSimple<Vendedor> listaVendedores = new ListaSimple<>();
     private ListaDoble<Administrador> listaAdministrador = new ListaDoble<>();
     private Boolean verificacionCorreo = false;
-    private  Vendedor estadoGlobalVendedor=new Vendedor();
-    private Administrador estadoGlobalAdministrador=new Administrador();
+    private Vendedor estadoGlobalVendedor = new Vendedor();
+    private Administrador estadoGlobalAdministrador = new Administrador();
     private HashMap<String, Producto> productos = new HashMap<>();
+    private TreeMap<String,Publicacion>publicaciones= new TreeMap<>();
+    int codigoProdcuto;
 
     //---------------------------------------------------------------------------
 //-------------------------metodos vendedor--------------------------------------
@@ -124,7 +129,7 @@ public class Mercado {
     public Administrador obtenerAdministrador(String nombreUsuario, String cedula, String clave) {
         for (int i = 0; i < listaAdministrador.getTamanio(); i++) {
             // validamos si ha yun usuario con esa credenciales
-            if (listaAdministrador.obtenerValorNodo(i).getCedula().equals(cedula) && listaAdministrador.obtenerValorNodo(i).getNombreUsuario().equals(nombreUsuario)||listaAdministrador.obtenerValorNodo(i).getContrasenia().equals(clave) && listaAdministrador.obtenerValorNodo(i).getNombreUsuario().equals(nombreUsuario)) {
+            if (listaAdministrador.obtenerValorNodo(i).getCedula().equals(cedula) && listaAdministrador.obtenerValorNodo(i).getNombreUsuario().equals(nombreUsuario) || listaAdministrador.obtenerValorNodo(i).getContrasenia().equals(clave) && listaAdministrador.obtenerValorNodo(i).getNombreUsuario().equals(nombreUsuario)) {
                 return listaAdministrador.obtenerValorNodo(i);// lo return si lo encuentra
             }
         }
@@ -158,10 +163,24 @@ public class Mercado {
     }
 
     //--------------------------------------------metodoProducto------------------------------------
-    public Producto guardarProducto (String url, String precio, String nombreProducto, TipoEstado tipoEstado, TipoCategoria tipoCategoria){
-        Producto producto = new Producto(nombreProducto, url, precio, tipoCategoria, tipoEstado);// cre un producto
+    public Producto guardarProducto(String url, String precio, String nombreProducto, TipoEstado tipoEstado, TipoCategoria tipoCategoria) {
+        Producto producto = new Producto(nombreProducto, url, precio, tipoCategoria, tipoEstado, codigoProdcuto++);// cre un producto
         productos.put(nombreProducto, producto);// lo guarda en el map
         return producto;// return el productoGuardado
+    }
+
+    public Publicacion guadarPublicaion(Producto producto, String decripcion, String titulo) {
+        Publicacion publicacion= new Publicacion(titulo,producto,estadoGlobalVendedor,decripcion,obtenerHoraActual(),obtenerFechaActual(),0,0,null,null);
+        publicaciones.put(String.valueOf(producto.getId()),publicacion);
+        return  publicacion;
+    }
+    public static LocalTime obtenerHoraActual() {
+        return LocalTime.now();
+    }
+
+    // Método para obtener la fecha actual
+    public static LocalDate obtenerFechaActual() {
+        return LocalDate.now();
     }
 }
 

@@ -2,6 +2,7 @@ package co.edu.uniquindio.mercado.controllerView;
 
 import co.edu.uniquindio.mercado.controller.CrearPublicacionController;
 import co.edu.uniquindio.mercado.model.Producto;
+import co.edu.uniquindio.mercado.model.Publicacion;
 import co.edu.uniquindio.mercado.model.enums.TipoCategoria;
 import co.edu.uniquindio.mercado.model.enums.TipoEstado;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -111,8 +112,8 @@ public class CrearPublicacionControllerView implements Initializable {
     void publicar(ActionEvent event) throws IOException {
         if (verificarCampos()) {
             Producto producto=crearPublicacionController.guadarProducto(txtUrl.getText(),txtPrecio.getText(),txtNombreProducto.getText(),comboTipoEstado.getValue(),comboTipoCategoria.getValue());
-
-
+            Publicacion publicacion= crearPublicacionController.guardarPublicacion(producto,textDescripcion.getText(),txtTitulo.getText());
+            cerrarVentana();
         }
 
     }
@@ -170,6 +171,10 @@ public class CrearPublicacionControllerView implements Initializable {
         aler.setHeaderText(header);
         aler.setContentText(contenido);
         aler.showAndWait();
+    }
+    private void cerrarVentana(){
+        Stage stage = (Stage) paneDatos.getScene().getWindow();
+        stage.close();
     }
 }
 
