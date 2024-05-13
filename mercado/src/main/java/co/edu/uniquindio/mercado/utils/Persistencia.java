@@ -14,10 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 
 public class Persistencia {
@@ -30,6 +27,7 @@ public class Persistencia {
     public static  final  String RUTA_ARCHIVO_PRODUCTO="src/main/resources/co/edu/uniquindio/mercado/archivos/productos";
     private static final String RUTA_ARCHIVO_PUBLICACIONES ="src/main/resources/co/edu/uniquindio/mercado/archivos/publicaciones";
 
+    private static  final String RUTA_ARCHVIO_CODIGOPRODCUTO="src/main/resources/co/edu/uniquindio/mercado/archivos/codigoProducto";
     /**
      * Guarda en un archivo de texto todos la información de las personas almacenadas en el ArrayList
      *
@@ -76,6 +74,13 @@ public class Persistencia {
         ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_ADMINISTRADOR, contenido, false);
     }
 
+    public  static  void guadrarCodigoProducto(int codigo) throws IOException {
+        StringBuilder contenido= new StringBuilder();
+        contenido.append(codigo);
+        ArchivoUtil.guardarArchivo(RUTA_ARCHVIO_CODIGOPRODCUTO,contenido.toString(),false);
+    }
+
+
 
     // Método para guardar publicaciones en un archivo de texto
     public static void guardarPublicaciones(TreeMap<String, Publicacion> publicaciones) throws IOException {
@@ -92,6 +97,7 @@ public class Persistencia {
                     .append(publicacion.getHoraPublicacion()).append("--")
                     .append(publicacion.getDiaPublicado()).append("--")
                     .append(publicacion.getContadorComentarios()).append("--")
+                    .append(publicacion.getVisualizacion()).append("--")
                     .append(publicacion.getContadorMegusta()).append("\n");
         }
 
@@ -136,14 +142,25 @@ public class Persistencia {
             publicacion.setHoraPublicacion(LocalTime.parse(partes[7]));
             publicacion.setDiaPublicado(LocalDate.parse(partes[8]));
             publicacion.setContadorComentarios(Integer.parseInt(partes[9]));
-            publicacion.setContadorMegusta(Integer.parseInt(partes[10]));
+            publicacion.setVisualizacion(Integer.parseInt(partes[10]));
+            publicacion.setContadorMegusta(Integer.parseInt(partes[11]));
+            HashSet<Megusta> listMegusta=new HashSet<>();
+            publicacion.setListMegusta(listMegusta);
 
             publicaciones.put(partes[0], publicacion);
         }
 
         return publicaciones;
     }
-
+    public static int cargarCodigo() throws IOException {
+        ArrayList<String> contenido = ArchivoUtil.leerArchivo(RUTA_ARCHVIO_CODIGOPRODCUTO);
+        if (null != contenido){
+            return Integer.parseInt(contenido.get(0));
+        }
+        else {
+            return 0;
+        }
+    }
 
     public static ListaSimple<Vendedor> cargarVendedores() throws FileNotFoundException, IOException {
         ListaSimple<Vendedor> listaVendedores = new ListaSimple<>();

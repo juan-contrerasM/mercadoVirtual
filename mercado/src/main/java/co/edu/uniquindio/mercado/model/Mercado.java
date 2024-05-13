@@ -12,6 +12,7 @@ import lombok.ToString;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeMap;
 
 @Data
@@ -28,7 +29,9 @@ public class Mercado {
     private Administrador estadoGlobalAdministrador = new Administrador();
     private HashMap<String, Producto> productos = new HashMap<>();
     private TreeMap<String,Publicacion>publicaciones= new TreeMap<>();
-    int codigoProdcuto;
+    int codigoProdcuto=0;
+    private Publicacion publicaionGlobal;
+
 
     //---------------------------------------------------------------------------
 //-------------------------metodos vendedor--------------------------------------
@@ -164,13 +167,14 @@ public class Mercado {
 
     //--------------------------------------------metodoProducto------------------------------------
     public Producto guardarProducto(String url, String precio, String nombreProducto, TipoEstado tipoEstado, TipoCategoria tipoCategoria) {
-        Producto producto = new Producto(nombreProducto, url, precio, tipoCategoria, tipoEstado, codigoProdcuto++);// cre un producto
+        codigoProdcuto+=1;
+        Producto producto = new Producto(nombreProducto, url, precio, tipoCategoria, tipoEstado, codigoProdcuto);// cre un producto
         productos.put(nombreProducto, producto);// lo guarda en el map
         return producto;// return el productoGuardado
     }
 
     public Publicacion guadarPublicaion(Producto producto, String decripcion, String titulo) {
-        Publicacion publicacion= new Publicacion(titulo,producto,estadoGlobalVendedor,decripcion,obtenerHoraActual(),obtenerFechaActual(),0,0,null,null);
+        Publicacion publicacion= new Publicacion(titulo,producto,estadoGlobalVendedor,decripcion,obtenerHoraActual(),obtenerFechaActual(),0,0,null,null,0);
         publicaciones.put(String.valueOf(producto.getId()),publicacion);
         return  publicacion;
     }
@@ -181,6 +185,51 @@ public class Mercado {
     // Método para obtener la fecha actual
     public static LocalDate obtenerFechaActual() {
         return LocalDate.now();
+    }
+
+    public void guardarPublicacionGlobal(int id) {
+        for (Map.Entry<String, Publicacion> entry : publicaciones.entrySet()) {
+            String key = entry.getKey();
+            Publicacion value = entry.getValue();
+            if(value.getProducto().getId()==id){
+                publicaionGlobal=value;
+                publicaionGlobal.setVisualizacion(publicaionGlobal.getVisualizacion()+1);
+                value=publicaionGlobal;
+                break;
+            }
+            System.out.println("Clave: " + key + ", Valor: " + value);
+        }
+
+    }
+
+    public Producto buscarProducto(int id) {
+        for (Map.Entry<String, Producto> entry : productos.entrySet()) {
+            String key = entry.getKey();
+            Producto value = entry.getValue();
+            if(value.getId()==id){
+                return value;
+            }
+            System.out.println("Clave: " + key + ", Valor: " + value);
+        }
+        return null;
+
+    }
+
+    public void modificarLike() {
+        LocalTime horaInteraccion = LocalTime.now();
+        LocalDate fechaInteraccion = LocalDate.now();
+        Megusta megusta = new Megusta(estadoGlobalVendedor, horaInteraccion, fechaInteraccion, publicaionGlobal);
+        for (Map.Entry<String, Publicacion> entry : publicaciones.entrySet()) {
+            String key = entry.getKey();
+            Publicacion value = entry.getValue();
+            if(value.getProducto().getId()==publicaionGlobal.getProducto().getId()){
+                value.getListMegusta().add(megusta);
+                value.setContadorMegusta(publicaionGlobal.getContadorMegusta()+1);
+                publicaionGlobal.setContadorMegusta(value.getContadorMegusta());
+            }
+        }
+
+
     }
 }
 

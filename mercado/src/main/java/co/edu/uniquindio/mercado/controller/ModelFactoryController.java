@@ -108,11 +108,24 @@ public class ModelFactoryController {
     public Producto crearProducto(String url, String precio, String nombreProducto, TipoEstado tipoEstado, TipoCategoria tipoCategoria) throws IOException {
         mercado.getProductos().clear();
         mercado.setProductos(Persistencia.cargarProductos());
+        mercado.setCodigoProdcuto(Persistencia.cargarCodigo());
         Producto producto = mercado.guardarProducto(url, precio, nombreProducto, tipoEstado, tipoCategoria);
+        Persistencia.guadrarCodigoProducto(mercado.getCodigoProdcuto());
         Persistencia.guardarProductos(mercado.getProductos());
+
         return producto;
     }
+    public Producto obtenerProdcuto(int id) throws IOException {
+        mercado.getProductos().clear();
+        mercado.setProductos(Persistencia.cargarProductos());
+        Persistencia.guardarProductos(mercado.getProductos());
+        Producto producto=mercado.buscarProducto(id);
+        return producto;
 
+
+
+
+    }
     //---------------------------metodos difernetes------------------------
     //crea un codigo de 4 digitos para cambiar la contraseña
     public String obtenerCodigoVerificacionCorreo() {
@@ -123,6 +136,8 @@ public class ModelFactoryController {
     public Publicacion crearPublicacion(Producto producto, String decripcion, String titulo) throws IOException {
         mercado.getPublicaciones().clear();
         mercado.setPublicaciones(Persistencia.cargarPublicaciones());
+        mercado.setCodigoProdcuto(Persistencia.cargarCodigo());
+        Persistencia.guadrarCodigoProducto(mercado.getCodigoProdcuto());
         Publicacion publicacion = mercado.guadarPublicaion(producto, decripcion, titulo);
         Persistencia.guardarPublicaciones(mercado.getPublicaciones());
         return publicacion;
@@ -131,6 +146,23 @@ public class ModelFactoryController {
         mercado.setPublicaciones(Persistencia.cargarPublicaciones());
         Persistencia.guardarPublicaciones(mercado.getPublicaciones());
         return  mercado.getPublicaciones();
+    }
+    public void guardarPublicacionGlobal(int id) throws IOException {
+        mercado.getPublicaciones().clear();
+        mercado.setPublicaciones(Persistencia.cargarPublicaciones());
+        mercado.guardarPublicacionGlobal(id);
+        Persistencia.guardarPublicaciones(mercado.getPublicaciones());
+
+    }
+    public  void modificarPublicaionLikes() throws IOException {
+        mercado.getPublicaciones().clear();
+        mercado.setPublicaciones(Persistencia.cargarPublicaciones());
+        mercado.modificarLike();
+        Persistencia.guardarPublicaciones(mercado.getPublicaciones());
+
+    }
+    public Publicacion obtenerPublicacionGlobal() {
+        return mercado.getPublicaionGlobal();
     }
 }
 

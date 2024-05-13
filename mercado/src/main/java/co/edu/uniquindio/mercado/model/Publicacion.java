@@ -23,4 +23,5 @@ public class Publicacion {
     private  Integer contadorMegusta;
     private LinkedList<Comentario>listComentario;
     private HashSet<Megusta> listMegusta;
+    private int visualizacion;
 }

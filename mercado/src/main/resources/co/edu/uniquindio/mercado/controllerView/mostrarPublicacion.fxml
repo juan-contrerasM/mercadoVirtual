@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.mercado.controllerView.MostrarPublicaionController">
+   <children>
+      <ScrollPane layoutX="1.0" layoutY="-2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="622.0">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1075.0" prefWidth="594.0">
+               <children>
+                  <AnchorPane layoutX="-9.0" layoutY="-14.0" prefHeight="1075.0" prefWidth="603.0">
+                     <children>
+                        <ImageView fx:id="imgProducto" fitHeight="263.0" fitWidth="499.0" layoutX="169.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/logo.jpeg" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="lblMensaje" alignment="TOP_LEFT" layoutX="46.0" layoutY="343.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="172.0" prefWidth="509.0" text="mensaje">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <MFXButton fx:id="btnVolver" layoutX="212.0" layoutY="999.0" onAction="#volver" prefHeight="40.0" prefWidth="180.0" text="Volver">
+                           <stylesheets>
+                              <URL value="@../csj/MFXButton.css" />
+                              <URL value="@../css/principalStyle.css" />
+                           </stylesheets>
+                        </MFXButton>
+                        <ImageView fx:id="imgLike" fitHeight="40.0" fitWidth="56.0" layoutX="539.0" layoutY="30.0" onMouseClicked="#meGusta" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/imgLike.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="imgComentario" fitHeight="40.0" fitWidth="56.0" layoutX="539.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/imgComentario.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="lblContadorComentarios" layoutX="539.0" layoutY="166.0" text="Label">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <ScrollPane layoutX="36.0" layoutY="562.0" prefHeight="238.0" prefWidth="531.0">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="245.0" prefWidth="511.0" />
+                           </content>
+                        </ScrollPane>
+                        <ImageView fitHeight="40.0" fitWidth="56.0" layoutX="539.0" layoutY="208.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/imgVisualizaciones.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="lblContadorVisualizaciones" layoutX="539.0" layoutY="248.0" text="Label">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblContadorMegusta" layoutX="539.0" layoutY="77.0" text="Label">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="36.0" layoutY="828.0" text="Comentar">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <MFXTextField fx:id="txtCoemnatrio" layoutX="36.0" layoutY="853.0" prefHeight="98.0" prefWidth="316.0" stylesheets="@../csj/MFXTextField.css" />
+                        <MFXButton fx:id="btnComentar" layoutX="379.0" layoutY="853.0" onAction="#comentar" prefHeight="98.0" prefWidth="180.0" text="Publicar">
+                           <stylesheets>
+                              <URL value="@../csj/MFXButton.css" />
+                              <URL value="@../css/principalStyle.css" />
+                           </stylesheets>
+                        </MFXButton>
+                     </children>
+                     <stylesheets>
+                        <URL value="@../css/principalStyle.css" />
+                        <URL value="@../css/loginStyle.css" />
+                     </stylesheets>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

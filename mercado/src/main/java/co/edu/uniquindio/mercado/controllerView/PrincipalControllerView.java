@@ -6,7 +6,6 @@ import co.edu.uniquindio.mercado.model.Publicacion;
 import co.edu.uniquindio.mercado.model.Vendedor;
 import co.edu.uniquindio.mercado.model.enums.TipoCategoria;
 import co.edu.uniquindio.mercado.model.enums.TipoEstado;
-import co.edu.uniquindio.mercado.modelInterfaz.PaneDinamico;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.controls.legacy.MFXLegacyComboBox;
@@ -24,7 +23,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
@@ -132,13 +130,17 @@ public class PrincipalControllerView implements Initializable {
 
     @FXML
     void refrescarPublicaciones(ActionEvent event) throws IOException {
+       crearPanePublicaion();
+    }
+    private  void crearPanePublicaion() throws IOException {
         //obtenemos denuevo las publicaiones creadas
         restablcerAjutesPanePublicaiones();
         mapaPublicaciones=principalController.obtenerPublicaciones();
         for (Map.Entry<String, Publicacion> entry : mapaPublicaciones.entrySet()) {
             String clave = entry.getKey();
             Publicacion publicacion = entry.getValue();
-            agregarPane(PaneDinamico.buildPane(publicacion.getTitulo(),publicacion.getProducto().getUrlImagen()));
+            agregarPane(paneDinamico.buildPane(publicacion.getTitulo()+"\n"+publicacion.getProducto().getPrecio()+"$",publicacion.getProducto().getUrlImagen(),publicacion.getProducto().getId()));
+            System.out.println(publicacion.getProducto().getId());
         }
     }
 
@@ -169,7 +171,7 @@ public class PrincipalControllerView implements Initializable {
         // inicializa valores de componentes de la interfaz
         paneDinamico = new PaneDinamico();
         layaoutXPanePublicaciones = 26;
-        layaoutYPanePublicaciones = 83;
+        layaoutYPanePublicaciones = 0;
         boxCategoria.getItems().addAll(TipoCategoria.values());
         boxEstado.getItems().addAll(TipoEstado.values());
         principalController= new PrincipalController();// controller de la clase
@@ -181,13 +183,7 @@ public class PrincipalControllerView implements Initializable {
 
 
         //cargar publicaiones
-        restablcerAjutesPanePublicaiones();
-        mapaPublicaciones=principalController.obtenerPublicaciones();
-        for (Map.Entry<String, Publicacion> entry : mapaPublicaciones.entrySet()) {
-            String clave = entry.getKey();
-            Publicacion publicacion = entry.getValue();
-            agregarPane(PaneDinamico.buildPane(publicacion.getTitulo(),publicacion.getProducto().getUrlImagen()));
-        }
+       crearPanePublicaion();
 
 
     }

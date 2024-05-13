@@ -57,7 +57,7 @@
       </Pane>
       <ScrollPane layoutX="350.0" layoutY="150.0" prefHeight="458.0" prefWidth="529.0">
           <content>
-              <Pane fx:id="panePublicaciones" prefHeight="882.0" prefWidth="517.0" />
+              <Pane fx:id="panePublicaciones" prefHeight="471.0" prefWidth="512.0" />
           </content>
       </ScrollPane>
       <Pane fx:id="paneBuscador" layoutX="-2.0" layoutY="68.0" prefHeight="536.0" prefWidth="352.0" stylesheets="@../css/principalStyle.css">
