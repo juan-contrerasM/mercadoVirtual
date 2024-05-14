@@ -1,6 +1,7 @@
 package co.edu.uniquindio.mercado.controller;
 
 
+import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.ListaSimple;
 import co.edu.uniquindio.mercado.model.*;
 import co.edu.uniquindio.mercado.model.enums.TipoCategoria;
 import co.edu.uniquindio.mercado.model.enums.TipoEstado;
@@ -12,7 +13,9 @@ import java.util.TreeMap;
 public class ModelFactoryController {
     private Mercado mercado = new Mercado();
 
-
+    public ListaSimple<Vendedor> obtenerListaVendedores1() {
+        return mercado.obtenerListaVendedores2();
+    }
 
 
     // periste teer una intancia uncia del model factory y la clase mercado

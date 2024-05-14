@@ -3,6 +3,7 @@ package co.edu.uniquindio.mercado.utils;
 /*import co.edu.uniquindio.banco.bancouq.exceptions.UsuarioExcepcion;
 import co.edu.uniquindio.banco.bancouq.model.*;*/
 
+import co.edu.uniquindio.mercado.controller.ModelFactoryController;
 import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.ListaDoble;
 import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.ListaSimple;
 import co.edu.uniquindio.mercado.model.*;
@@ -21,11 +22,11 @@ public class Persistencia {
 
 
     //--------------------------------------RUTAS----------------------------------------
-    public static final String RUTA_ARCHIVO_VENDEDORES = "src/main/resources/co/edu/uniquindio/mercado/archivos/vendedores";
-    public static final String RUTA_ARCHIVO_ADMINISTRADOR = "src/main/resources/co/edu/uniquindio/mercado/archivos/administrador";
-    public static final String RUTA_ARCHIVO_LOG = "src/main/resources/co/edu/uniquindio/mercado/archivos/log";
-    public static  final  String RUTA_ARCHIVO_PRODUCTO="src/main/resources/co/edu/uniquindio/mercado/archivos/productos";
-    private static final String RUTA_ARCHIVO_PUBLICACIONES ="src/main/resources/co/edu/uniquindio/mercado/archivos/publicaciones";
+    public static final String RUTA_ARCHIVO_VENDEDORES = "mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/vendedores";
+    public static final String RUTA_ARCHIVO_ADMINISTRADOR = "mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/administrador";
+    public static final String RUTA_ARCHIVO_LOG = "mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/log";
+    public static  final  String RUTA_ARCHIVO_PRODUCTO="mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/productos";
+    private static final String RUTA_ARCHIVO_PUBLICACIONES ="mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/publicaciones";
 
     private static  final String RUTA_ARCHVIO_CODIGOPRODCUTO="src/main/resources/co/edu/uniquindio/mercado/archivos/codigoProducto";
     /**
@@ -35,6 +36,7 @@ public class Persistencia {
      * @param
      * @throws IOException
      */
+    ModelFactoryController modelFactoryController = new ModelFactoryController();
 //-------------------------------------------GUARDAR ARCHIVOS------------------------------
     //prodcutos
     public static void guardarVendedores(ListaSimple<Vendedor> listaVendedores) throws IOException {
@@ -180,6 +182,8 @@ public class Persistencia {
 
             listaVendedores.agregarfinal(vendedor);
         }
+
+
         return listaVendedores;
     }
 

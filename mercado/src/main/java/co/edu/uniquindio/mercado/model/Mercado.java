@@ -8,7 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import co.edu.uniquindio.mercado.utils.Persistencia;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
@@ -22,7 +24,7 @@ import java.util.TreeMap;
 @ToString // Esta anotación genera automáticamente el método toString para la clase.
 public class Mercado {
     //-------------------------------- atributos-----------------------
-    private ListaSimple<Vendedor> listaVendedores = new ListaSimple<>();
+    private  ListaSimple<Vendedor> listaVendedores = new ListaSimple<>();
     private ListaDoble<Administrador> listaAdministrador = new ListaDoble<>();
     private Boolean verificacionCorreo = false;
     private Vendedor estadoGlobalVendedor = new Vendedor();
@@ -31,6 +33,24 @@ public class Mercado {
     private TreeMap<String,Publicacion>publicaciones= new TreeMap<>();
     int codigoProdcuto=0;
     private Publicacion publicaionGlobal;
+
+
+    public static ListaSimple<Vendedor> cargarVendedores(){
+        try {
+             return Persistencia.cargarVendedores();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void subirVendedores(){
+         listaVendedores =cargarVendedores();
+
+    }
+
+
+
+
+
 
 
     //---------------------------------------------------------------------------
@@ -230,6 +250,11 @@ public class Mercado {
         }
 
 
+    }
+
+    public ListaSimple<Vendedor> obtenerListaVendedores2() {
+        subirVendedores();
+        return listaVendedores;
     }
 }
 

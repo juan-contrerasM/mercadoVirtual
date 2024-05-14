@@ -1,5 +1,6 @@
 package co.edu.uniquindio.mercado.model;
 
+import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.Arbol;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,9 @@ public abstract class Persona {
     private String numeroCelular;
     private TipoUsuario tipoUsuario;
     private String  cedula;
+
+    private Arbol <Persona> redAmigos = new Arbol<>();
+
 
 
 }

@@ -222,6 +222,22 @@ public class PrincipalControllerView implements Initializable {
         }
 
     }
+    @FXML
+    void abrirBuscarAmigos(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("buscarAmigos.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            buscarAmigosControllerView controller2 = loader.getController();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 
 }

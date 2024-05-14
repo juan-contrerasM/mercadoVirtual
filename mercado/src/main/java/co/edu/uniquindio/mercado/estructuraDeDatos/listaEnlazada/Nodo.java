@@ -1,7 +1,7 @@
 package co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada;
 
 
-public class Nodo<T> {
+public class Nodo<T>  {
 
     private Nodo<T> siguienteNodo;
     private T valorNodo;
