@@ -50,7 +50,9 @@ public class LoginControllerView implements Initializable {
     private Administrador administrador;
     private LoginController loginController;
 
-
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
 
     @FXML
     void AbrirVentanaRegistrarse(MouseEvent event) {

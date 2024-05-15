@@ -10,4 +10,8 @@ public class BuscarAmigosController {
     public ListaSimple<Vendedor> obtenerListaVendedores() {
         return modelFactoryController.obtenerListaVendedores1();
     }
+
+    public Vendedor obtenerVendedor1() {
+        return modelFactoryController.obtenerVendedorGlobal();
+    }
 }

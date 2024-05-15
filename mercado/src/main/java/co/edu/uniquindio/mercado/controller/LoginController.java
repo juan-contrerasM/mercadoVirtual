@@ -18,6 +18,7 @@ public class LoginController {
         return modelfactoryController.obtenerVendedor(nombreUsuario,cedula,clave);
     }
     public void estadoGlobalVendedor(Vendedor vendedor) {
+
         modelfactoryController.estadoGlobalVendedor(vendedor);
     }
     public Administrador obtenerAdministrador(String nombreUsuario, String cedula, String clave) throws IOException {

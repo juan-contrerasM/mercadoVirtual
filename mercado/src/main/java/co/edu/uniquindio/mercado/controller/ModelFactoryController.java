@@ -61,12 +61,13 @@ public class ModelFactoryController {
     }
 
     //obteien al vendedor que ingreso a la app
-    public Vendedor obtenerVendedorGlobal() {
+    public  Vendedor obtenerVendedorGlobal() {
         return mercado.getEstadoGlobalVendedor();
     }
 
     // guarda quien es el que ingresa a la aplicacion de los vendedor
     public void estadoGlobalVendedor(Vendedor vendedor) {
+
         mercado.setEstadoGlobalVendedor(vendedor);
     }
     //-----------------------------------------METODOS ADMINISTRADOR----------------------------------------

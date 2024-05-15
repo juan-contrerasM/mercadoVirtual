@@ -27,7 +27,7 @@ public class Mercado {
     private  ListaSimple<Vendedor> listaVendedores = new ListaSimple<>();
     private ListaDoble<Administrador> listaAdministrador = new ListaDoble<>();
     private Boolean verificacionCorreo = false;
-    private Vendedor estadoGlobalVendedor = new Vendedor();
+    private  static Vendedor estadoGlobalVendedor = new Vendedor();
     private Administrador estadoGlobalAdministrador = new Administrador();
     private HashMap<String, Producto> productos = new HashMap<>();
     private TreeMap<String,Publicacion>publicaciones= new TreeMap<>();
@@ -97,10 +97,12 @@ public class Mercado {
 
     // estado globan quien esta en la app
     public void setEstadoGlobalVendedor(Vendedor estadoGlobalVendedor) {
+
         this.estadoGlobalVendedor = estadoGlobalVendedor;
     }
 
     public Vendedor getEstadoGlobalVendedor() {
+        System.out.println("el nombre del usuario es : "+estadoGlobalVendedor.getNombreUsuario());
         return estadoGlobalVendedor;
     }
 

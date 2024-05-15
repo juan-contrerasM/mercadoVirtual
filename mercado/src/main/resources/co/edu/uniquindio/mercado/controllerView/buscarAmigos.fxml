@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.mfxcore.controls.Label?>
 <?import java.net.URL?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -22,14 +24,33 @@
                   <Image url="@../imagenes/logo.jpeg" />
                </image>
             </ImageView>
-            <Pane fx:id="paneSugerenciaAmigos" layoutX="29.0" layoutY="239.0" prefHeight="293.0" prefWidth="560.0" style="-fx-border-color: blue;" />
             <Separator layoutX="51.0" layoutY="204.0" prefHeight="14.0" prefWidth="516.0" style="-fx-border-image-width: black;" />
+            <Label layoutX="51.0" layoutY="218.0" prefHeight="17.0" prefWidth="97.0" text="Sugerencias">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="246.0" layoutY="32.0" prefHeight="25.0" prefWidth="194.0" text="Busqueda de amigos">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="51.0" layoutY="169.0" prefHeight="25.0" prefWidth="194.0" text="Mis amigos">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <MFXTextField fx:id="txtBuscarAmigos" floatingText="🔍  Buscar vendedores" floatingTextGap="2.0" layoutX="246.0" layoutY="76.0" onKeyPressed="#buscarPersonaEnter" prefHeight="48.0" prefWidth="258.0" stylesheets="@../csj/MFXTextField.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </MFXTextField>
+            <ScrollPane layoutX="22.0" layoutY="245.0" prefHeight="292.0" prefWidth="591.0">
+               <content>
+                  <Pane fx:id="paneSugerenciaAmigos" prefHeight="471.0" prefWidth="512.0" />
+               </content>
+            </ScrollPane>
          </children>
       </Pane>
-      <MFXTextField fx:id="txtBuscarAmigos" floatMode="BORDER" floatingText="🔍  Buscar vendedores" layoutX="255.0" layoutY="78.0" onKeyPressed="#buscarPersonaEnter" prefHeight="48.0" prefWidth="258.0">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </MFXTextField>
    </children>
 </AnchorPane>

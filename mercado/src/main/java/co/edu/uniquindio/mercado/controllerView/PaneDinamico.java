@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -88,6 +89,56 @@ public class PaneDinamico  {
                 e.printStackTrace();
             }
         });
+
+        return pane;
+    }
+
+    public Pane buildPane(String mensajeLabel) {
+        Pane pane = new AnchorPane();
+        pane.setPrefHeight(100);
+        pane.setPrefWidth(120);
+
+        Label label = new Label(mensajeLabel);
+        label.setPrefHeight(50);
+        label.setPrefWidth(100);
+        label.setLayoutX(14);
+        label.setLayoutY(90);
+        label.setAlignment(Pos.CENTER);
+        label.setFont(Font.font("Arial", FontWeight.BOLD, 17));
+
+//        Button botonAgregar = new Button("agregar");
+//        botonAgregar.setVisible(true);
+//        //botonAgregar.getScaleX()
+
+
+
+
+        // Creamos el efecto de sombra
+        DropShadow shadow = new DropShadow();
+        shadow.setColor(Color.GRAY);
+        shadow.setOffsetX(5);
+        shadow.setOffsetY(5);
+
+        // Manejamos el evento de entrada del mouse
+        pane.setOnMouseEntered(event -> {
+            // Cambiamos el tamaño y el estilo al pasar el cursor sobre el Pane
+            pane.setStyle("-fx-background-color: lightgray; -fx-border-color: black;-fx-border-width: 2px; -fx-background-radius: 10px;");
+            pane.setScaleX(1.1);
+            pane.setScaleY(1.1);
+        });
+
+        // Manejamos el evento de salida del mouse
+        pane.setOnMouseExited(event -> {
+            // Restauramos el tamaño y el estilo al quitar el cursor del Pane
+            pane.setStyle("-fx-background-color: lightgray; -fx-border-color: black; -fx-border-width: 2px;");
+            pane.setScaleX(1.0);
+            pane.setScaleY(1.0);
+        });
+        // Aplicamos el efecto de sombra al Pane
+        pane.setEffect(shadow);
+        pane.setStyle("-fx-background-color: lightgray; -fx-border-color: black; -fx-border-width: 2px;");
+        pane.getChildren().addAll(label);
+
 
         return pane;
     }
