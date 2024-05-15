@@ -102,7 +102,6 @@ public class Mercado {
     }
 
     public Vendedor getEstadoGlobalVendedor() {
-        System.out.println("el nombre del usuario es : "+estadoGlobalVendedor.getNombreUsuario());
         return estadoGlobalVendedor;
     }
 

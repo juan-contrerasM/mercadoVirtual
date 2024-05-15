@@ -34,11 +34,11 @@ public class buscarAmigosControllerView implements Initializable {
     @FXML
     void buscarPersonaEnter(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
-            System.out.println("si");
-            txtBuscarAmigos.setText("");
-            mostrarSugerencias();
-            listaVendedores = buscarAmigosController.obtenerListaVendedores();
-            listaVendedores.imprimirLista();
+
+            paneDinamico = new PaneDinamico();
+            layaoutXPaneSugerenciasAmigos = 26;
+            layaoutYPaneSugerenciasAmigos = 0;
+            crearPaneSugerenciaAmigos(txtBuscarAmigos.getText());
         }
 
     }
@@ -52,6 +52,8 @@ public class buscarAmigosControllerView implements Initializable {
     private PaneDinamico paneDinamico;
 
 
+
+
     @SneakyThrows
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -61,20 +63,48 @@ public class buscarAmigosControllerView implements Initializable {
         paneDinamico = new PaneDinamico();
         layaoutXPaneSugerenciasAmigos = 26;
         layaoutYPaneSugerenciasAmigos = 0;
-        crearPaneSugerenciaAmigos();
+        crearPaneSugerenciaAmigos("");
     }
 
-    private void crearPaneSugerenciaAmigos() throws IOException {
+
+    private void crearPaneSugerenciaAmigos(String palabra) throws IOException {
         restablcerAjutesPaneSugerenciasAmigos();
         listaVendedores = buscarAmigosController.obtenerListaVendedores();
         Vendedor aux ;
         aux=obtenerVendedor();
-        for (int i = 0; i < listaVendedores.getTamanio(); i++) {
-            Vendedor vendedor = listaVendedores.obtenerValorNodo(i);
-            if (!aux.getNombreUsuario().equals(vendedor.getNombreUsuario())) {
-                agregarPane(paneDinamico.buildPane(vendedor.getNombreUsuario() + "\n" + vendedor.getTipoUsuario()));
+        if (!palabra.equals("")){
+            for (int i = 0; i < listaVendedores.getTamanio(); i++) {
+                Vendedor vendedor = listaVendedores.obtenerValorNodo(i);
+                if (!aux.getNombreUsuario().equals(vendedor.getNombreUsuario())) {
+                    try {
+                        if (palabra.equals(vendedor.getNombreUsuario()) || palabra.substring(0,1).equals(vendedor.getNombreUsuario().substring(0,1)) ||palabra.substring(0,2).equals(vendedor.getNombreUsuario().substring(0,2))) {
+                            agregarPane(paneDinamico.buildPane(vendedor.getNombreUsuario() + "\n" + vendedor.getTipoUsuario()));
+                        }
+                    }catch (RuntimeException e){
+
+                    }
+
+                    }
+
+
+
+        }
+
+
+
+       }else{
+            for (int i = 0; i < listaVendedores.getTamanio(); i++) {
+                Vendedor vendedor = listaVendedores.obtenerValorNodo(i);
+                if (!aux.getNombreUsuario().equals(vendedor.getNombreUsuario())) {
+                        agregarPane(paneDinamico.buildPane(vendedor.getNombreUsuario() + "\n" + vendedor.getTipoUsuario()));
+                    }
+
+
             }
-       }
+
+
+        }
+
 
             //  for (Map.Entry<String, Publicacion> entry : mapaPublicaciones.entrySet()) {
 //            String clave = entry.getKey();
@@ -87,6 +117,7 @@ public class buscarAmigosControllerView implements Initializable {
 
 
     }
+
 
     public Vendedor obtenerVendedor() {
         return buscarAmigosController.obtenerVendedor1();
