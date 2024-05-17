@@ -79,9 +79,9 @@ public class buscarAmigosControllerView implements Initializable {
                     try {
                         if (palabra.equals(vendedor.getNombreUsuario())  ) {
                             agregarPane(paneDinamico.buildPane(vendedor.getNombreUsuario() + "\n" + vendedor.getTipoUsuario()));
-                        }if ( palabra.substring(0,1).equals(vendedor.getNombreUsuario().substring(0,1)) ) {
+                        } else if ( palabra.substring(0,1).equals(vendedor.getNombreUsuario().substring(0,1)) ) {
                             agregarPane(paneDinamico.buildPane(vendedor.getNombreUsuario() + "\n" + vendedor.getTipoUsuario()));
-                        }if (palabra.substring(0,2).equals(vendedor.getNombreUsuario().substring(0,2))) {
+                        }else if (palabra.substring(0,2).equals(vendedor.getNombreUsuario().substring(0,2))) {
                             agregarPane(paneDinamico.buildPane(vendedor.getNombreUsuario() + "\n" + vendedor.getTipoUsuario()));
                         }
                     }catch (RuntimeException e){

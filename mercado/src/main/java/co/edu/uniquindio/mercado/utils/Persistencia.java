@@ -26,7 +26,7 @@ public class Persistencia {
     public static final String RUTA_ARCHIVO_ADMINISTRADOR = "src/main/resources/co/edu/uniquindio/mercado/archivos/administrador";
     public static final String RUTA_ARCHIVO_LOG = "src/main/resources/co/edu/uniquindio/mercado/archivos/log";
     public static  final  String RUTA_ARCHIVO_PRODUCTO="src/main/resources/co/edu/uniquindio/mercado/archivos/productos";
-    private static final String RUTA_ARCHIVO_PUBLICACIONES ="mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/publicaciones";
+    private static final String RUTA_ARCHIVO_PUBLICACIONES ="src/main/resources/co/edu/uniquindio/mercado/archivos/publicaciones";
     private static  final String RUTA_ARCHVIO_Megustas="src/main/resources/co/edu/uniquindio/mercado/archivos/megustas";
 
     private static  final String RUTA_ARCHVIO_CODIGOPRODCUTO="src/main/resources/co/edu/uniquindio/mercado/archivos/codigoProducto";
