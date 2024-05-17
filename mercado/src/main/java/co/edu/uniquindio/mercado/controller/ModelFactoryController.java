@@ -161,9 +161,11 @@ public class ModelFactoryController {
     public  void modificarPublicaionLikes() throws IOException {
         mercado.getPublicaciones().clear();
         mercado.setPublicaciones(Persistencia.cargarPublicaciones());
+        mercado.getListMegustaTotalApp().clear();
+        mercado.setListMegustaTotalApp(Persistencia.cargarMegustas());
         mercado.modificarLike();
+        Persistencia.guardarMegustas(mercado.getListMegustaTotalApp());
         Persistencia.guardarPublicaciones(mercado.getPublicaciones());
-
     }
     public Publicacion obtenerPublicacionGlobal() {
         return mercado.getPublicaionGlobal();

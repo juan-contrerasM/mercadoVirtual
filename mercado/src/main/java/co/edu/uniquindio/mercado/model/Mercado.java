@@ -13,9 +13,7 @@ import co.edu.uniquindio.mercado.utils.Persistencia;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 @Data
 // Esta anotación genera automáticamente getters, setters, toString, equals y hashCode para todos los campos de la clase.
@@ -33,6 +31,7 @@ public class Mercado {
     private TreeMap<String,Publicacion>publicaciones= new TreeMap<>();
     int codigoProdcuto=0;
     private Publicacion publicaionGlobal;
+    private ArrayList<Megusta>listMegustaTotalApp=new ArrayList<>();
 
 
     public static ListaSimple<Vendedor> cargarVendedores(){
@@ -230,7 +229,6 @@ public class Mercado {
             if(value.getId()==id){
                 return value;
             }
-            System.out.println("Clave: " + key + ", Valor: " + value);
         }
         return null;
 
@@ -244,12 +242,36 @@ public class Mercado {
             String key = entry.getKey();
             Publicacion value = entry.getValue();
             if(value.getProducto().getId()==publicaionGlobal.getProducto().getId()){
-                value.getListMegusta().add(megusta);
-                value.setContadorMegusta(publicaionGlobal.getContadorMegusta()+1);
-                publicaionGlobal.setContadorMegusta(value.getContadorMegusta());
+                value.getListMegusta().clear();//lista personalisas de esa publicaion
+                value.setListMegusta(obtenerListaLikesPersonalizaPublicaicon());// cargo la lista
+                publicaionGlobal.setListMegusta(value.getListMegusta());
+                if(verificarLike()) {
+                    listMegustaTotalApp.add(megusta);
+                    value.getListMegusta().add(megusta);
+                    value.setContadorMegusta(publicaionGlobal.getContadorMegusta() + 1);
+                    publicaionGlobal.setContadorMegusta(value.getContadorMegusta());
+                }
             }
         }
+    }
 
+    public ArrayList<Megusta>obtenerListaLikesPersonalizaPublicaicon(){
+        ArrayList<Megusta> listMegusta=new ArrayList<>();
+        for (Megusta megusta:listMegustaTotalApp) {
+            if(megusta.getPublicacion().getProducto().getId()==publicaionGlobal.getProducto().getId()){
+                listMegusta.add(megusta);
+            }
+        }
+        return listMegusta;
+    }
+
+    public boolean verificarLike(){
+        for (Megusta megusta:publicaionGlobal.getListMegusta()) {
+            if(megusta.getVendedor().getNombreUsuario().equals(estadoGlobalVendedor.getNombreUsuario())){
+                return  false;
+            }
+        }
+        return true;
 
     }
 

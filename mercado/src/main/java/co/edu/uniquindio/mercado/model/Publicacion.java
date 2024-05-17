@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -22,6 +23,6 @@ public class Publicacion {
     private Integer contadorComentarios;
     private  Integer contadorMegusta;
     private LinkedList<Comentario>listComentario;
-    private HashSet<Megusta> listMegusta;
+    private ArrayList<Megusta> listMegusta;
     private int visualizacion;
 }

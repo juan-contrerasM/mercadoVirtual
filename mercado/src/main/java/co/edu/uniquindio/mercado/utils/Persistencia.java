@@ -22,13 +22,16 @@ public class Persistencia {
 
 
     //--------------------------------------RUTAS----------------------------------------
-    public static final String RUTA_ARCHIVO_VENDEDORES = "mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/vendedores";
-    public static final String RUTA_ARCHIVO_ADMINISTRADOR = "mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/administrador";
-    public static final String RUTA_ARCHIVO_LOG = "mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/log";
-    public static  final  String RUTA_ARCHIVO_PRODUCTO="mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/productos";
+    public static final String RUTA_ARCHIVO_VENDEDORES = "src/main/resources/co/edu/uniquindio/mercado/archivos/vendedores";
+    public static final String RUTA_ARCHIVO_ADMINISTRADOR = "src/main/resources/co/edu/uniquindio/mercado/archivos/administrador";
+    public static final String RUTA_ARCHIVO_LOG = "src/main/resources/co/edu/uniquindio/mercado/archivos/log";
+    public static  final  String RUTA_ARCHIVO_PRODUCTO="src/main/resources/co/edu/uniquindio/mercado/archivos/productos";
     private static final String RUTA_ARCHIVO_PUBLICACIONES ="mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/publicaciones";
+    private static  final String RUTA_ARCHVIO_Megustas="src/main/resources/co/edu/uniquindio/mercado/archivos/megustas";
 
     private static  final String RUTA_ARCHVIO_CODIGOPRODCUTO="src/main/resources/co/edu/uniquindio/mercado/archivos/codigoProducto";
+
+
     /**
      * Guarda en un archivo de texto todos la información de las personas almacenadas en el ArrayList
      *
@@ -106,6 +109,20 @@ public class Persistencia {
         ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_PUBLICACIONES, contenido.toString(), false);
     }
 
+    public static void guardarMegustas(ArrayList<Megusta> listaMeGusta) throws IOException {
+        // TODO Auto-generated method stub
+        String contenido = "";
+        Megusta meGusta = new Megusta();
+        for (int i = 0; i < listaMeGusta.size(); i++) {
+            meGusta=listaMeGusta.get(i);
+            contenido += meGusta.getVendedor().getNombreUsuario() + "--" + meGusta.getPublicacion().getProducto().getId() + "--" + meGusta.getHora() + "--" +
+                   meGusta.getFecha()+ "\n";
+        }
+        ArchivoUtil.guardarArchivo(RUTA_ARCHVIO_Megustas, contenido, false);
+    }
+
+
+
 
 //	--------------------------------------------CARGAR ARCHIVOS----------------------------------------------------------
 
@@ -116,6 +133,34 @@ public class Persistencia {
      * @throws FileNotFoundException
      * @throws IOException
      */
+    public static ArrayList<Megusta> cargarMegustas() throws FileNotFoundException, IOException {
+        ArrayList<Megusta> listaMegustas = new ArrayList<>();
+        ArrayList<String> contenido = ArchivoUtil.leerArchivo(RUTA_ARCHVIO_Megustas);
+        String linea = "";
+        for (int i = 0; i < contenido.size(); i++) {
+            linea = contenido.get(i);//juan,arias,125454,Armenia,uni1@,12454,125444
+            Megusta megusta = new Megusta();
+            Vendedor vendedor=new Vendedor();
+            Publicacion publicacion= new Publicacion();
+            Producto producto= new Producto();
+            megusta.setVendedor(vendedor);
+            megusta.setPublicacion(publicacion);
+            megusta.getVendedor().setNombreUsuario(linea.split("--")[0]);
+            megusta.setPublicacion(publicacion);
+            megusta.getPublicacion().setProducto(producto);
+            megusta.getPublicacion().getProducto().setId(Integer.parseInt(linea.split("--")[1]));
+            megusta.setHora(LocalTime.parse(linea.split("--")[2]));
+            megusta.setFecha(LocalDate.parse(linea.split("--")[3]));
+            listaMegustas.add(megusta);
+        }
+
+
+        return listaMegustas;
+    }
+
+
+
+
 
     // Método para cargar publicaciones desde un archivo de texto y devolver un TreeMap
     public static TreeMap<String, Publicacion> cargarPublicaciones() throws IOException {
@@ -146,7 +191,7 @@ public class Persistencia {
             publicacion.setContadorComentarios(Integer.parseInt(partes[9]));
             publicacion.setVisualizacion(Integer.parseInt(partes[10]));
             publicacion.setContadorMegusta(Integer.parseInt(partes[11]));
-            HashSet<Megusta> listMegusta=new HashSet<>();
+            ArrayList<Megusta> listMegusta=new ArrayList<>();
             publicacion.setListMegusta(listMegusta);
 
             publicaciones.put(partes[0], publicacion);
