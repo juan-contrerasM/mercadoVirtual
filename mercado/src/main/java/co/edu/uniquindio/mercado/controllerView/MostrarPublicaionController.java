@@ -17,6 +17,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -40,6 +42,8 @@ public class MostrarPublicaionController implements Initializable {
     @FXML
     private MFXButton btnComentar;
 
+    @FXML
+    private Pane paneComentarios;
 
     @FXML
     private ImageView imgComentario;
@@ -61,10 +65,14 @@ public class MostrarPublicaionController implements Initializable {
     @FXML
     private MFXTextField txtCoemnatrio;
 
+    private int layoutxComentario;
+    private int layaoutYComentario;
+
     private Producto producto;
 
     private ControllerMostrarPublicacion controllerMostrarPublicacion;
     private Publicacion publicacion;
+    private PaneDinamico paneDinamico;
 
     @FXML
     void volver(ActionEvent event) throws IOException {
@@ -87,15 +95,30 @@ public class MostrarPublicaionController implements Initializable {
         lblMensaje.setText(mensaje);
         lblContadorMegusta.setText(String.valueOf(publicacion.getContadorMegusta()));
         lblContadorVisualizaciones.setText(String.valueOf(publicacion.getVisualizacion()));
+        paneDinamico=new PaneDinamico();
+        layoutxComentario=0;
+        layaoutYComentario=0;
 
     }
 
 
     @FXML
     void comentar(ActionEvent event) {
-
+        agregarPane(paneDinamico.buildPaneComentario(txtCoemnatrio.getText()));
     }
 
+    public void agregarPane(Pane pane){
+        // Ajusta el layout del Pane antes de agregarlo a la interfaz
+        pane.setLayoutX(layoutxComentario);
+        pane.setLayoutY(layaoutYComentario);
+
+        // Incrementa la posición Y para la próxima adición
+        layaoutYComentario += 40;
+
+        // Ahora agrega el Pane al contenedor
+        paneComentarios.getChildren().add(pane);
+        paneComentarios.setPrefHeight(paneComentarios.getPrefHeight() + 100);
+    }
     @FXML
     void meGusta(MouseEvent event) throws IOException {
         controllerMostrarPublicacion.modificarPublicacionLikes();

@@ -144,5 +144,30 @@ public class PaneDinamico  {
     }
 
 
+    public Pane buildPaneComentario(String comentario){
+        Pane pane = new AnchorPane();
+        pane.setPrefHeight(40);
+        pane.setPrefWidth(50);
+
+        Label label = new Label(comentario);
+        label.setPrefHeight(10);
+        label.setPrefWidth(400);
+        label.setLayoutX(0);
+        label.setLayoutY(0);
+        label.setAlignment(Pos.TOP_LEFT);
+        label.setFont(Font.font("Arial", FontWeight.BOLD, 17));
+        pane.getChildren().addAll(label);
+        // Creamos el efecto de sombra
+        pane.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 2px;");
+
+
+        return  pane;
+
+    }
+
+
+
+
+
 
 }
