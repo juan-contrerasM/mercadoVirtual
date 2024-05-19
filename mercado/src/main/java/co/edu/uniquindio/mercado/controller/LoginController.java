@@ -1,6 +1,7 @@
 package co.edu.uniquindio.mercado.controller;
 
 import co.edu.uniquindio.mercado.model.Administrador;
+import co.edu.uniquindio.mercado.model.Persona;
 import co.edu.uniquindio.mercado.model.Vendedor;
 
 import java.io.IOException;

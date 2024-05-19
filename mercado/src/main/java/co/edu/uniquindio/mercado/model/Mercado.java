@@ -63,7 +63,7 @@ public class Mercado {
 
     }
 
-    public Vendedor guardarVendedor(String nombre, int edad, String cedula, String correo, String numeroCelular, String nombreUsuario, String clave) {
+    public Vendedor guardarVendedor(String nombre, int edad, String cedula, String correo, String numeroCelular,String url, String nombreUsuario, String clave) {
         //se crea el vendedor
         Vendedor vendedor = new Vendedor();
         vendedor.setNombre(nombre);
@@ -74,6 +74,7 @@ public class Mercado {
         vendedor.setNombreUsuario(nombreUsuario);
         vendedor.setContrasenia(clave);
         vendedor.setTipoUsuario(TipoUsuario.VENDEDOR);
+        vendedor.setUrlImg(url);
         //se verifica que el vendedor no exista
         if (verificarVendedor(vendedor)) {
             listaVendedores.agregarfinal(vendedor);

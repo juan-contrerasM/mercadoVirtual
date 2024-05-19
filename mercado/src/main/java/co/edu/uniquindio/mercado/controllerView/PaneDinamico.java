@@ -22,6 +22,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -29,6 +30,8 @@ import java.util.ResourceBundle;
 
 public class PaneDinamico  {
     private ControllerPaneDinamico controllerPaneDinamico= new ControllerPaneDinamico();
+
+
     public Pane buildPane(String mensajeLabel, String url, int id) {
         Pane pane = new AnchorPane();
         pane.setPrefHeight(200);
@@ -97,23 +100,34 @@ public class PaneDinamico  {
         return pane;
     }
 
-    public Pane buildPane(String mensajeLabel) {
+    public Pane buildPane2(String mensajeLabel, String url) {
         Pane pane = new AnchorPane();
-        pane.setPrefHeight(100);
-        pane.setPrefWidth(120);
+        pane.setPrefHeight(220);
+        pane.setPrefWidth(200);
+
+
 
         Label label = new Label(mensajeLabel);
-        label.setPrefHeight(50);
-        label.setPrefWidth(100);
+        label.setPrefHeight(72);
+        label.setPrefWidth(171);
         label.setLayoutX(14);
-        label.setLayoutY(90);
+        label.setLayoutY(140);
         label.setAlignment(Pos.CENTER);
         label.setFont(Font.font("Arial", FontWeight.BOLD, 17));
 
-//        Button botonAgregar = new Button("agregar");
-//        botonAgregar.setVisible(true);
-//        //botonAgregar.getScaleX()
+        ImageView imageView = new ImageView(new Image(url));
+        imageView.setFitHeight(120);
+        imageView.setFitWidth(140);
+        imageView.setLayoutX(30);
+        imageView.setLayoutY(26);
 
+        Button boton = new Button("agregar");
+        pane.getChildren().add(boton);
+        boton.setLayoutX(65);
+        boton.setLayoutY(190);
+        boton.setOnMouseClicked(event -> {
+            JOptionPane.showMessageDialog(null, "solicitud enviada");
+        });
 
 
 
@@ -142,12 +156,28 @@ public class PaneDinamico  {
         pane.setEffect(shadow);
         pane.setStyle("-fx-background-color: lightgray; -fx-border-color: black; -fx-border-width: 2px;");
         pane.getChildren().addAll(label);
+        pane.getChildren().addAll(imageView);
 
-
-
+        // Manejamos el evento de clic del botón
+//        pane.setOnMouseClicked(event -> {
+//            try {
+//                controllerPaneDinamico.guardarPublicacionGlobal(id);
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("mostrarPublicacion.fxml"));
+//                Parent root = loader.load();
+//                Stage stage = new Stage();
+//                stage.setScene(new Scene(root));
+//                stage.show();
+//                MostrarPublicaionController mostrarPublicaionController = loader.getController();
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        });
 
         return pane;
     }
+
+
 
 
     public Pane buildPaneComentario(String nombreUsuario, String comentario, LocalDate fecha){

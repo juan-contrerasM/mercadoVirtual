@@ -18,8 +18,8 @@ public class ControllerRegistrarUsuarios {
 
     // metodo para crear un vendedor
 
-    public Vendedor crearVendedor(String nombre, int edad, String cedula, String correo, String numeroCelular, String nombreUsuario, String clave) throws IOException {
-        return modelfactoryController.crearVendedor(nombre,edad,cedula,correo,numeroCelular,nombreUsuario,clave);
+    public Vendedor crearVendedor(String nombre, int edad, String cedula, String correo, String numeroCelular,String url ,String nombreUsuario, String clave) throws IOException {
+        return modelfactoryController.crearVendedor(nombre,edad,cedula,correo,numeroCelular,url,nombreUsuario,clave);
     }
 
     // crea un administrador

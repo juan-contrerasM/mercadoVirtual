@@ -18,9 +18,26 @@ public abstract class Persona {
     private String numeroCelular;
     private TipoUsuario tipoUsuario;
     private String  cedula;
+    private String urlImg;
+
 
     private Arbol <Persona> redAmigos = new Arbol<>();
 
+    public Persona(String nombre, int edad,String cedula, String correo, String numeroCelular, String urlImg) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.correo = correo;
+        this.numeroCelular = numeroCelular;
+        this.tipoUsuario = tipoUsuario;
+        this.cedula = cedula;
+        this.urlImg = urlImg;
+    }
 
+    public Arbol<Persona> getRedAmigos() {
+        return redAmigos;
+    }
 
+    public void setRedAmigos(Arbol<Persona> redAmigos) {
+        this.redAmigos = redAmigos;
+    }
 }

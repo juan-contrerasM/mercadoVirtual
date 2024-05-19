@@ -38,7 +38,7 @@ public class buscarAmigosControllerView implements Initializable {
             paneDinamico = new PaneDinamico();
             layaoutXPaneSugerenciasAmigos = 26;
             layaoutYPaneSugerenciasAmigos = 0;
-            crearPaneSugerenciaAmigos(txtBuscarAmigos.getText());
+            buscadorSugerenciaAmigos(txtBuscarAmigos.getText());
         }
 
     }
@@ -52,8 +52,6 @@ public class buscarAmigosControllerView implements Initializable {
     private PaneDinamico paneDinamico;
 
 
-
-
     @SneakyThrows
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -63,63 +61,36 @@ public class buscarAmigosControllerView implements Initializable {
         paneDinamico = new PaneDinamico();
         layaoutXPaneSugerenciasAmigos = 26;
         layaoutYPaneSugerenciasAmigos = 0;
-        crearPaneSugerenciaAmigos("");
+        buscadorSugerenciaAmigos("");
     }
 
 
-    private void crearPaneSugerenciaAmigos(String palabra) throws IOException {
+    private void buscadorSugerenciaAmigos(String palabra) throws IOException {
         restablcerAjutesPaneSugerenciasAmigos();
         listaVendedores = buscarAmigosController.obtenerListaVendedores();
-        Vendedor aux ;
-        aux=obtenerVendedor();
-        if (!palabra.equals("")){
+        Vendedor aux;
+        aux = obtenerVendedor();
+        if (!palabra.equals("")) {
             for (int i = 0; i < listaVendedores.getTamanio(); i++) {
                 Vendedor vendedor = listaVendedores.obtenerValorNodo(i);
                 if (!aux.getNombreUsuario().equals(vendedor.getNombreUsuario())) {
                     try {
-                        if (palabra.equals(vendedor.getNombreUsuario())  ) {
-                            agregarPane(paneDinamico.buildPane(vendedor.getNombreUsuario() + "\n" + vendedor.getTipoUsuario()));
-                        } else if ( palabra.substring(0,1).equals(vendedor.getNombreUsuario().substring(0,1)) ) {
-                            agregarPane(paneDinamico.buildPane(vendedor.getNombreUsuario() + "\n" + vendedor.getTipoUsuario()));
-                        }else if (palabra.substring(0,2).equals(vendedor.getNombreUsuario().substring(0,2))) {
-                            agregarPane(paneDinamico.buildPane(vendedor.getNombreUsuario() + "\n" + vendedor.getTipoUsuario()));
+                        if (palabra.substring(0, palabra.length()).equals(vendedor.getNombreUsuario().substring(0, palabra.length()))) {
+                            agregarPane(paneDinamico.buildPane2(vendedor.getNombreUsuario() , vendedor.getUrlImg()));
+
                         }
-                    }catch (RuntimeException e){
-
+                    } catch (RuntimeException e) {
                     }
-
-                    }
-
-
-
-        }
-
-
-
-       }else{
+                }
+            }
+        } else {
             for (int i = 0; i < listaVendedores.getTamanio(); i++) {
                 Vendedor vendedor = listaVendedores.obtenerValorNodo(i);
                 if (!aux.getNombreUsuario().equals(vendedor.getNombreUsuario())) {
-                        agregarPane(paneDinamico.buildPane(vendedor.getNombreUsuario() + "\n" + vendedor.getTipoUsuario()));
-                    }
-
-
+                    agregarPane(paneDinamico.buildPane2(vendedor.getNombreUsuario() , vendedor.getUrlImg()));
+                                    }
             }
-
-
         }
-
-
-            //  for (Map.Entry<String, Publicacion> entry : mapaPublicaciones.entrySet()) {
-//            String clave = entry.getKey();
-//            Publicacion publicacion = entry.getValue();
-//            agregarPane(paneDinamico.buildPane(publicacion.getTitulo()+"\n"+publicacion.getProducto().getPrecio()+"$",publicacion.getProducto().getUrlImagen(),publicacion.getProducto().getId()));
-//            System.out.println(publicacion.getProducto().getId());
-//        }
-
-
-
-
     }
 
 
@@ -139,35 +110,12 @@ public class buscarAmigosControllerView implements Initializable {
             layaoutXPaneSugerenciasAmigos += 274;
         }
     }
-//    private void agregarPane(Pane pane) {
-//        panePublicaciones.getChildren().add(pane);
-//        pane.setLayoutX(layaoutXPanePublicaciones);
-//        pane.setLayoutY(layaoutYPanePublicaciones);
-//        if (layaoutXPanePublicaciones % 100 == 0) {
-//            layaoutXPanePublicaciones -= 274;
-//            layaoutYPanePublicaciones += 255;
-//            panePublicaciones.setPrefHeight(panePublicaciones.getPrefHeight() + 500);
-//        } else {
-//            layaoutXPanePublicaciones += 274;
-//        }
-//    }
 
     private void restablcerAjutesPaneSugerenciasAmigos() {
         paneSugerenciaAmigos.getChildren().clear();
         layaoutXPaneSugerenciasAmigos = 26;
         layaoutYPaneSugerenciasAmigos = 83;
     }
-//    private  void crearPanePublicaion() throws IOException {
-//        //obtenemos denuevo las publicaiones creadas
-//        restablcerAjutesPanePublicaiones();
-//        mapaPublicaciones=principalController.obtenerPublicaciones();
-//        for (Map.Entry<String, Publicacion> entry : mapaPublicaciones.entrySet()) {
-//            String clave = entry.getKey();
-//            Publicacion publicacion = entry.getValue();
-//            agregarPane(paneDinamico.buildPane(publicacion.getTitulo()+"\n"+publicacion.getProducto().getPrecio()+"$",publicacion.getProducto().getUrlImagen(),publicacion.getProducto().getId()));
-//            System.out.println(publicacion.getProducto().getId());
-//        }
-//    }
 
     public void mostrarSugerencias() throws IOException {
         paneSugerenciaAmigos.getChildren().clear();
@@ -175,18 +123,6 @@ public class buscarAmigosControllerView implements Initializable {
         layaoutYPaneSugerenciasAmigos = 500;
     }
 
-
-//    private  void crearPanePublicaion() throws IOException {
-//        //obtenemos denuevo las publicaiones creadas
-//        restablcerAjutesPanePublicaiones();
-//        mapaPublicaciones=principalController.obtenerPublicaciones();
-//        for (Map.Entry<String, Publicacion> entry : mapaPublicaciones.entrySet()) {
-//            String clave = entry.getKey();
-//            Publicacion publicacion = entry.getValue();
-//            agregarPane(paneDinamico.buildPane(publicacion.getTitulo()+"\n"+publicacion.getProducto().getPrecio()+"$",publicacion.getProducto().getUrlImagen(),publicacion.getProducto().getId()));
-//            System.out.println(publicacion.getProducto().getId());
-//        }
-//    }
 }
 
 

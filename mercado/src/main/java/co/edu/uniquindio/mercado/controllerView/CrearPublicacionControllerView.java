@@ -85,16 +85,18 @@ public class CrearPublicacionControllerView implements Initializable {
             for (File file : selectedFiles) {
                 // Copia o mueve el archivo a la ubicación deseada en tu proyecto
                 try {
-                    File destino = new File("src/main/resources/co/edu/uniquindio/imagenesUsuario/" + file.getName());
+                    File destino = new File("mercado/src/main/resources/co/edu/uniquindio/imagenesUsuario/" + file.getName());
                     Files.copy(file.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     System.out.println("Ruta del archivo: " + destino.getAbsolutePath());
+                    // la ruta no absoluta se utiliza para poder cargar las imagenes desde cualquier computador
+                    System.out.println("Ruta del archivo no absoluta: " + destino.getPath());
 
                     // Convierte la ruta del archivo a una URL válida
                     String url = destino.toURI().toString();
                     // Carga la imagen en el ImageView
                     Image image = new Image(url);
                     imgUrlProducto.setImage(image);
-                    txtUrl.setText(url);
+                    txtUrl.setText(destino.getPath());
                 } catch (IOException e) {
                     JOptionPane.showMessageDialog(null, "Error al importar imagen: " + e);
 

@@ -36,10 +36,10 @@ public class ModelFactoryController {
 
     //------------------------------------------METODOS VENDEDOR----------------------------------------------------------------
     //CREA UN VENDEDOR
-    public Vendedor crearVendedor(String nombre, int edad, String cedula, String correo, String numeroCelular, String nombreUsuario, String clave) throws IOException {
+    public Vendedor crearVendedor(String nombre, int edad, String cedula, String correo, String numeroCelular,String url, String nombreUsuario, String clave) throws IOException {
         mercado.getListaVendedores().eliminarTodo();// elimina todo lo que haya en la lista
         mercado.setListaVendedores(Persistencia.cargarVendedores()); // se vuelvea cargar los datos a la lista princpial
-        Vendedor vendedor = mercado.guardarVendedor(nombre, edad, cedula, correo, numeroCelular, nombreUsuario, clave);// se guarda el vendedor
+        Vendedor vendedor = mercado.guardarVendedor(nombre, edad, cedula, correo, numeroCelular,url, nombreUsuario, clave);// se guarda el vendedor
         Persistencia.guardarVendedores(mercado.getListaVendedores());// vuelve y guarda los vendedores en el txt
         return vendedor; // return el vendedor
 
