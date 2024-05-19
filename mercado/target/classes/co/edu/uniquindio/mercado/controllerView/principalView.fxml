@@ -23,17 +23,17 @@
                       <Image url="@../imagenes/logo.jpeg" />
                   </image>
               </ImageView>
-              <ImageView fx:id="imgAmigos" fitHeight="39.0" fitWidth="39.0" layoutX="373.0" layoutY="18.0" onMouseClicked="#abrirBuscarAmigos" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
+              <ImageView fx:id="imgAmigos" fitHeight="39.0" fitWidth="39.0" layoutX="412.0" layoutY="18.0" onMouseClicked="#abrirBuscarAmigos" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
                   <image>
                       <Image url="@../imagenes/imgAmigos.png" />
                   </image>
               </ImageView>
-              <ImageView fx:id="imgSuma" fitHeight="39.0" fitWidth="39.0" layoutX="458.0" layoutY="18.0" onMouseClicked="#abrirCrearPublicacion" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
+              <ImageView fx:id="imgSuma" fitHeight="39.0" fitWidth="39.0" layoutX="517.0" layoutY="17.0" onMouseClicked="#abrirCrearPublicacion" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
                   <image>
                       <Image url="@../imagenes/imgSuma.png" />
                   </image>
               </ImageView>
-              <ImageView fx:id="imgMensajes" fitHeight="39.0" fitWidth="45.0" layoutX="624.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
+              <ImageView fx:id="imgMensajes" fitHeight="39.0" fitWidth="45.0" layoutX="610.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
                   <image>
                       <Image url="@../imagenes/mensajes.png" />
                   </image>
@@ -47,16 +47,11 @@
                <URL value="@../css/principalStyle.css" />
                <URL value="@../csj/MFXButton.css" />
             </stylesheets></MFXButton>
-         <ImageView fx:id="imgMe" fitHeight="39.0" fitWidth="39.0" layoutX="695.0" layoutY="18.0" onMouseClicked="#publicacionesPersonalizada" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="imgMe" fitHeight="39.0" fitWidth="39.0" layoutX="690.0" layoutY="17.0" onMouseClicked="#publicacionesPersonalizada" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../imagenes/imgMe.png" />
             </image>
          </ImageView>
-              <ImageView fx:id="imgEstadistica" fitHeight="39.0" fitWidth="45.0" layoutX="543.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
-                  <image>
-                      <Image url="@../imagenes/estadistica.png" />
-                  </image>
-              </ImageView>
           </children>
       </Pane>
       <ScrollPane layoutX="350.0" layoutY="150.0" prefHeight="458.0" prefWidth="529.0">
