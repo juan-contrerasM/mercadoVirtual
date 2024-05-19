@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class PaneDinamico  {
@@ -144,23 +145,39 @@ public class PaneDinamico  {
     }
 
 
-    public Pane buildPaneComentario(String comentario){
+    public Pane buildPaneComentario(String nombreUsuario, String comentario, LocalDate fecha){
         Pane pane = new AnchorPane();
         pane.setPrefHeight(40);
         pane.setPrefWidth(50);
+        pane.setStyle("-fx-border-color: transparent transparent black transparent; -fx-border-width: 0 0 1 0;");
 
-        Label label = new Label(comentario);
+        Label label = new Label(nombreUsuario);
         label.setPrefHeight(10);
-        label.setPrefWidth(400);
+        label.setPrefWidth(500);
         label.setLayoutX(0);
         label.setLayoutY(0);
         label.setAlignment(Pos.TOP_LEFT);
         label.setFont(Font.font("Arial", FontWeight.BOLD, 17));
         pane.getChildren().addAll(label);
-        // Creamos el efecto de sombra
-        pane.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-border-width: 2px;");
+
+        Label labelComentario  = new Label(comentario);
+        labelComentario.setPrefHeight(10);
+        labelComentario.setPrefWidth(500);
+        labelComentario.setLayoutX(0);
+        labelComentario.setLayoutY(20);
+        labelComentario.setAlignment(Pos.TOP_LEFT);
+        labelComentario.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 16));
+        pane.getChildren().addAll(labelComentario);
 
 
+        Label labelFecha  = new Label(fecha+"");
+        labelFecha.setPrefHeight(10);
+        labelFecha.setPrefWidth(500);
+        labelFecha.setLayoutX(0);
+        labelFecha.setLayoutY(40);
+        labelFecha.setAlignment(Pos.TOP_LEFT);
+        labelFecha.setFont(Font.font("Arial", FontWeight.EXTRA_LIGHT, 16));
+        pane.getChildren().addAll(labelFecha);
         return  pane;
 
     }

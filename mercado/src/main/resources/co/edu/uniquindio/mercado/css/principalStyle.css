@@ -11,6 +11,18 @@
     -fx-border-color: red;
 }
 
+.imgLike{
+    -fx-scale-x: 1.0;
+    -fx-scale-y: 1.0;
+    -fx-border-radius: 5;
+    -fx-border-color: black;
+}
+
+.imgLike:hover {
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-border-color: red;
+}
 #paneHerramientas, #paneBuscador{
 
     -fx-background-color:

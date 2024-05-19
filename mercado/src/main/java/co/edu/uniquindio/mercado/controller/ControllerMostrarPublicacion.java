@@ -25,4 +25,12 @@ public class ControllerMostrarPublicacion {
     public void modificarPublicacionLikes() throws IOException {
         modelfactoryController.modificarPublicaionLikes();
     }
+
+    public void modificarPublicacionComentarios(String mensaje) throws IOException {
+        modelfactoryController.modificarPublicaionComentario(mensaje);
+    }
+
+    public void filtrarComenatrios() throws IOException {
+        modelfactoryController.filtrarComentario();
+    }
 }

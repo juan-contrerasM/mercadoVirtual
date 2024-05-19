@@ -6,6 +6,7 @@ import co.edu.uniquindio.banco.bancouq.model.*;*/
 import co.edu.uniquindio.mercado.controller.ModelFactoryController;
 import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.ListaDoble;
 import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.ListaSimple;
+import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.Pila;
 import co.edu.uniquindio.mercado.model.*;
 import co.edu.uniquindio.mercado.model.enums.TipoCategoria;
 import co.edu.uniquindio.mercado.model.enums.TipoEstado;
@@ -31,6 +32,7 @@ public class Persistencia {
 
     private static  final String RUTA_ARCHVIO_CODIGOPRODCUTO="src/main/resources/co/edu/uniquindio/mercado/archivos/codigoProducto";
 
+    private static  final String  RUTA_ARCHIVO_COMENTARIO="src/main/resources/co/edu/uniquindio/mercado/archivos/comentarios";
 
     /**
      * Guarda en un archivo de texto todos la información de las personas almacenadas en el ArrayList
@@ -66,17 +68,17 @@ public class Persistencia {
         }
         ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_ADMINISTRADOR, contenido, false);
     }
-    public static void guardarProductos(ListaDoble<Administrador> listaAdministrador) throws IOException {
+    public static void guardarComentario(Pila<Comentario> listaComentarios) throws IOException {
         // TODO Auto-generated method stub
         String contenido = "";
-        Administrador administrador = new Administrador();
-        for (int i = 0; i < listaAdministrador.getTamanio(); i++) {
-            administrador=listaAdministrador.obtenerValorNodo(i);
-            contenido += administrador.getNombreUsuario() + "--" + administrador.getContrasenia() + "--" + administrador.getNombre() + "--" +
-                    administrador.getEdad() + "--" + administrador.getCorreo() + "--" + administrador.getNumeroCelular() + "--" + administrador.getTipoUsuario() +
-                    "--" + administrador.getCedula() + "\n";
+       Comentario comentario =new Comentario();
+        int tamanio= listaComentarios.getTamanio();
+        for (int i = 0; i < tamanio; i++) {
+            comentario=listaComentarios.desapilar();
+            contenido += comentario.getVendedor().getNombreUsuario()+ "--" + comentario.getPublicacion().getProducto().getId()+ "--" + comentario.getMensaje() + "--" +
+                    comentario.getFecha() + "--" + comentario.getHora() + "\n";
         }
-        ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_ADMINISTRADOR, contenido, false);
+        ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_COMENTARIO, contenido, false);
     }
 
     public  static  void guadrarCodigoProducto(int codigo) throws IOException {
@@ -109,6 +111,7 @@ public class Persistencia {
         ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_PUBLICACIONES, contenido.toString(), false);
     }
 
+
     public static void guardarMegustas(ArrayList<Megusta> listaMeGusta) throws IOException {
         // TODO Auto-generated method stub
         String contenido = "";
@@ -125,6 +128,32 @@ public class Persistencia {
 
 
 //	--------------------------------------------CARGAR ARCHIVOS----------------------------------------------------------
+public static ArrayList<Megusta> cargarMegustas() throws FileNotFoundException, IOException {
+    ArrayList<Megusta> listaMegustas = new ArrayList<>();
+    ArrayList<String> contenido = ArchivoUtil.leerArchivo(RUTA_ARCHVIO_Megustas);
+    String linea = "";
+    for (int i = 0; i < contenido.size(); i++) {
+        linea = contenido.get(i);//juan,arias,125454,Armenia,uni1@,12454,125444
+        Megusta megusta = new Megusta();
+        Vendedor vendedor=new Vendedor();
+        Publicacion publicacion= new Publicacion();
+        Producto producto= new Producto();
+        megusta.setVendedor(vendedor);
+        megusta.setPublicacion(publicacion);
+        megusta.getVendedor().setNombreUsuario(linea.split("--")[0]);
+        megusta.setPublicacion(publicacion);
+        megusta.getPublicacion().setProducto(producto);
+        megusta.getPublicacion().getProducto().setId(Integer.parseInt(linea.split("--")[1]));
+        megusta.setHora(LocalTime.parse(linea.split("--")[2]));
+        megusta.setFecha(LocalDate.parse(linea.split("--")[3]));
+        listaMegustas.add(megusta);
+    }
+
+
+    return listaMegustas;
+}
+
+
 
     /**
      * @param
@@ -133,29 +162,30 @@ public class Persistencia {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public static ArrayList<Megusta> cargarMegustas() throws FileNotFoundException, IOException {
-        ArrayList<Megusta> listaMegustas = new ArrayList<>();
-        ArrayList<String> contenido = ArchivoUtil.leerArchivo(RUTA_ARCHVIO_Megustas);
+    public static Pila<Comentario> cargarComentarios ()throws FileNotFoundException, IOException {
+        Pila<Comentario> listaComentarios = new Pila<>();
+        ArrayList<String> contenido = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_COMENTARIO);
         String linea = "";
         for (int i = 0; i < contenido.size(); i++) {
-            linea = contenido.get(i);//juan,arias,125454,Armenia,uni1@,12454,125444
-            Megusta megusta = new Megusta();
+            linea = contenido.get(i);
+            Comentario comentario = new Comentario();
             Vendedor vendedor=new Vendedor();
             Publicacion publicacion= new Publicacion();
             Producto producto= new Producto();
-            megusta.setVendedor(vendedor);
-            megusta.setPublicacion(publicacion);
-            megusta.getVendedor().setNombreUsuario(linea.split("--")[0]);
-            megusta.setPublicacion(publicacion);
-            megusta.getPublicacion().setProducto(producto);
-            megusta.getPublicacion().getProducto().setId(Integer.parseInt(linea.split("--")[1]));
-            megusta.setHora(LocalTime.parse(linea.split("--")[2]));
-            megusta.setFecha(LocalDate.parse(linea.split("--")[3]));
-            listaMegustas.add(megusta);
+            comentario.setVendedor(vendedor);
+            comentario.setPublicacion(publicacion);
+            comentario.getVendedor().setNombreUsuario(linea.split("--")[0]);
+            comentario.setPublicacion(publicacion);
+            comentario.getPublicacion().setProducto(producto);
+            comentario.getPublicacion().getProducto().setId(Integer.parseInt(linea.split("--")[1]));
+            comentario.setMensaje(linea.split("--")[2]);
+            comentario.setFecha(LocalDate.parse(linea.split("--")[3]));
+            comentario.setHora(LocalTime.parse(linea.split("--")[4]));
+            listaComentarios.apilar(comentario);
         }
 
 
-        return listaMegustas;
+        return listaComentarios;
     }
 
 
@@ -193,7 +223,8 @@ public class Persistencia {
             publicacion.setContadorMegusta(Integer.parseInt(partes[11]));
             ArrayList<Megusta> listMegusta=new ArrayList<>();
             publicacion.setListMegusta(listMegusta);
-
+            Pila<Comentario>listaComentarios=new Pila<>();
+            publicacion.setListComentario(listaComentarios);
             publicaciones.put(partes[0], publicacion);
         }
 

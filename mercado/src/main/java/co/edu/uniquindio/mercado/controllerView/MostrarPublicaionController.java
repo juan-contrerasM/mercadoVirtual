@@ -1,10 +1,8 @@
 package co.edu.uniquindio.mercado.controllerView;
 
 import co.edu.uniquindio.mercado.controller.ControllerMostrarPublicacion;
-import co.edu.uniquindio.mercado.model.Megusta;
-import co.edu.uniquindio.mercado.model.Producto;
-import co.edu.uniquindio.mercado.model.Publicacion;
-import co.edu.uniquindio.mercado.model.Vendedor;
+import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.Pila;
+import co.edu.uniquindio.mercado.model.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.controls.legacy.MFXLegacyComboBox;
@@ -23,6 +21,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -95,17 +94,33 @@ public class MostrarPublicaionController implements Initializable {
         lblMensaje.setText(mensaje);
         lblContadorMegusta.setText(String.valueOf(publicacion.getContadorMegusta()));
         lblContadorVisualizaciones.setText(String.valueOf(publicacion.getVisualizacion()));
+        lblContadorComentarios.setText(String.valueOf(publicacion.getContadorComentarios()));
         paneDinamico=new PaneDinamico();
-        layoutxComentario=0;
+        layoutxComentario=10;
         layaoutYComentario=0;
+         controllerMostrarPublicacion.filtrarComenatrios();
+        cargarComentario(publicacion.getListComentario());
+
+
+
+
+
+
+    }
+
+    public void cargarComentario(Pila<Comentario> comentarios){
+        int tamanio= comentarios.getTamanio();
+        Comentario comentario= new Comentario();
+        for (int i = 0; i < tamanio; i++) {
+            comentario=comentarios.desapilar();
+            agregarPane(paneDinamico.buildPaneComentario(publicacion.getVendedor().getNombreUsuario(),comentario.getMensaje(), comentario.getFecha()));
+
+        }
 
     }
 
 
-    @FXML
-    void comentar(ActionEvent event) {
-        agregarPane(paneDinamico.buildPaneComentario(txtCoemnatrio.getText()));
-    }
+
 
     public void agregarPane(Pane pane){
         // Ajusta el layout del Pane antes de agregarlo a la interfaz
@@ -113,7 +128,7 @@ public class MostrarPublicaionController implements Initializable {
         pane.setLayoutY(layaoutYComentario);
 
         // Incrementa la posición Y para la próxima adición
-        layaoutYComentario += 40;
+        layaoutYComentario += 60;
 
         // Ahora agrega el Pane al contenedor
         paneComentarios.getChildren().add(pane);
@@ -124,6 +139,14 @@ public class MostrarPublicaionController implements Initializable {
         controllerMostrarPublicacion.modificarPublicacionLikes();
         lblContadorMegusta.setText(String.valueOf(publicacion.getContadorMegusta()));
     }
+    @FXML
+    void comentar(ActionEvent event) throws IOException {
+        agregarPane(paneDinamico.buildPaneComentario(publicacion.getVendedor().getNombreUsuario(),txtCoemnatrio.getText(), LocalDate.now()));
+        controllerMostrarPublicacion.modificarPublicacionComentarios(txtCoemnatrio.getText());
+        lblContadorComentarios.setText(String.valueOf(publicacion.getContadorComentarios()));
+
+    }
+
 
 
 }

@@ -2,6 +2,7 @@ package co.edu.uniquindio.mercado.model;
 
 import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.ListaDoble;
 import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.ListaSimple;
+import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.Pila;
 import co.edu.uniquindio.mercado.model.enums.TipoCategoria;
 import co.edu.uniquindio.mercado.model.enums.TipoEstado;
 import lombok.AllArgsConstructor;
@@ -32,6 +33,8 @@ public class Mercado {
     int codigoProdcuto=0;
     private Publicacion publicaionGlobal;
     private ArrayList<Megusta>listMegustaTotalApp=new ArrayList<>();
+    private Pila<Comentario> listaComentariosGlobal= new Pila<>();
+
 
 
     public static ListaSimple<Vendedor> cargarVendedores(){
@@ -255,6 +258,7 @@ public class Mercado {
         }
     }
 
+
     public ArrayList<Megusta>obtenerListaLikesPersonalizaPublicaicon(){
         ArrayList<Megusta> listMegusta=new ArrayList<>();
         for (Megusta megusta:listMegustaTotalApp) {
@@ -274,6 +278,71 @@ public class Mercado {
         return true;
 
     }
+
+    public void modficarComentarios(String mensaje){
+        LocalTime horaInteraccion = LocalTime.now();
+        LocalDate fechaInteraccion = LocalDate.now();
+        Comentario comentario = new Comentario(estadoGlobalVendedor, horaInteraccion, fechaInteraccion, publicaionGlobal,mensaje);
+        for (Map.Entry<String, Publicacion> entry : publicaciones.entrySet()) {
+            String key = entry.getKey();
+            Publicacion value = entry.getValue();
+            if(value.getProducto().getId()==publicaionGlobal.getProducto().getId()){
+                value.getListComentario().clear();//lista personalisas de esa publicaion
+                value.setListComentario(obtenerListaPersonalizaComentario());// cargo la lista
+                publicaionGlobal.setListMegusta(value.getListMegusta());
+                if(verificarLike()) {
+                   listaComentariosGlobal.apilar(comentario);
+                    value.getListComentario().apilar(comentario);
+                    value.setContadorComentarios(publicaionGlobal.getContadorComentarios() + 1);
+                    publicaionGlobal.setContadorComentarios(value.getContadorComentarios());
+                }
+            }
+        }
+    }
+
+    public Pila<Comentario>obtenerListaPersonalizaComentario(){
+        Pila<Comentario> listComentarioPila=new Pila<>();
+        Pila<Comentario>listaAux=new Pila<>();
+        int tamanio= listaComentariosGlobal.getTamanio();
+        for (int i = 0; i < tamanio; i++) {
+            Comentario comentario= listaComentariosGlobal.desapilar();
+            listaAux.apilar(comentario);
+            if(comentario.getPublicacion().getProducto().getId()==publicaionGlobal.getProducto().getId()){
+                listComentarioPila.apilar(comentario);
+            }
+        }
+        int tamanioPilaAux= listaAux.getTamanio();
+        for (int i = 0; i < tamanioPilaAux ; i++) {
+            listaComentariosGlobal.apilar(listaAux.desapilar());
+        }
+
+        return listComentarioPila;
+    }
+    public void obtenerListaComentario(){
+        Pila<Comentario> listComentarioPila=new Pila<>();
+        Pila<Comentario>listaAux=new Pila<>();
+        int tamanio= listaComentariosGlobal.getTamanio();
+        for (int i = 0; i < tamanio; i++) {
+            Comentario comentario= listaComentariosGlobal.desapilar();
+            listaAux.apilar(comentario);
+            if(comentario.getPublicacion().getProducto().getId()==publicaionGlobal.getProducto().getId()){
+                listComentarioPila.apilar(comentario);
+            }
+        }
+        int tamanioPilaAux= listaAux.getTamanio();
+        for (int i = 0; i < tamanioPilaAux ; i++) {
+            listaComentariosGlobal.apilar(listaAux.desapilar());
+        }
+
+       publicaionGlobal.getListComentario().clear();
+        publicaionGlobal.setListComentario(listComentarioPila);
+    }
+
+
+
+
+
+
 
     public ListaSimple<Vendedor> obtenerListaVendedores2() {
         subirVendedores();

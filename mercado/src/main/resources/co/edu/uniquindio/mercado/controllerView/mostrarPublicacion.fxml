@@ -13,7 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="622.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.mercado.controllerView.MostrarPublicaionController">
    <children>
-      <ScrollPane layoutX="1.0" layoutY="-2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="622.0">
+      <ScrollPane layoutX="1.0" layoutY="-2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="622.0" stylesheets="@../css/mostrarPublicaiones.css">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1075.0" prefWidth="594.0">
                <children>
@@ -82,10 +82,16 @@
                               <URL value="@../css/principalStyle.css" />
                            </stylesheets>
                         </MFXButton>
+                        <Label layoutX="36.0" layoutY="538.0" text="Comentarios ">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
                      </children>
                      <stylesheets>
                         <URL value="@../css/principalStyle.css" />
                         <URL value="@../css/loginStyle.css" />
+                        <URL value="@../css/mostrarPublicaiones.css" />
                      </stylesheets>
                   </AnchorPane>
                </children>

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.mercado.model;
 
+import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.Pila;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ public class Publicacion {
     private LocalDate diaPublicado;
     private Integer contadorComentarios;
     private  Integer contadorMegusta;
-    private LinkedList<Comentario>listComentario;
+    private Pila<Comentario> listComentario;
     private ArrayList<Megusta> listMegusta;
     private int visualizacion;
 }

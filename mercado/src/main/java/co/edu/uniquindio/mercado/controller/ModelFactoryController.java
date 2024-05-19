@@ -18,6 +18,8 @@ public class ModelFactoryController {
     }
 
 
+
+
     // periste teer una intancia uncia del model factory y la clase mercado
 
     private static class SingletonHolder {
@@ -158,6 +160,18 @@ public class ModelFactoryController {
         Persistencia.guardarPublicaciones(mercado.getPublicaciones());
 
     }
+    public void modificarPublicaionComentario(String mensaje) throws IOException {
+        mercado.getPublicaciones().clear();
+        mercado.setPublicaciones(Persistencia.cargarPublicaciones());
+        mercado.getListaComentariosGlobal().clear();
+        mercado.setListaComentariosGlobal(Persistencia.cargarComentarios());
+        mercado.modficarComentarios(mensaje);
+        Persistencia.guardarComentario(mercado.getListaComentariosGlobal());
+        Persistencia.guardarPublicaciones(mercado.getPublicaciones());
+
+
+    }
+
     public  void modificarPublicaionLikes() throws IOException {
         mercado.getPublicaciones().clear();
         mercado.setPublicaciones(Persistencia.cargarPublicaciones());
@@ -169,6 +183,13 @@ public class ModelFactoryController {
     }
     public Publicacion obtenerPublicacionGlobal() {
         return mercado.getPublicaionGlobal();
+    }
+    public void filtrarComentario() throws IOException {
+        mercado.getListaComentariosGlobal().clear();
+        mercado.setListaComentariosGlobal(Persistencia.cargarComentarios());
+
+        mercado.obtenerListaComentario();
+        Persistencia.guardarComentario(mercado.getListaComentariosGlobal());
     }
 }
 
