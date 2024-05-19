@@ -27,4 +27,8 @@ public class PrincipalController {
 
     public TreeMap<String, Publicacion> obtenerPublicaciones() throws IOException {return modelfactoryController.obtenerPublicaiones();
     }
+
+    public TreeMap<String, Publicacion> obtenerPublicacionesUsuario() throws IOException {
+        return modelfactoryController.obtenerPublicaionesUsuario();
+    }
 }

@@ -85,6 +85,8 @@ public class PrincipalControllerView implements Initializable {
 
     @FXML
     private MFXTextField txtMaxFiltro;
+    @FXML
+    private ImageView imgMe;
 
     @FXML
     private MFXTextField txtMinFiltro;
@@ -237,6 +239,14 @@ public class PrincipalControllerView implements Initializable {
         }
 
     }
+
+    //copiar y pegar
+    @FXML
+    void publicacionesPersonalizada(MouseEvent event) throws IOException {
+       TreeMap<String,Publicacion> publiacionesUsuario=principalController.obtenerPublicacionesUsuario();
+
+    }
+
 
 
 

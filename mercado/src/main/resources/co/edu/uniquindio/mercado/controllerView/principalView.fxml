@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.*?>
-<?import io.github.palexdev.materialfx.controls.legacy.*?>
-<?import java.net.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.legacy.MFXLegacyComboBox?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="PanePrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.mercado.controllerView.PrincipalControllerView">
+<AnchorPane fx:id="PanePrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.mercado.controllerView.PrincipalControllerView">
 
 
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
@@ -24,18 +28,12 @@
                       <Image url="@../imagenes/imgAmigos.png" />
                   </image>
               </ImageView>
-         <Pane fx:id="paneAgregarPublicacion" layoutX="520.0" layoutY="8.0" prefHeight="45.0" prefWidth="54.0" />
-              <ImageView fx:id="imgSuma" fitHeight="39.0" fitWidth="39.0" layoutX="471.0" layoutY="18.0" onMouseClicked="#abrirCrearPublicacion" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
+              <ImageView fx:id="imgSuma" fitHeight="39.0" fitWidth="39.0" layoutX="458.0" layoutY="18.0" onMouseClicked="#abrirCrearPublicacion" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
                   <image>
                       <Image url="@../imagenes/imgSuma.png" />
                   </image>
               </ImageView>
-              <ImageView fx:id="imgEstadistica" fitHeight="39.0" fitWidth="45.0" layoutX="567.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
-                  <image>
-                      <Image url="@../imagenes/estadistica.png" />
-                  </image>
-              </ImageView>
-              <ImageView fx:id="imgMensajes" fitHeight="39.0" fitWidth="45.0" layoutX="656.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
+              <ImageView fx:id="imgMensajes" fitHeight="39.0" fitWidth="45.0" layoutX="624.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
                   <image>
                       <Image url="@../imagenes/mensajes.png" />
                   </image>
@@ -49,6 +47,16 @@
                <URL value="@../css/principalStyle.css" />
                <URL value="@../csj/MFXButton.css" />
             </stylesheets></MFXButton>
+         <ImageView fx:id="imgMe" fitHeight="39.0" fitWidth="39.0" layoutX="695.0" layoutY="18.0" onMouseClicked="#publicacionesPersonalizada" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../imagenes/imgMe.png" />
+            </image>
+         </ImageView>
+              <ImageView fx:id="imgEstadistica" fitHeight="39.0" fitWidth="45.0" layoutX="543.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" styleClass="imagen">
+                  <image>
+                      <Image url="@../imagenes/estadistica.png" />
+                  </image>
+              </ImageView>
           </children>
       </Pane>
       <ScrollPane layoutX="350.0" layoutY="150.0" prefHeight="458.0" prefWidth="529.0">

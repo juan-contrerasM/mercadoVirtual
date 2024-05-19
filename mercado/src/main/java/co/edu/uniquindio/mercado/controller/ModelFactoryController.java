@@ -153,6 +153,11 @@ public class ModelFactoryController {
         Persistencia.guardarPublicaciones(mercado.getPublicaciones());
         return  mercado.getPublicaciones();
     }
+    public TreeMap<String, Publicacion> obtenerPublicaionesUsuario() throws IOException {
+        mercado.setPublicaciones(Persistencia.cargarPublicaciones());
+        Persistencia.guardarPublicaciones(mercado.getPublicaciones());
+       return mercado.obtenerPublicaionesUsuario();
+    }
     public void guardarPublicacionGlobal(int id) throws IOException {
         mercado.getPublicaciones().clear();
         mercado.setPublicaciones(Persistencia.cargarPublicaciones());

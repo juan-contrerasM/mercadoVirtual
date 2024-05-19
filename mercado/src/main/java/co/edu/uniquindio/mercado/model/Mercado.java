@@ -23,36 +23,31 @@ import java.util.*;
 @ToString // Esta anotación genera automáticamente el método toString para la clase.
 public class Mercado {
     //-------------------------------- atributos-----------------------
-    private  ListaSimple<Vendedor> listaVendedores = new ListaSimple<>();
+    private ListaSimple<Vendedor> listaVendedores = new ListaSimple<>();
     private ListaDoble<Administrador> listaAdministrador = new ListaDoble<>();
     private Boolean verificacionCorreo = false;
-    private  static Vendedor estadoGlobalVendedor = new Vendedor();
+    private static Vendedor estadoGlobalVendedor = new Vendedor();
     private Administrador estadoGlobalAdministrador = new Administrador();
     private HashMap<String, Producto> productos = new HashMap<>();
-    private TreeMap<String,Publicacion>publicaciones= new TreeMap<>();
-    int codigoProdcuto=0;
+    private TreeMap<String, Publicacion> publicaciones = new TreeMap<>();
+    int codigoProdcuto = 0;
     private Publicacion publicaionGlobal;
-    private ArrayList<Megusta>listMegustaTotalApp=new ArrayList<>();
-    private Pila<Comentario> listaComentariosGlobal= new Pila<>();
+    private ArrayList<Megusta> listMegustaTotalApp = new ArrayList<>();
+    private Pila<Comentario> listaComentariosGlobal = new Pila<>();
 
 
-
-    public static ListaSimple<Vendedor> cargarVendedores(){
+    public static ListaSimple<Vendedor> cargarVendedores() {
         try {
-             return Persistencia.cargarVendedores();
+            return Persistencia.cargarVendedores();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    public void subirVendedores(){
-         listaVendedores =cargarVendedores();
+
+    public void subirVendedores() {
+        listaVendedores = cargarVendedores();
 
     }
-
-
-
-
-
 
 
     //---------------------------------------------------------------------------
@@ -190,17 +185,18 @@ public class Mercado {
 
     //--------------------------------------------metodoProducto------------------------------------
     public Producto guardarProducto(String url, String precio, String nombreProducto, TipoEstado tipoEstado, TipoCategoria tipoCategoria) {
-        codigoProdcuto+=1;
+        codigoProdcuto += 1;
         Producto producto = new Producto(nombreProducto, url, precio, tipoCategoria, tipoEstado, codigoProdcuto);// cre un producto
         productos.put(nombreProducto, producto);// lo guarda en el map
         return producto;// return el productoGuardado
     }
 
     public Publicacion guadarPublicaion(Producto producto, String decripcion, String titulo) {
-        Publicacion publicacion= new Publicacion(titulo,producto,estadoGlobalVendedor,decripcion,obtenerHoraActual(),obtenerFechaActual(),0,0,null,null,0);
-        publicaciones.put(String.valueOf(producto.getId()),publicacion);
-        return  publicacion;
+        Publicacion publicacion = new Publicacion(titulo, producto, estadoGlobalVendedor, decripcion, obtenerHoraActual(), obtenerFechaActual(), 0, 0, null, null, 0);
+        publicaciones.put(String.valueOf(producto.getId()), publicacion);
+        return publicacion;
     }
+
     public static LocalTime obtenerHoraActual() {
         return LocalTime.now();
     }
@@ -214,10 +210,10 @@ public class Mercado {
         for (Map.Entry<String, Publicacion> entry : publicaciones.entrySet()) {
             String key = entry.getKey();
             Publicacion value = entry.getValue();
-            if(value.getProducto().getId()==id){
-                publicaionGlobal=value;
-                publicaionGlobal.setVisualizacion(publicaionGlobal.getVisualizacion()+1);
-                value=publicaionGlobal;
+            if (value.getProducto().getId() == id) {
+                publicaionGlobal = value;
+                publicaionGlobal.setVisualizacion(publicaionGlobal.getVisualizacion() + 1);
+                value = publicaionGlobal;
                 break;
             }
             System.out.println("Clave: " + key + ", Valor: " + value);
@@ -229,7 +225,7 @@ public class Mercado {
         for (Map.Entry<String, Producto> entry : productos.entrySet()) {
             String key = entry.getKey();
             Producto value = entry.getValue();
-            if(value.getId()==id){
+            if (value.getId() == id) {
                 return value;
             }
         }
@@ -244,11 +240,11 @@ public class Mercado {
         for (Map.Entry<String, Publicacion> entry : publicaciones.entrySet()) {
             String key = entry.getKey();
             Publicacion value = entry.getValue();
-            if(value.getProducto().getId()==publicaionGlobal.getProducto().getId()){
+            if (value.getProducto().getId() == publicaionGlobal.getProducto().getId()) {
                 value.getListMegusta().clear();//lista personalisas de esa publicaion
                 value.setListMegusta(obtenerListaLikesPersonalizaPublicaicon());// cargo la lista
                 publicaionGlobal.setListMegusta(value.getListMegusta());
-                if(verificarLike()) {
+                if (verificarLike()) {
                     listMegustaTotalApp.add(megusta);
                     value.getListMegusta().add(megusta);
                     value.setContadorMegusta(publicaionGlobal.getContadorMegusta() + 1);
@@ -259,39 +255,39 @@ public class Mercado {
     }
 
 
-    public ArrayList<Megusta>obtenerListaLikesPersonalizaPublicaicon(){
-        ArrayList<Megusta> listMegusta=new ArrayList<>();
-        for (Megusta megusta:listMegustaTotalApp) {
-            if(megusta.getPublicacion().getProducto().getId()==publicaionGlobal.getProducto().getId()){
+    public ArrayList<Megusta> obtenerListaLikesPersonalizaPublicaicon() {
+        ArrayList<Megusta> listMegusta = new ArrayList<>();
+        for (Megusta megusta : listMegustaTotalApp) {
+            if (megusta.getPublicacion().getProducto().getId() == publicaionGlobal.getProducto().getId()) {
                 listMegusta.add(megusta);
             }
         }
         return listMegusta;
     }
 
-    public boolean verificarLike(){
-        for (Megusta megusta:publicaionGlobal.getListMegusta()) {
-            if(megusta.getVendedor().getNombreUsuario().equals(estadoGlobalVendedor.getNombreUsuario())){
-                return  false;
+    public boolean verificarLike() {
+        for (Megusta megusta : publicaionGlobal.getListMegusta()) {
+            if (megusta.getVendedor().getNombreUsuario().equals(estadoGlobalVendedor.getNombreUsuario())) {
+                return false;
             }
         }
         return true;
 
     }
 
-    public void modficarComentarios(String mensaje){
+    public void modficarComentarios(String mensaje) {
         LocalTime horaInteraccion = LocalTime.now();
         LocalDate fechaInteraccion = LocalDate.now();
-        Comentario comentario = new Comentario(estadoGlobalVendedor, horaInteraccion, fechaInteraccion, publicaionGlobal,mensaje);
+        Comentario comentario = new Comentario(estadoGlobalVendedor, horaInteraccion, fechaInteraccion, publicaionGlobal, mensaje);
         for (Map.Entry<String, Publicacion> entry : publicaciones.entrySet()) {
             String key = entry.getKey();
             Publicacion value = entry.getValue();
-            if(value.getProducto().getId()==publicaionGlobal.getProducto().getId()){
+            if (value.getProducto().getId() == publicaionGlobal.getProducto().getId()) {
                 value.getListComentario().clear();//lista personalisas de esa publicaion
                 value.setListComentario(obtenerListaPersonalizaComentario());// cargo la lista
                 publicaionGlobal.setListMegusta(value.getListMegusta());
-                if(verificarLike()) {
-                   listaComentariosGlobal.apilar(comentario);
+                if (verificarLike()) {
+                    listaComentariosGlobal.apilar(comentario);
                     value.getListComentario().apilar(comentario);
                     value.setContadorComentarios(publicaionGlobal.getContadorComentarios() + 1);
                     publicaionGlobal.setContadorComentarios(value.getContadorComentarios());
@@ -300,53 +296,62 @@ public class Mercado {
         }
     }
 
-    public Pila<Comentario>obtenerListaPersonalizaComentario(){
-        Pila<Comentario> listComentarioPila=new Pila<>();
-        Pila<Comentario>listaAux=new Pila<>();
-        int tamanio= listaComentariosGlobal.getTamanio();
+    public Pila<Comentario> obtenerListaPersonalizaComentario() {
+        Pila<Comentario> listComentarioPila = new Pila<>();
+        Pila<Comentario> listaAux = new Pila<>();
+        int tamanio = listaComentariosGlobal.getTamanio();
         for (int i = 0; i < tamanio; i++) {
-            Comentario comentario= listaComentariosGlobal.desapilar();
+            Comentario comentario = listaComentariosGlobal.desapilar();
             listaAux.apilar(comentario);
-            if(comentario.getPublicacion().getProducto().getId()==publicaionGlobal.getProducto().getId()){
+            if (comentario.getPublicacion().getProducto().getId() == publicaionGlobal.getProducto().getId()) {
                 listComentarioPila.apilar(comentario);
             }
         }
-        int tamanioPilaAux= listaAux.getTamanio();
-        for (int i = 0; i < tamanioPilaAux ; i++) {
+        int tamanioPilaAux = listaAux.getTamanio();
+        for (int i = 0; i < tamanioPilaAux; i++) {
             listaComentariosGlobal.apilar(listaAux.desapilar());
         }
 
         return listComentarioPila;
     }
-    public void obtenerListaComentario(){
-        Pila<Comentario> listComentarioPila=new Pila<>();
-        Pila<Comentario>listaAux=new Pila<>();
-        int tamanio= listaComentariosGlobal.getTamanio();
+
+    public void obtenerListaComentario() {
+        Pila<Comentario> listComentarioPila = new Pila<>();
+        Pila<Comentario> listaAux = new Pila<>();
+        int tamanio = listaComentariosGlobal.getTamanio();
         for (int i = 0; i < tamanio; i++) {
-            Comentario comentario= listaComentariosGlobal.desapilar();
+            Comentario comentario = listaComentariosGlobal.desapilar();
             listaAux.apilar(comentario);
-            if(comentario.getPublicacion().getProducto().getId()==publicaionGlobal.getProducto().getId()){
+            if (comentario.getPublicacion().getProducto().getId() == publicaionGlobal.getProducto().getId()) {
                 listComentarioPila.apilar(comentario);
             }
         }
-        int tamanioPilaAux= listaAux.getTamanio();
-        for (int i = 0; i < tamanioPilaAux ; i++) {
+        int tamanioPilaAux = listaAux.getTamanio();
+        for (int i = 0; i < tamanioPilaAux; i++) {
             listaComentariosGlobal.apilar(listaAux.desapilar());
         }
 
-       publicaionGlobal.getListComentario().clear();
+        publicaionGlobal.getListComentario().clear();
         publicaionGlobal.setListComentario(listComentarioPila);
     }
-
-
-
-
-
 
 
     public ListaSimple<Vendedor> obtenerListaVendedores2() {
         subirVendedores();
         return listaVendedores;
     }
+//-------------------------copiar y pegar_--------------------------------
+    public TreeMap<String, Publicacion> obtenerPublicaionesUsuario() {
+        TreeMap<String, Publicacion> publicaionesUsuario = new TreeMap<>();
+        for (Map.Entry<String, Publicacion> entry : publicaciones.entrySet()) {
+            String key = entry.getKey();
+            Publicacion value = entry.getValue();
+            if (value.getVendedor().getNombreUsuario().equals(estadoGlobalVendedor.getNombreUsuario())) {
+                publicaionesUsuario.put(String.valueOf(value.getProducto().getId()), value);
+            }
+        }
+        return publicaionesUsuario;
+    }
 }
+//--------------------------------------------------
 
