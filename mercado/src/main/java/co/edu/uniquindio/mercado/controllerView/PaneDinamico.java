@@ -3,6 +3,7 @@ package co.edu.uniquindio.mercado.controllerView;
 import co.edu.uniquindio.mercado.controller.ControllerPaneDinamico;
 import co.edu.uniquindio.mercado.controllerView.LoginControllerView;
 import co.edu.uniquindio.mercado.controllerView.MostrarPublicaionController;
+import co.edu.uniquindio.mercado.model.Vendedor;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -32,6 +33,8 @@ public class PaneDinamico  {
         Pane pane = new AnchorPane();
         pane.setPrefHeight(200);
         pane.setPrefWidth(200);
+
+
 
         Label label = new Label(mensajeLabel);
         label.setPrefHeight(72);
@@ -139,6 +142,8 @@ public class PaneDinamico  {
         pane.setEffect(shadow);
         pane.setStyle("-fx-background-color: lightgray; -fx-border-color: black; -fx-border-width: 2px;");
         pane.getChildren().addAll(label);
+
+
 
 
         return pane;

@@ -17,7 +17,7 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1075.0" prefWidth="594.0">
                <children>
-                  <AnchorPane layoutX="-9.0" layoutY="-14.0" prefHeight="1075.0" prefWidth="603.0">
+                  <AnchorPane fx:id="panePadre" layoutX="-9.0" layoutY="-14.0" prefHeight="1075.0" prefWidth="603.0">
                      <children>
                         <ImageView fx:id="imgProducto" fitHeight="263.0" fitWidth="499.0" layoutX="169.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                            <image>

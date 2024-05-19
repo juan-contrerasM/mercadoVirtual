@@ -64,6 +64,9 @@ public class MostrarPublicaionController implements Initializable {
     @FXML
     private MFXTextField txtCoemnatrio;
 
+    @FXML
+    private AnchorPane panePadre;
+
     private int layoutxComentario;
     private int layaoutYComentario;
 
@@ -100,6 +103,25 @@ public class MostrarPublicaionController implements Initializable {
         layaoutYComentario=0;
          controllerMostrarPublicacion.filtrarComenatrios();
         cargarComentario(publicacion.getListComentario());
+
+
+        Vendedor vendedor= controllerMostrarPublicacion.obtenerVendedorGlobal();
+
+        if(publicacion.getVendedor().getNombreUsuario().equals(vendedor.getNombreUsuario())){
+            // Crear y añadir la imagen
+            URL imageUrl = getClass().getResource("/co/edu/uniquindio/mercado/imagenes/estadistica.png");
+                Image imagen = new Image(imageUrl.toString());
+                ImageView imageView = new ImageView(imagen);
+                imageView.setLayoutX(539); // Posición X
+                imageView.setLayoutY(296); // Posición Y
+
+                // Ajustar el tamaño de la imagen si es necesario
+                imageView.setFitWidth(56); // Ancho deseado de la imagen
+                imageView.setFitHeight(40); // Alto deseado de la imagen
+                panePadre.getChildren().add(imageView);
+
+
+        }
 
 
 

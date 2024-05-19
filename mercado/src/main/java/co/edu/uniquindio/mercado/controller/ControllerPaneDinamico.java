@@ -1,5 +1,7 @@
 package co.edu.uniquindio.mercado.controller;
 
+import co.edu.uniquindio.mercado.model.Vendedor;
+
 import java.io.IOException;
 
 public class ControllerPaneDinamico {
@@ -11,5 +13,9 @@ public class ControllerPaneDinamico {
     }
     public void guardarPublicacionGlobal(int id) throws IOException {
         modelfactoryController.guardarPublicacionGlobal(id);
+    }
+
+    public Vendedor obtenerVendedor() {
+        return modelfactoryController.obtenerVendedorGlobal();
     }
 }

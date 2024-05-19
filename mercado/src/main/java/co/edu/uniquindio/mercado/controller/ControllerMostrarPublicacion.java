@@ -2,6 +2,7 @@ package co.edu.uniquindio.mercado.controller;
 
 import co.edu.uniquindio.mercado.model.Producto;
 import co.edu.uniquindio.mercado.model.Publicacion;
+import co.edu.uniquindio.mercado.model.Vendedor;
 
 import java.io.IOException;
 
@@ -32,5 +33,9 @@ public class ControllerMostrarPublicacion {
 
     public void filtrarComenatrios() throws IOException {
         modelfactoryController.filtrarComentario();
+    }
+
+    public Vendedor obtenerVendedorGlobal() {
+        return  modelfactoryController.obtenerVendedorGlobal();
     }
 }

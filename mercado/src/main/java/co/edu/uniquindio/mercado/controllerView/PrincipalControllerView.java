@@ -244,7 +244,13 @@ public class PrincipalControllerView implements Initializable {
     @FXML
     void publicacionesPersonalizada(MouseEvent event) throws IOException {
        TreeMap<String,Publicacion> publiacionesUsuario=principalController.obtenerPublicacionesUsuario();
-
+       restablcerAjutesPanePublicaiones();
+        for (Map.Entry<String, Publicacion> entry : publiacionesUsuario.entrySet()) {
+            String clave = entry.getKey();
+            Publicacion publicacion = entry.getValue();
+            agregarPane(paneDinamico.buildPane(publicacion.getTitulo()+"\n"+publicacion.getProducto().getPrecio()+"$",publicacion.getProducto().getUrlImagen(),publicacion.getProducto().getId()));
+            System.out.println(publicacion.getProducto().getId());
+        }
     }
 
 
