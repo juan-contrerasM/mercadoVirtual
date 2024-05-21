@@ -23,16 +23,16 @@ public class Persistencia {
 
 
     //--------------------------------------RUTAS----------------------------------------
-    public static final String RUTA_ARCHIVO_VENDEDORES = "mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/vendedores";
-    public static final String RUTA_ARCHIVO_ADMINISTRADOR = "mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/administrador";
-    public static final String RUTA_ARCHIVO_LOG = "mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/log";
-    public static  final  String RUTA_ARCHIVO_PRODUCTO="mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/productos";
-    private static final String RUTA_ARCHIVO_PUBLICACIONES ="mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/publicaciones";
-    private static  final String RUTA_ARCHVIO_Megustas="mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/megustas";
+    public static final String RUTA_ARCHIVO_VENDEDORES = "src/main/resources/co/edu/uniquindio/mercado/archivos/vendedores";
+    public static final String RUTA_ARCHIVO_ADMINISTRADOR = "src/main/resources/co/edu/uniquindio/mercado/archivos/administrador";
+    public static final String RUTA_ARCHIVO_LOG = "src/main/resources/co/edu/uniquindio/mercado/archivos/log";
+    public static  final  String RUTA_ARCHIVO_PRODUCTO="src/main/resources/co/edu/uniquindio/mercado/archivos/productos";
+    private static final String RUTA_ARCHIVO_PUBLICACIONES ="src/main/resources/co/edu/uniquindio/mercado/archivos/publicaciones";
+    private static  final String RUTA_ARCHVIO_Megustas="src/main/resources/co/edu/uniquindio/mercado/archivos/megustas";
 
-    private static  final String RUTA_ARCHVIO_CODIGOPRODCUTO="mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/codigoProducto";
+    private static  final String RUTA_ARCHVIO_CODIGOPRODCUTO="src/main/resources/co/edu/uniquindio/mercado/archivos/codigoProducto";
 
-    private static  final String  RUTA_ARCHIVO_COMENTARIO="mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/comentarios";
+    private static  final String  RUTA_ARCHIVO_COMENTARIO="src/main/resources/co/edu/uniquindio/mercado/archivos/comentarios";
 
     /**
      * Guarda en un archivo de texto todos la información de las personas almacenadas en el ArrayList

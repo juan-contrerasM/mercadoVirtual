@@ -209,17 +209,17 @@ public class Mercado {
 
     public void guardarPublicacionGlobal(int id) {
         for (Map.Entry<String, Publicacion> entry : publicaciones.entrySet()) {
-            String key = entry.getKey();
             Publicacion value = entry.getValue();
             if (value.getProducto().getId() == id) {
+                value.setVisualizacion(value.getVisualizacion() + 1);
                 publicaionGlobal = value;
-                publicaionGlobal.setVisualizacion(publicaionGlobal.getVisualizacion() + 1);
-                value = publicaionGlobal;
-                break;
-            }
-            System.out.println("Clave: " + key + ", Valor: " + value);
-        }
+                // Actualizamos directamente en el mapa
+                publicaciones.put(entry.getKey(), value);
+                System.out.println(publicaionGlobal);
+                break; // Rompemos el bucle una vez encontrada y actualizada la publicación
 
+            }
+        }
     }
 
     public Producto buscarProducto(int id) {
@@ -352,6 +352,24 @@ public class Mercado {
             }
         }
         return publicaionesUsuario;
+    }
+
+    public void editarPublicaion(Publicacion publicacion) {
+        // Actualizar publicaciones
+        for (Map.Entry<String, Publicacion> entry : publicaciones.entrySet()) {
+            Publicacion value = entry.getValue();
+            if (value.getProducto().getId() == publicacion.getProducto().getId()) {
+                entry.setValue(publicacion);
+            }
+        }
+
+        // Actualizar productos
+        for (Map.Entry<String, Producto> entry : productos.entrySet()) {
+            Producto value = entry.getValue();
+            if (value.getId() == publicacion.getProducto().getId()) {
+                entry.setValue(publicacion.getProducto());
+            }
+        }
     }
 }
 //--------------------------------------------------

@@ -2,6 +2,7 @@ package co.edu.uniquindio.mercado.controllerView;
 
 import co.edu.uniquindio.mercado.controller.PrincipalController;
 import co.edu.uniquindio.mercado.model.Administrador;
+import co.edu.uniquindio.mercado.model.Producto;
 import co.edu.uniquindio.mercado.model.Publicacion;
 import co.edu.uniquindio.mercado.model.Vendedor;
 import co.edu.uniquindio.mercado.model.enums.TipoCategoria;
@@ -251,6 +252,60 @@ public class PrincipalControllerView implements Initializable {
             agregarPane(paneDinamico.buildPane(publicacion.getTitulo()+"\n"+publicacion.getProducto().getPrecio()+"$",publicacion.getProducto().getUrlImagen(),publicacion.getProducto().getId()));
             System.out.println(publicacion.getProducto().getId());
         }
+    }
+
+    @FXML
+    void buscar(MouseEvent event) throws IOException {
+        panePublicaciones.getChildren().clear();
+        layaoutXPanePublicaciones = 26;
+        layaoutYPanePublicaciones = 0;
+        if (!(txtBuscador.getText().isEmpty())) {
+            for (Map.Entry<String, Publicacion> entry : mapaPublicaciones.entrySet()) {
+                String clave = entry.getKey();
+                Publicacion publicacion = entry.getValue();
+                if (publicacion.getTitulo().equals(txtBuscador.getText())) {// titulo
+                    automatizar(publicacion);
+                } else if (publicacion.getVendedor().getNombreUsuario().equals(txtBuscador.getText())) { //por nombre dle vendedor
+                    automatizar(publicacion);
+                } else if (publicacion.getProducto().getPrecio().equals(txtBuscador.getText())) {// producto
+                    automatizar(publicacion);
+                }
+            }
+        } else if (!(txtMinFiltro.getText().isEmpty()) || !(txtMaxFiltro.getText().isEmpty())) {
+            for (Map.Entry<String, Publicacion> entry : mapaPublicaciones.entrySet()) {
+                String clave = entry.getKey();
+                Publicacion publicacion = entry.getValue();
+                if (Float.parseFloat(txtMinFiltro.getText()) <= Float.parseFloat(publicacion.getProducto().getPrecio())) {
+                    automatizar(publicacion);
+                } else if (Float.parseFloat(txtMaxFiltro.getText()) >= Float.parseFloat(publicacion.getProducto().getPrecio())) {
+                    automatizar(publicacion);
+                }
+            }
+        } else if (boxCategoria.getValue() != null || boxEstado.getValue() != null) {
+            for (Map.Entry<String, Publicacion> entry : mapaPublicaciones.entrySet()) {
+                String clave = entry.getKey();
+                Publicacion publicacion = entry.getValue();
+                Producto producto=principalController.obtenerProductos(publicacion.getProducto().getId());
+                publicacion.setProducto(producto);
+                System.out.println(boxCategoria.getValue());
+                System.out.println(publicacion.getProducto().getTipoCategoria());
+                if (boxCategoria.getValue() != null) {
+                    if (boxCategoria.getValue().equals(publicacion.getProducto().getTipoCategoria())) {
+                        automatizar(publicacion);
+                    }
+                } else if (boxEstado.getValue() != null) {
+
+                    if (boxEstado.getValue().equals(publicacion.getProducto().getTipoEstado())) {
+                        automatizar(publicacion);
+                    }
+                }
+            }
+        }
+
+    }
+
+    public void automatizar(Publicacion publicacion) {
+        agregarPane(paneDinamico.buildPane(publicacion.getTitulo() + "\n" + publicacion.getProducto().getPrecio() + "$", publicacion.getProducto().getUrlImagen(), publicacion.getProducto().getId()));
     }
 
 

@@ -8,6 +8,7 @@ import co.edu.uniquindio.mercado.model.enums.TipoEstado;
 import co.edu.uniquindio.mercado.utils.Persistencia;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class ModelFactoryController {
@@ -17,7 +18,12 @@ public class ModelFactoryController {
         return mercado.obtenerListaVendedores2();
     }
 
-
+    public ArrayList<Megusta> obtenerLikesPersonalizada() throws IOException {
+        mercado.getListMegustaTotalApp().clear();
+        mercado.setListMegustaTotalApp(Persistencia.cargarMegustas());
+        Persistencia.guardarMegustas(mercado.getListMegustaTotalApp());
+       return mercado.obtenerListaLikesPersonalizaPublicaicon();
+    }
 
 
     // periste teer una intancia uncia del model factory y la clase mercado
@@ -131,6 +137,18 @@ public class ModelFactoryController {
 
 
 
+    }
+    public void editarPublicaion(Publicacion publicacion) throws IOException {
+        mercado.getProductos().clear();
+        mercado.setProductos(Persistencia.cargarProductos());
+
+        mercado.getPublicaciones().clear();
+        mercado.setPublicaciones(Persistencia.cargarPublicaciones());
+
+        mercado.editarPublicaion(publicacion);
+
+        Persistencia.guardarPublicaciones(mercado.getPublicaciones());
+        Persistencia.guardarProductos(mercado.getProductos());
     }
     //---------------------------metodos difernetes------------------------
     //crea un codigo de 4 digitos para cambiar la contraseña

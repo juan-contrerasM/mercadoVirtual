@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.legacy.MFXLegacyComboBox?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/principalStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.mercado.controllerView.EditarPublicaionView">
+    <children>
+        <Pane fx:id="paneImagen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="623.0" stylesheets="@../css/crearPublicacion.css">
+            <children>
+                <Pane fx:id="paneDatos" layoutY="200.0" prefHeight="357.0" prefWidth="623.0">
+                    <children>
+                        <TextArea fx:id="textDescripcion" layoutX="328.0" layoutY="14.0" prefHeight="191.0" prefWidth="252.0" promptText="Descripcion" stylesheets="@../csj/MFXTextField.css" />
+                        <Line endX="8.0" endY="434.0" layoutX="291.0" layoutY="-89.0" startX="8.0" startY="104.0" />
+                  <MFXTextField fx:id="txtTitulo" floatingText="Titulo" graphicTextGap="5.0" layoutX="43.0" layoutY="15.0" prefHeight="50.0" prefWidth="217.0" stylesheets="@../csj/MFXTextField.css" />
+                  <MFXTextField fx:id="txtPrecio" floatingText="Precio" layoutX="43.0" layoutY="85.0" prefHeight="50.0" prefWidth="217.0" stylesheets="@../csj/MFXTextField.css" />
+                  <MFXTextField fx:id="txtUrl" floatingText="Url" layoutX="43.0" layoutY="151.0" prefHeight="50.0" prefWidth="217.0" stylesheets="@../csj/MFXTextField.css" />
+                  <MFXButton fx:id="btnCargarImagen" layoutX="328.0" layoutY="302.0" onAction="#cargarImagen" prefHeight="40.0" prefWidth="119.0" stylesheets="@../css/principalStyle.css" text="Cargar Imagen" />
+                  <MFXButton fx:id="btnPublicar" layoutX="454.0" layoutY="302.0" onAction="#publicar" prefHeight="40.0" prefWidth="119.0" text="Editar">
+                     <stylesheets>
+                        <URL value="@../csj/MFXButton.css" />
+                        <URL value="@../css/principalStyle.css" />
+                     </stylesheets></MFXButton>
+                  <MFXTextField fx:id="txtNombreProducto" floatingText="Nombre Producto" graphicTextGap="5.0" layoutX="328.0" layoutY="230.0" prefHeight="50.0" prefWidth="252.0" stylesheets="@../csj/MFXTextField.css" />
+                  <MFXLegacyComboBox fx:id="comboTipoEstado" layoutX="43.0" layoutY="220.0" prefHeight="50.0" prefWidth="217.0" promptText=" Estado" stylesheets="@../csj/legacy/MFXComboBox.css" />
+                  <MFXLegacyComboBox fx:id="comboTipoCategoria" layoutX="43.0" layoutY="302.0" prefHeight="40.0" prefWidth="217.0" promptText="Categoria" stylesheets="@../csj/legacy/MFXComboBox.css" />
+                    </children>
+               <stylesheets>
+                  <URL value="@../css/principalStyle.css" />
+                  <URL value="@../css/crearPublicacion.css" />
+               </stylesheets>
+                </Pane>
+                <ImageView fx:id="imgUrlProducto" fitHeight="150.0" fitWidth="200.0" layoutX="224.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../imagenes/logo.jpeg" />
+                    </image>
+                </ImageView>
+                <Line endX="-197.0" endY="229.0" layoutX="259.0" layoutY="-45.0" startX="299.0" startY="229.0" />
+            <Label layoutX="14.0" layoutY="14.0" prefHeight="34.0" prefWidth="186.0" text="EDITAR PUBLICAION ">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

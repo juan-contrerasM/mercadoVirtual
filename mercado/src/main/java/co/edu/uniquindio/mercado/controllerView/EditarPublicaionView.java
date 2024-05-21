@@ -1,6 +1,7 @@
 package co.edu.uniquindio.mercado.controllerView;
 
 import co.edu.uniquindio.mercado.controller.CrearPublicacionController;
+import co.edu.uniquindio.mercado.controller.EditarPublicaionController;
 import co.edu.uniquindio.mercado.model.Producto;
 import co.edu.uniquindio.mercado.model.Publicacion;
 import co.edu.uniquindio.mercado.model.enums.TipoCategoria;
@@ -13,13 +14,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import lombok.SneakyThrows;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -29,11 +31,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-
-public class CrearPublicacionControllerView implements Initializable {
+public class EditarPublicaionView implements Initializable {
 
     @FXML
     private MFXButton btnCargarImagen;
@@ -70,7 +68,10 @@ public class CrearPublicacionControllerView implements Initializable {
 
     @FXML
     private MFXTextField txtUrl;
-    private CrearPublicacionController crearPublicacionController;
+
+    private EditarPublicaionController editarPublicaionController;
+    private Publicacion publicacion;
+    private Producto producto;
 
 
     @FXML
@@ -85,7 +86,7 @@ public class CrearPublicacionControllerView implements Initializable {
             for (File file : selectedFiles) {
                 // Copia o mueve el archivo a la ubicación deseada en tu proyecto
                 try {
-                    File destino = new File("src/main/resources/co/edu/uniquindio/imagenesUsuario/" + file.getName());
+                    File destino = new File("mercado/src/main/resources/co/edu/uniquindio/imagenesUsuario/" + file.getName());
                     Files.copy(file.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     System.out.println("Ruta del archivo: " + destino.getAbsolutePath());
                     // la ruta no absoluta se utiliza para poder cargar las imagenes desde cualquier computador
@@ -113,20 +114,41 @@ public class CrearPublicacionControllerView implements Initializable {
     @FXML
     void publicar(ActionEvent event) throws IOException {
         if (verificarCampos()) {
-            Producto producto=crearPublicacionController.guadarProducto(txtUrl.getText(),txtPrecio.getText(),txtNombreProducto.getText(),comboTipoEstado.getValue(),comboTipoCategoria.getValue());
-            Publicacion publicacion= crearPublicacionController.guardarPublicacion(producto,textDescripcion.getText(),txtTitulo.getText());
+            producto.setNombre(txtNombreProducto.getText());
+            producto.setPrecio(txtPrecio.getText());
+            producto.setUrlImagen(txtUrl.getText());
+            producto.setTipoCategoria(comboTipoCategoria.getValue());
+            publicacion.setDescripcion(textDescripcion.getText());
+            publicacion.setTitulo(txtTitulo.getText());
+            publicacion.setProducto(producto);
+            editarPublicaionController.editarPublicaion(publicacion);
             cerrarVentana();
         }
 
     }
 
 
+
+    private void mostrarPantalla(){
+        txtTitulo.setText(publicacion.getTitulo());
+        txtPrecio.setText(publicacion.getProducto().getPrecio());
+        txtUrl.setText(publicacion.getProducto().getUrlImagen());
+        textDescripcion.setText(publicacion.getDescripcion());
+        txtNombreProducto.setText(publicacion.getProducto().getNombre());
+        comboTipoCategoria.setValue(publicacion.getProducto().getTipoCategoria());
+    }
+
+
+    @SneakyThrows
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Agrega los valores del enum al MFXComboBox
         comboTipoCategoria.getItems().addAll(TipoCategoria.values());
         comboTipoEstado.getItems().addAll(TipoEstado.values());
-        crearPublicacionController= new CrearPublicacionController();
+         editarPublicaionController = new EditarPublicaionController();
+        publicacion=editarPublicaionController.obtenerPublicacionGlobal();
+      producto= editarPublicaionController.obtenerProducto(publicacion.getProducto().getId());
+      mostrarPantalla();
     }
 
     private boolean verificarCampos() {
@@ -156,7 +178,7 @@ public class CrearPublicacionControllerView implements Initializable {
             mostrarMensaje("Faltan campos por llenar", "Faltan campos por llenar", mensaje, Alert.AlertType.INFORMATION);
             return false; // faltan campos por llenar
         } else {
-            mostrarMensaje("Se creo la publicacion", "se creo la publicacion", " Se ha creado correftamente la publicaicon", Alert.AlertType.INFORMATION);
+            mostrarMensaje("Se ha modificado la publicacion", "se modifoco la publicaicon", " Se ha modificado correctamente  la publicaicon", Alert.AlertType.INFORMATION);
             return true;// todos los campos estan llenos
         }
     }
@@ -179,5 +201,3 @@ public class CrearPublicacionControllerView implements Initializable {
         stage.close();
     }
 }
-
-

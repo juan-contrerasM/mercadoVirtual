@@ -1,6 +1,7 @@
 package co.edu.uniquindio.mercado.controller;
 
 import co.edu.uniquindio.mercado.model.Administrador;
+import co.edu.uniquindio.mercado.model.Producto;
 import co.edu.uniquindio.mercado.model.Publicacion;
 import co.edu.uniquindio.mercado.model.Vendedor;
 
@@ -30,5 +31,8 @@ public class PrincipalController {
 
     public TreeMap<String, Publicacion> obtenerPublicacionesUsuario() throws IOException {
         return modelfactoryController.obtenerPublicaionesUsuario();
+    }
+    public Producto obtenerProductos(int id) throws IOException {
+        return modelfactoryController.obtenerProdcuto(id);
     }
 }

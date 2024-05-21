@@ -1,6 +1,7 @@
 package co.edu.uniquindio.mercado.controllerView;
 
 import co.edu.uniquindio.mercado.controller.ControllerMostrarPublicacion;
+import co.edu.uniquindio.mercado.controller.EditarPublicaionController;
 import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.Pila;
 import co.edu.uniquindio.mercado.model.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -103,32 +104,98 @@ public class MostrarPublicaionController implements Initializable {
         layaoutYComentario=0;
          controllerMostrarPublicacion.filtrarComenatrios();
         cargarComentario(publicacion.getListComentario());
-
-
         Vendedor vendedor= controllerMostrarPublicacion.obtenerVendedorGlobal();
 
+        //---------------copiar y pegar--------------------------------
         if(publicacion.getVendedor().getNombreUsuario().equals(vendedor.getNombreUsuario())){
-            // Crear y añadir la imagen
+            //para agregar imagen y label estadistica
             URL imageUrl = getClass().getResource("/co/edu/uniquindio/mercado/imagenes/estadistica.png");
-                Image imagen = new Image(imageUrl.toString());
-                ImageView imageView = new ImageView(imagen);
-                imageView.setLayoutX(539); // Posición X
-                imageView.setLayoutY(296); // Posición Y
+            Image imagen = new Image(imageUrl.toString());
+            ImageView imageView = new ImageView(imagen);
+            imageView.setLayoutX(20); // Posición X
+            imageView.setLayoutY(30); // Posición Y
 
-                // Ajustar el tamaño de la imagen si es necesario
-                imageView.setFitWidth(56); // Ancho deseado de la imagen
-                imageView.setFitHeight(40); // Alto deseado de la imagen
-                panePadre.getChildren().add(imageView);
+            // Ajustar el tamaño de la imagen si es necesario
+            imageView.setFitWidth(56); // Ancho deseado de la imagen
+            imageView.setFitHeight(40); // Alto deseado de la imagen
+            // Añadir evento de clic
+            imageView.setOnMouseClicked(event -> {
+                abrirInterfazEdtaidtica();
+                cerrarVentana();
+            });
+            Label lbstadistica = new Label("Estadistica");
+            lbstadistica.setLayoutY(77);
+            lbstadistica.setLayoutX(20);
 
+
+            //para agregar la imagen y label editar
+
+            URL imageUrlEditiar = getClass().getResource("/co/edu/uniquindio/mercado/imagenes/imgeditar.png");
+            Image imagenEditar = new Image(imageUrlEditiar.toString());
+            ImageView imageViewEditar = new ImageView(imagenEditar);
+            imageViewEditar.setLayoutX(20); // Posición X
+            imageViewEditar.setLayoutY(120); // Posición Y
+
+            // Ajustar el tamaño de la imagen si es necesario
+            imageViewEditar.setFitWidth(56); // Ancho deseado de la imagen
+            imageViewEditar.setFitHeight(40); // Alto deseado de la imagen
+            // Añadir evento de clic
+            imageViewEditar.setOnMouseClicked(event -> {
+                abrirInterfazEditar();
+                cerrarVentana();
+            });
+            Label lbEditar = new Label("Editar");
+            lbEditar.setLayoutY(166);
+            lbEditar.setLayoutX(20);
+            panePadre.getChildren().add(imageViewEditar);
+            panePadre.getChildren().add(lbEditar);
+            panePadre.getChildren().add(imageView);
+            panePadre.getChildren().add(lbstadistica);
 
         }
-
-
-
-
-
+    }
+    private  void cerrarVentana(){
+        Stage stage = (Stage) panePadre.getScene().getWindow();
+        stage.close();
 
     }
+
+    private void abrirInterfazEdtaidtica() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("estadisticaView.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            // Obtener el controlador
+            EstadisticaControllerView  controller = loader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void abrirInterfazEditar() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("editarPublicacion.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            // Obtener el controlador
+            EditarPublicaionView controller = loader.getController();
+            // Aquí puedes utilizar el controlador para inicializar datos o pasar parámetros si es necesario
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
 
     public void cargarComentario(Pila<Comentario> comentarios){
         int tamanio= comentarios.getTamanio();

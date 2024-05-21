@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="547.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.mercado.controllerView.EstadisticaControllerView">
+   <children>
+      <BarChart fx:id="likes" layoutX="27.0" layoutY="119.0" title="Me gusta en las publicaiones">
+        <xAxis>
+          <CategoryAxis label="Dias" side="BOTTOM" fx:id="x" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="y" label="Cantidad Likes" side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <Label layoutX="185.0" layoutY="51.0" prefHeight="51.0" prefWidth="492.0" text="Estadisticas de la publicaion">
+         <font>
+            <Font name="System Bold" size="35.0" />
+         </font>
+      </Label>
+      <Label layoutX="593.0" layoutY="131.0" text="Media de likes">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <Line endX="-125.0" endY="-70.0" layoutX="683.0" layoutY="202.0" startX="-125.0" startY="329.0" />
+      <Label layoutX="593.0" layoutY="201.0" text="Media de comentarios">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="593.0" layoutY="282.0" text="media de visualizaciones">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="593.0" layoutY="353.0" text="cantidad de visualizaciones">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="591.0" layoutY="421.0" text="Cantidad de comentarios">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="593.0" layoutY="474.0" text="Cantidad me gusta">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblMediaLikes" layoutX="593.0" layoutY="169.0" text="Label" />
+      <Label fx:id="lblMediaComentarios" layoutX="593.0" layoutY="244.0" text="Label" />
+      <Label fx:id="lblMediaVisualizaciones" layoutX="593.0" layoutY="322.0" text="Label" />
+      <Label fx:id="lblCantVisualizaciones" layoutX="593.0" layoutY="393.0" text="Label" />
+      <Label fx:id="lblCantaComentarios" layoutX="593.0" layoutY="455.0" text="Label" />
+      <Label fx:id="lblCantaLikes" layoutX="594.0" layoutY="510.0" text="Label" />
+   </children>
+</AnchorPane>
