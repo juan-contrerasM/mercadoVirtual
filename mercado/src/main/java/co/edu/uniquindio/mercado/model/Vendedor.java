@@ -17,9 +17,9 @@ public class Vendedor extends Persona implements Comparable<Vendedor> {
     private String urlImg;
     private String contrasenia;
     private ListaSimple<SolicitudesAmistad> solicitudesEnviadas = new ListaSimple<>();
-    private ListaSimple<SolicitudesAmistad> solicitudesRecibidas= new ListaSimple<>();;
+    private ListaSimple<SolicitudesAmistad> solicitudesRecibidas= new ListaSimple<>();
     private Arbol<Vendedor> redAmigos = new Arbol<Vendedor>();
-    private ListaSimple<Vendedor> amigos= new ListaSimple<>();;
+    private ListaSimple<Vendedor> amigos= new ListaSimple<>();;// aca se cargan despues del filtro
 
 
     public Vendedor(String nombreUsuario) {

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.mercado.controller;
 
+import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.ListaSimple;
 import co.edu.uniquindio.mercado.model.SolicitudesAmistad;
 import co.edu.uniquindio.mercado.model.Vendedor;
 import co.edu.uniquindio.mercado.model.enums.EstadoSolicitd;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 
 public class SolicitudesAmistadController {
     Persistencia persistencia = new Persistencia();
+    ListaSimple<SolicitudesAmistad> todasLasSolicitudesEnviadas;
 
     /**
      * Envía una solicitud de amistad de un usuario a otro.
@@ -70,6 +72,54 @@ public class SolicitudesAmistadController {
         // Establece el estado de la solicitud de amistad según la respuesta
         solicitudAmistad.setEstado(respuesta);
         if (respuesta == EstadoSolicitd.ACEPTADA) {
+
+
+            try {
+                todasLasSolicitudesEnviadas = Persistencia.cargarSolicitudesEnviadas2();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            //cambia el estado de la solicitud
+            for (int i = 0; i <todasLasSolicitudesEnviadas.getTamanio() ; i++) {
+                SolicitudesAmistad solicitudesAmistad= todasLasSolicitudesEnviadas.obtenerValorNodo(i);
+
+                //envia
+                System.out.println("envia");
+                System.out.println(vendedorEnviaSolicitud.getNombreUsuario());
+                System.out.println(solicitudAmistad.getUsuarioEnviaSolicitud());
+                //recibe
+                System.out.println("recibe");
+                System.out.println(vendedorRecibeSolicitud.getNombreUsuario());
+                System.out.println(solicitudAmistad.getUsuariorecibeSolicitud());
+
+                if(vendedorEnviaSolicitud.getNombreUsuario().equals(solicitudesAmistad.getUsuarioEnviaSolicitud().getNombreUsuario())&&vendedorRecibeSolicitud.getNombreUsuario().equals(solicitudesAmistad.getUsuariorecibeSolicitud().getNombreUsuario())){
+                    solicitudesAmistad.setEstado(EstadoSolicitd.ACEPTADA);
+                    //s eguarda d enuevo la lista
+                    try {
+                        Persistencia.guardasSolicitudesEnviadas2(todasLasSolicitudesEnviadas);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+
+                    break;
+                }
+            }
+
+/*
+            System.out.println("solicitud actual");
+
+            System.out.println(solicitudAmistad.getUsuariorecibeSolicitud().getNombreUsuario());
+            System.out.println(solicitudAmistad.getUsuarioEnviaSolicitud().getNombreUsuario());
+            System.out.println(solicitudAmistad.getEstado());
+
+ */
+
+
+
+
+
             // Si la solicitud es aceptada, añade los usuarios como amigos mutuamente
            // vendedorEnviaSolicitud = solicitudAmistad.getUsuarioEnviaSolicitud();
             //vendedorRecibeSolicitud = solicitudAmistad.getUsuariorecibeSolicitud();
@@ -78,6 +128,10 @@ public class SolicitudesAmistadController {
             vendedorEnviaSolicitud.agregarAmigos(vendedorRecibeSolicitud);
             System.out.println("agregar amigos vendedor recibe solicitd");
             vendedorRecibeSolicitud.agregarAmigos(vendedorEnviaSolicitud);
+
+
+            //
+
 
         }
     }

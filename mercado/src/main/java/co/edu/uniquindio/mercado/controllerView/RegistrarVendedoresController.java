@@ -91,7 +91,7 @@ public class RegistrarVendedoresController implements Initializable {
             for (File file : selectedFiles) {
                 // Copia o mueve el archivo a la ubicación deseada en tu proyecto
                 try {
-                    File destino = new File("mercado/src/main/resources/co/edu/uniquindio/imagenesUsuario/" + file.getName());
+                    File destino = new File("src/main/resources/co/edu/uniquindio/imagenesUsuario/" + file.getName());
                     Files.copy(file.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     System.out.println("Ruta del archivo: " + destino.getAbsolutePath());
 
@@ -99,7 +99,9 @@ public class RegistrarVendedoresController implements Initializable {
                     String url = destino.toURI().toString();
                     // Carga la imagen en el ImageView
                     Image image = new Image(url);
-                    String urlAux = "file:/C:"+destino.getPath();
+                    System.out.println("ruta destino topath"+destino.toPath());
+
+                    String urlAux = "file:/C:"+destino.toPath();
                     txtUrlR.setText(urlAux);
                     System.out.println("la imagen es : "+ destino.getPath() );
                 } catch (IOException e) {

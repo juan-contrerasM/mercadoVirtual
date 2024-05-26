@@ -96,7 +96,8 @@ public class CrearPublicacionControllerView implements Initializable {
                     // Carga la imagen en el ImageView
                     Image image = new Image(url);
                     imgUrlProducto.setImage(image);
-                    txtUrl.setText(destino.getPath());
+                    String urlAux = "file:/C:"+destino.toPath();
+                    txtUrl.setText(urlAux);
                 } catch (IOException e) {
                     JOptionPane.showMessageDialog(null, "Error al importar imagen: " + e);
 

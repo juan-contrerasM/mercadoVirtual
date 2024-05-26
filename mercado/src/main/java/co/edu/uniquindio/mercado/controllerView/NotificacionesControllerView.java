@@ -71,7 +71,6 @@ public class NotificacionesControllerView implements Initializable {
 
         for (int i =0;i<listaSolicitudes.getTamanio();i++) {
 
-
             agregarPane(paneDinamico.buildPane3(listaSolicitudes.obtenerValorNodo(i)));
 
         }
