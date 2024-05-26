@@ -1,9 +1,9 @@
 package co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada;
+
 import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.NodoArbol;
 
 
-
-public class Arbol<T> {
+public class Arbol<T extends Comparable<T>> {
 
     private NodoArbol<T> raiz;
     private int peso;
@@ -12,7 +12,8 @@ public class Arbol<T> {
         this.raiz = null;
         this.peso = 0;
     }
-    public Arbol(T valor ){
+
+    public Arbol(T valor) {
         this.raiz = new NodoArbol<>(valor);
         this.peso++;
     }
@@ -103,6 +104,27 @@ public class Arbol<T> {
             imprimirInOrderRec(nodo.getDerecha());
         }
     }
+
+    public boolean contains(T valor) {
+        return containsRec(raiz, valor);
+    }
+
+    private boolean containsRec(NodoArbol<T> nodo, T valor) {
+        if (nodo == null) {
+            return false;
+        }
+
+        if (valor.equals(nodo.getValor())) {
+            return true;
+        }
+
+        if ((Integer) valor < (Integer) nodo.getValor()) {
+            return containsRec(nodo.getIzquierda(), valor);
+        } else {
+            return containsRec(nodo.getDerecha(), valor);
+        }
+    }
+
 }
 
 

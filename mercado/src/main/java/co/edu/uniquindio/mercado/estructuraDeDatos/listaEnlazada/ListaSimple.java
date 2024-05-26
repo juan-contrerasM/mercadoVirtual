@@ -1,6 +1,8 @@
 package co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class ListaSimple<T> implements Iterable<T> {
 
@@ -27,7 +29,15 @@ public class ListaSimple<T> implements Iterable<T> {
 
 
     //Metodos basicos
-
+    public List<T> getElementos() {
+        List<T> elementos = new ArrayList<>();
+        Nodo<T> actual = getNodoPrimero();
+        while (actual != null) {
+            elementos.add(actual.getValorNodo());
+            actual = actual.getSiguienteNodo();
+        }
+        return elementos;
+    }
 
     //Agregar al inicio de la lista
     public void agregarInicio(T valorNodo) {

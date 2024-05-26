@@ -76,7 +76,8 @@ public class buscarAmigosControllerView implements Initializable {
                 if (!aux.getNombreUsuario().equals(vendedor.getNombreUsuario())) {
                     try {
                         if (palabra.substring(0, palabra.length()).equals(vendedor.getNombreUsuario().substring(0, palabra.length()))) {
-                            agregarPane(paneDinamico.buildPane2(vendedor.getNombreUsuario() , vendedor.getUrlImg()));
+//                            agregarPane(paneDinamico.buildPane2(vendedor.getNombreUsuario(), vendedor.getUrlImg()));
+                            agregarPane(paneDinamico.buildPane2(vendedor));
 
                         }
                     } catch (RuntimeException e) {
@@ -87,8 +88,8 @@ public class buscarAmigosControllerView implements Initializable {
             for (int i = 0; i < listaVendedores.getTamanio(); i++) {
                 Vendedor vendedor = listaVendedores.obtenerValorNodo(i);
                 if (!aux.getNombreUsuario().equals(vendedor.getNombreUsuario())) {
-                    agregarPane(paneDinamico.buildPane2(vendedor.getNombreUsuario() , vendedor.getUrlImg()));
-                                    }
+                    agregarPane(paneDinamico.buildPane2(vendedor));
+                }
             }
         }
     }

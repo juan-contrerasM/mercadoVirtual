@@ -8,12 +8,12 @@ import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.ListaDoble;
 import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.ListaSimple;
 import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.Pila;
 import co.edu.uniquindio.mercado.model.*;
+import co.edu.uniquindio.mercado.model.enums.EstadoSolicitd;
 import co.edu.uniquindio.mercado.model.enums.TipoCategoria;
 import co.edu.uniquindio.mercado.model.enums.TipoEstado;
 
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
@@ -23,16 +23,18 @@ public class Persistencia {
 
 
     //--------------------------------------RUTAS----------------------------------------
-    public static final String RUTA_ARCHIVO_VENDEDORES = "src/main/resources/co/edu/uniquindio/mercado/archivos/vendedores";
-    public static final String RUTA_ARCHIVO_ADMINISTRADOR = "src/main/resources/co/edu/uniquindio/mercado/archivos/administrador";
-    public static final String RUTA_ARCHIVO_LOG = "src/main/resources/co/edu/uniquindio/mercado/archivos/log";
-    public static  final  String RUTA_ARCHIVO_PRODUCTO="src/main/resources/co/edu/uniquindio/mercado/archivos/productos";
-    private static final String RUTA_ARCHIVO_PUBLICACIONES ="src/main/resources/co/edu/uniquindio/mercado/archivos/publicaciones";
-    private static  final String RUTA_ARCHVIO_Megustas="src/main/resources/co/edu/uniquindio/mercado/archivos/megustas";
+    public static final String RUTA_ARCHIVO_VENDEDORES = "mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/vendedores";
+    public static final String RUTA_ARCHIVO_ADMINISTRADOR = "mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/administrador";
+    public static final String RUTA_ARCHIVO_LOG = "mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/log";
+    public static  final  String RUTA_ARCHIVO_PRODUCTO="mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/productos";
+    private static final String RUTA_ARCHIVO_PUBLICACIONES ="mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/publicaciones";
+    private static  final String RUTA_ARCHVIO_Megustas="mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/megustas";
+    private static  final String RUTA_ARCHVIO_solicitudesEnviadas="mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/solicitudesEnviadas.txt";
+    private static  final String RUTA_ARCHVIO_solicitudesRecibidas="mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/solicitudesRecibidas.txt";
 
-    private static  final String RUTA_ARCHVIO_CODIGOPRODCUTO="src/main/resources/co/edu/uniquindio/mercado/archivos/codigoProducto";
+    private static  final String RUTA_ARCHVIO_CODIGOPRODCUTO="mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/codigoProducto";
 
-    private static  final String  RUTA_ARCHIVO_COMENTARIO="src/main/resources/co/edu/uniquindio/mercado/archivos/comentarios";
+    private static  final String  RUTA_ARCHIVO_COMENTARIO="mercado/src/main/resources/co/edu/uniquindio/mercado/archivos/comentarios";
 
     /**
      * Guarda en un archivo de texto todos la información de las personas almacenadas en el ArrayList
@@ -48,11 +50,12 @@ public class Persistencia {
         // TODO Auto-generated method stub
         String contenido = "";
         Vendedor vendedor = new Vendedor();
+
         for (int i = 0; i < listaVendedores.getTamanio(); i++) {
             vendedor=listaVendedores.obtenerValorNodo(i);
             contenido += vendedor.getNombreUsuario() + "--" + vendedor.getContrasenia() + "--" + vendedor.getNombre() + "--" +
                     vendedor.getEdad() + "--" + vendedor.getCorreo() + "--" + vendedor.getNumeroCelular() + "--" + vendedor.getTipoUsuario() +
-                    "--" + vendedor.getCedula() + "--" + vendedor.getUrlImg()+"\n";
+                    "--" + vendedor.getCedula() + "--" + vendedor.getUrlImg()+ "--" +vendedor.getSolicitudesEnviadas()+"\n";
         }
         ArchivoUtil.guardarArchivo(RUTA_ARCHIVO_VENDEDORES, contenido, false);
     }
@@ -265,6 +268,8 @@ public static ArrayList<Megusta> cargarMegustas() throws FileNotFoundException, 
         return listaVendedores;
     }
 
+
+
     public static ListaDoble<Administrador> cargarAdministradores() throws FileNotFoundException, IOException {
         ListaDoble<Administrador> listaVendedores = new ListaDoble<>();
         ArrayList<String> contenido = ArchivoUtil.leerArchivo(RUTA_ARCHIVO_ADMINISTRADOR);
@@ -317,10 +322,125 @@ public static ArrayList<Megusta> cargarMegustas() throws FileNotFoundException, 
     }
 
 
+    //--------------------------------------------------------------------------------
 
 
 
 
 
 
-}
+    public static void guardasSolicitudesEnviadas2(ListaSimple<SolicitudesAmistad> listaSolicitudes)throws IOException {
+        // TODO Auto-generated method stub
+        String contenido = "";
+        SolicitudesAmistad solicitudesAmistad ;
+
+        for (int i = 0; i < listaSolicitudes.getTamanio(); i++) {
+            solicitudesAmistad=listaSolicitudes.obtenerValorNodo(i);
+            contenido +=
+                    solicitudesAmistad.getUsuarioEnviaSolicitud().getNombreUsuario() + "--" +
+                            solicitudesAmistad.getUsuarioEnviaSolicitud().getUrlImg() + "--" +
+
+                            solicitudesAmistad.getUsuariorecibeSolicitud().getNombreUsuario()+ "--" +
+                            solicitudesAmistad.getUsuariorecibeSolicitud().getUrlImg()+ "--" +
+
+                            solicitudesAmistad.getEstado() +"\n";
+        }
+        ArchivoUtil.guardarArchivo(RUTA_ARCHVIO_solicitudesEnviadas, contenido, true);
+    }
+
+
+
+
+
+
+    public static void guardarSolicitudesRecibidas2(ListaSimple<SolicitudesAmistad> listaSolicitudes)throws IOException {
+        // TODO Auto-generated method stub
+        String contenido = "";
+        SolicitudesAmistad solicitudesAmistad ;
+
+        for (int i = 0; i < listaSolicitudes.getTamanio(); i++) {
+            solicitudesAmistad=listaSolicitudes.obtenerValorNodo(i);
+            contenido +=
+                    solicitudesAmistad.getUsuarioEnviaSolicitud().getNombreUsuario() + "--" +
+                            solicitudesAmistad.getUsuarioEnviaSolicitud().getUrlImg() + "--" +
+
+                            solicitudesAmistad.getUsuariorecibeSolicitud().getNombreUsuario()+ "--" +
+                            solicitudesAmistad.getUsuariorecibeSolicitud().getUrlImg()+ "--" +
+
+                            solicitudesAmistad.getEstado() +"\n";
+        }
+        ArchivoUtil.guardarArchivo(RUTA_ARCHVIO_solicitudesRecibidas, contenido, true);
+    }
+
+
+
+
+
+
+    public static ListaSimple<SolicitudesAmistad> cargarSolicitudesEnviadas2() throws FileNotFoundException, IOException {
+        ListaSimple<SolicitudesAmistad> listaSolicitudes = new ListaSimple<>();
+        ArrayList<String> contenido = ArchivoUtil.leerArchivo(RUTA_ARCHVIO_solicitudesEnviadas);
+        String linea = "";
+        for (int i = 0; i < contenido.size(); i++) {
+            linea = contenido.get(i);//juan,arias,125454,Armenia,uni1@,12454,125444
+            SolicitudesAmistad solicitudesAmistad = new SolicitudesAmistad();
+            Vendedor vendedor = new Vendedor();
+            vendedor.setNombreUsuario(linea.split("--")[0]);
+            vendedor.setUrlImg(linea.split("--")[1]);
+
+            Vendedor vendedor2 = new Vendedor();
+            vendedor2.setNombreUsuario(linea.split("--")[2]);
+            vendedor2.setUrlImg(linea.split("--")[3]);
+
+
+            solicitudesAmistad.setUsuarioEnviaSolicitud(vendedor);
+            solicitudesAmistad.setUsuariorecibeSolicitud(vendedor2);
+            solicitudesAmistad.setEstado(EstadoSolicitd.valueOf(linea.split("--")[4]));
+
+
+            listaSolicitudes.agregarInicio(solicitudesAmistad);
+        }
+
+
+        return listaSolicitudes;
+    }
+
+
+
+
+    public static ListaSimple<SolicitudesAmistad> cargarSolicitudesRecibidas2() throws FileNotFoundException, IOException {
+        ListaSimple<SolicitudesAmistad> listaSolicitudes = new ListaSimple<>();
+        ArrayList<String> contenido = ArchivoUtil.leerArchivo(RUTA_ARCHVIO_solicitudesRecibidas);
+        String linea = "";
+        for (int i = 0; i < contenido.size(); i++) {
+            linea = contenido.get(i);//juan,arias,125454,Armenia,uni1@,12454,125444
+            SolicitudesAmistad solicitudesAmistad = new SolicitudesAmistad();
+            Vendedor vendedor = new Vendedor();
+            vendedor.setNombreUsuario(linea.split("--")[0]);
+            vendedor.setUrlImg(linea.split("--")[1]);
+
+            Vendedor vendedor2 = new Vendedor();
+            vendedor2.setNombreUsuario(linea.split("--")[2]);
+            vendedor2.setUrlImg(linea.split("--")[3]);
+
+
+            solicitudesAmistad.setUsuarioEnviaSolicitud(vendedor);
+            solicitudesAmistad.setUsuariorecibeSolicitud(vendedor2);
+            solicitudesAmistad.setEstado(EstadoSolicitd.valueOf(linea.split("--")[4]));
+
+
+            listaSolicitudes.agregarfinal(solicitudesAmistad);
+        }
+
+
+        return listaSolicitudes;
+    }
+
+    }
+
+
+
+
+
+
+

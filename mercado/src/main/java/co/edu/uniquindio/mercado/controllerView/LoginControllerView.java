@@ -2,10 +2,14 @@ package co.edu.uniquindio.mercado.controllerView;
 
 import co.edu.uniquindio.mercado.controller.ConfirmaCorreoController;
 import co.edu.uniquindio.mercado.controller.LoginController;
+import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.ListaSimple;
+import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.Nodo;
 import co.edu.uniquindio.mercado.model.Administrador;
+import co.edu.uniquindio.mercado.model.SolicitudesAmistad;
 import co.edu.uniquindio.mercado.model.TipoUsuario;
 import co.edu.uniquindio.mercado.model.Vendedor;
 import co.edu.uniquindio.mercado.modelInterfaz.EmailSender;
+import co.edu.uniquindio.mercado.utils.Persistencia;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -80,6 +84,9 @@ public class LoginControllerView implements Initializable {
                     loginController.estadoGlobalVendedor(vendedor);
                     abrirVentanaPrincipal();
                     cerrarVentana();
+                    Persistencia persistencia = new Persistencia();
+                    filtrarSolicitudesEnviadas(vendedor,persistencia.cargarSolicitudesEnviadas2());
+                    filtrarSolicitudesRecibidas(vendedor,persistencia.cargarSolicitudesRecibidas2());
                 } else {
                     mostrarMensaje("Sesion incorrecta","No se pudo Iniciar sesion","la consatraseña o el nombre de usario estan incorrectos", Alert.AlertType.INFORMATION);
                 }
@@ -97,6 +104,42 @@ public class LoginControllerView implements Initializable {
             }
 
         }
+
+    }
+
+    private void filtrarSolicitudesRecibidas(Vendedor vendedor, ListaSimple<SolicitudesAmistad> solicitudesAmistads) {
+        ListaSimple<SolicitudesAmistad> listaFiltrada = new ListaSimple<>();
+
+
+        Nodo<SolicitudesAmistad> actual = solicitudesAmistads.getNodoPrimero();
+
+        while (actual != null) {
+
+            if (actual.getValorNodo().getUsuariorecibeSolicitud().getNombreUsuario().equals(vendedor.getNombreUsuario())){
+                listaFiltrada.agregarInicio(actual.getValorNodo());
+                System.out.println(2);
+
+            }
+            actual = actual.getSiguienteNodo();
+        }
+
+        vendedor.setSolicitudesRecibidas(listaFiltrada);
+    }
+
+    private void filtrarSolicitudesEnviadas(Vendedor vendedor, ListaSimple<SolicitudesAmistad> solicitudesAmistads) {
+        ListaSimple<SolicitudesAmistad> listaFiltrada = new ListaSimple<>();
+
+        Nodo<SolicitudesAmistad> actual = solicitudesAmistads.getNodoPrimero();
+        while (actual != null) {
+
+            if (actual.getValorNodo().getUsuarioEnviaSolicitud().getNombreUsuario().equals(vendedor.getNombreUsuario()) ){
+                listaFiltrada.agregarInicio(actual.getValorNodo());
+                System.out.println("Filtrando solicitudes enviadas");
+            }
+            actual = actual.getSiguienteNodo();
+        }
+
+        vendedor.setSolicitudesEnviadas(listaFiltrada);
 
     }
 
@@ -173,7 +216,9 @@ public class LoginControllerView implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //nicaliza componentes
+
         comboTipoUsuario.getItems().addAll(TipoUsuario.values());
         loginController=new LoginController();
+        comboTipoUsuario.setValue(TipoUsuario.VENDEDOR);
     }
 }

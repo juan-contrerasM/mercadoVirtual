@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.mfxcore.controls.Label?>
+<?import java.net.URL?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="557.0" prefWidth="371.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.mercado.controllerView.NotificacionesControllerView">
+   <children>
+      <Pane fx:id="panePrincipalBuscarAmigos" prefHeight="557.0" prefWidth="366.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="257.0" AnchorPane.topAnchor="0.0">
+         <stylesheets>
+            <URL value="@../css/principalStyle.css" />
+            <URL value="@../css/crearPublicacion.css" />
+         </stylesheets>
+         <children>
+            <Label layoutX="34.0" layoutY="28.0" prefHeight="25.0" prefWidth="188.0" text="Solicitudes de amistad">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <ScrollPane layoutX="22.0" layoutY="67.0" prefHeight="470.0" prefWidth="329.0">
+               <content>
+                  <Pane fx:id="paneAmigos" prefHeight="461.0" prefWidth="328.0" />
+               </content>
+            </ScrollPane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

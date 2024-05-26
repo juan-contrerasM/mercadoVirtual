@@ -1,9 +1,15 @@
 package co.edu.uniquindio.mercado.controllerView;
 
+import co.edu.uniquindio.mercado.controller.BuscarAmigosController;
 import co.edu.uniquindio.mercado.controller.ControllerPaneDinamico;
+import co.edu.uniquindio.mercado.controller.SolicitudesAmistadController;
 import co.edu.uniquindio.mercado.controllerView.LoginControllerView;
 import co.edu.uniquindio.mercado.controllerView.MostrarPublicaionController;
+import co.edu.uniquindio.mercado.estructuraDeDatos.listaEnlazada.ListaSimple;
+import co.edu.uniquindio.mercado.model.SolicitudesAmistad;
 import co.edu.uniquindio.mercado.model.Vendedor;
+import co.edu.uniquindio.mercado.model.enums.EstadoSolicitd;
+import co.edu.uniquindio.mercado.utils.Persistencia;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -28,15 +34,15 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class PaneDinamico  {
-    private ControllerPaneDinamico controllerPaneDinamico= new ControllerPaneDinamico();
+public class PaneDinamico {
+    private ControllerPaneDinamico controllerPaneDinamico = new ControllerPaneDinamico();
 
+    private NotificacionesControllerView notificacionesControllerView = new NotificacionesControllerView();
 
     public Pane buildPane(String mensajeLabel, String url, int id) {
         Pane pane = new AnchorPane();
         pane.setPrefHeight(200);
         pane.setPrefWidth(200);
-
 
 
         Label label = new Label(mensajeLabel);
@@ -100,11 +106,12 @@ public class PaneDinamico  {
         return pane;
     }
 
-    public Pane buildPane2(String mensajeLabel, String url) {
+    public Pane buildPane2(Vendedor vendedor) {
+        String mensajeLabel = vendedor.getNombreUsuario();
+        String url = vendedor.getUrlImg();
         Pane pane = new AnchorPane();
         pane.setPrefHeight(220);
         pane.setPrefWidth(200);
-
 
 
         Label label = new Label(mensajeLabel);
@@ -127,8 +134,197 @@ public class PaneDinamico  {
         boton.setLayoutY(190);
         boton.setOnMouseClicked(event -> {
             JOptionPane.showMessageDialog(null, "solicitud enviada");
+            SolicitudesAmistadController solicitudesAmistadController = new SolicitudesAmistadController();
+            buscarAmigosControllerView buscarAmigosControllerView = new buscarAmigosControllerView();
+            Vendedor vendedorEnviaSolicitud = buscarAmigosControllerView.obtenerVendedor();
+            Vendedor vendedorRecibeSolicitud = vendedor;
+            solicitudesAmistadController.enviarSolicitudesAmistad(vendedorEnviaSolicitud, vendedorRecibeSolicitud);
         });
 
+
+        // Creamos el efecto de sombra
+        DropShadow shadow = new DropShadow();
+        shadow.setColor(Color.GRAY);
+        shadow.setOffsetX(5);
+        shadow.setOffsetY(5);
+
+        // Manejamos el evento de entrada del mouse
+        pane.setOnMouseEntered(event -> {
+            // Cambiamos el tamaño y el estilo al pasar el cursor sobre el Pane
+            pane.setStyle("-fx-background-color: lightgray; -fx-border-color: black;-fx-border-width: 2px; -fx-background-radius: 10px;");
+            pane.setScaleX(1.1);
+            pane.setScaleY(1.1);
+        });
+
+        // Manejamos el evento de salida del mouse
+        pane.setOnMouseExited(event -> {
+            // Restauramos el tamaño y el estilo al quitar el cursor del Pane
+            pane.setStyle("-fx-background-color: lightgray; -fx-border-color: black; -fx-border-width: 2px;");
+            pane.setScaleX(1.0);
+            pane.setScaleY(1.0);
+        });
+        // Aplicamos el efecto de sombra al Pane
+        pane.setEffect(shadow);
+        pane.setStyle("-fx-background-color: lightgray; -fx-border-color: black; -fx-border-width: 2px;");
+        pane.getChildren().addAll(label);
+        pane.getChildren().addAll(imageView);
+
+        // Manejamos el evento de clic del botón
+//        pane.setOnMouseClicked(event -> {
+//            try {
+//                controllerPaneDinamico.guardarPublicacionGlobal(id);
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("mostrarPublicacion.fxml"));
+//                Parent root = loader.load();
+//                Stage stage = new Stage();
+//                stage.setScene(new Scene(root));
+//                stage.show();
+//                MostrarPublicaionController mostrarPublicaionController = loader.getController();
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        });
+
+        return pane;
+    }
+
+    public Pane buildPane3(SolicitudesAmistad solicitudesAmistad) {
+        Vendedor vendedorActual = notificacionesControllerView.obtenerVendedor();
+        SolicitudesAmistadController solicitudesAmistadController = new SolicitudesAmistadController();
+        Vendedor vendedor = solicitudesAmistad.getUsuarioEnviaSolicitud();
+        String mensajeLabel = vendedor.getNombreUsuario();
+        String url = vendedor.getUrlImg();
+        Pane pane = new AnchorPane();
+        pane.setPrefHeight(220);
+        pane.setPrefWidth(200);
+
+
+        Label label = new Label(mensajeLabel);
+        label.setPrefHeight(72);
+        label.setPrefWidth(171);
+        label.setLayoutX(14);
+        label.setLayoutY(140);
+        label.setAlignment(Pos.CENTER);
+        label.setFont(Font.font("Arial", FontWeight.BOLD, 17));
+
+        ImageView imageView = new ImageView(new Image(url));
+        imageView.setFitHeight(120);
+        imageView.setFitWidth(140);
+        imageView.setLayoutX(30);
+        imageView.setLayoutY(26);
+
+        Button boton = new Button("Aceptar");
+        pane.getChildren().add(boton);
+        boton.setLayoutX(18);
+        boton.setLayoutY(190);
+        boton.setOnMouseClicked(event -> {
+            solicitudesAmistadController.responderSolicitudAmistad(vendedorActual, vendedor, solicitudesAmistad, EstadoSolicitd.ACEPTADA);
+            pane.setVisible(false);
+
+
+
+
+        });
+        Button boton2 = new Button("Rechazar");
+        pane.getChildren().add(boton2);
+        boton2.setLayoutX(105);
+        boton2.setLayoutY(190);
+        boton2.setOnMouseClicked(event -> {
+            solicitudesAmistadController.responderSolicitudAmistad(vendedorActual, vendedor, solicitudesAmistad, EstadoSolicitd.RECHAZADA);
+            pane.setVisible(false);
+            //vendedorActual.getSolicitudesEnviadas().eliminar(solicitudesAmistad);
+
+
+//            JOptionPane.showMessageDialog(null, "solicitud enviada");
+//            SolicitudesAmistadController solicitudesAmistadController = new SolicitudesAmistadController();
+//            buscarAmigosControllerView buscarAmigosControllerView = new buscarAmigosControllerView();
+//            Vendedor vendedorEnviaSolicitud= buscarAmigosControllerView.obtenerVendedor();
+//            Vendedor vendedorRecibeSolicitud=vendedor;
+//            solicitudesAmistadController.enviarSolicitudesAmistad(vendedorEnviaSolicitud,vendedorRecibeSolicitud);
+
+
+        });
+
+
+        // Creamos el efecto de sombra
+        DropShadow shadow = new DropShadow();
+        shadow.setColor(Color.GRAY);
+        shadow.setOffsetX(5);
+        shadow.setOffsetY(5);
+
+        // Manejamos el evento de entrada del mouse
+        pane.setOnMouseEntered(event -> {
+            // Cambiamos el tamaño y el estilo al pasar el cursor sobre el Pane
+            pane.setStyle("-fx-background-color: lightgray; -fx-border-color: black;-fx-border-width: 2px; -fx-background-radius: 10px;");
+            pane.setScaleX(1.1);
+            pane.setScaleY(1.1);
+        });
+
+        // Manejamos el evento de salida del mouse
+        pane.setOnMouseExited(event -> {
+            // Restauramos el tamaño y el estilo al quitar el cursor del Pane
+            pane.setStyle("-fx-background-color: lightgray; -fx-border-color: black; -fx-border-width: 2px;");
+            pane.setScaleX(1.0);
+            pane.setScaleY(1.0);
+        });
+        // Aplicamos el efecto de sombra al Pane
+        pane.setEffect(shadow);
+        pane.setStyle("-fx-background-color: lightgray; -fx-border-color: black; -fx-border-width: 2px;");
+        pane.getChildren().addAll(label);
+        pane.getChildren().addAll(imageView);
+
+        // Manejamos el evento de clic del botón
+//        pane.setOnMouseClicked(event -> {
+//            try {
+//                controllerPaneDinamico.guardarPublicacionGlobal(id);
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("mostrarPublicacion.fxml"));
+//                Parent root = loader.load();
+//                Stage stage = new Stage();
+//                stage.setScene(new Scene(root));
+//                stage.show();
+//                MostrarPublicaionController mostrarPublicaionController = loader.getController();
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        });
+
+        return pane;
+    }
+    public Pane buildPane4(Vendedor vendedor) {
+        String mensajeLabel = vendedor.getNombreUsuario();
+        String url = vendedor.getUrlImg();
+        Pane pane = new AnchorPane();
+        pane.setPrefHeight(220);
+        pane.setPrefWidth(200);
+
+
+        Label label = new Label(mensajeLabel);
+        label.setPrefHeight(72);
+        label.setPrefWidth(171);
+        label.setLayoutX(14);
+        label.setLayoutY(140);
+        label.setAlignment(Pos.CENTER);
+        label.setFont(Font.font("Arial", FontWeight.BOLD, 17));
+
+        ImageView imageView = new ImageView(new Image(url));
+        imageView.setFitHeight(120);
+        imageView.setFitWidth(140);
+        imageView.setLayoutX(30);
+        imageView.setLayoutY(26);
+
+//        Button boton = new Button("agregar");
+//        pane.getChildren().add(boton);
+//        boton.setLayoutX(65);
+//        boton.setLayoutY(190);
+//        boton.setOnMouseClicked(event -> {
+//            JOptionPane.showMessageDialog(null, "solicitud enviada");
+//            SolicitudesAmistadController solicitudesAmistadController = new SolicitudesAmistadController();
+//            buscarAmigosControllerView buscarAmigosControllerView = new buscarAmigosControllerView();
+//            Vendedor vendedorEnviaSolicitud = buscarAmigosControllerView.obtenerVendedor();
+//            Vendedor vendedorRecibeSolicitud = vendedor;
+//            solicitudesAmistadController.enviarSolicitudesAmistad(vendedorEnviaSolicitud, vendedorRecibeSolicitud);
+//        });
 
 
         // Creamos el efecto de sombra
@@ -178,9 +374,7 @@ public class PaneDinamico  {
     }
 
 
-
-
-    public Pane buildPaneComentario(String nombreUsuario, String comentario, LocalDate fecha){
+    public Pane buildPaneComentario(String nombreUsuario, String comentario, LocalDate fecha) {
         Pane pane = new AnchorPane();
         pane.setPrefHeight(40);
         pane.setPrefWidth(50);
@@ -195,7 +389,7 @@ public class PaneDinamico  {
         label.setFont(Font.font("Arial", FontWeight.BOLD, 17));
         pane.getChildren().addAll(label);
 
-        Label labelComentario  = new Label(comentario);
+        Label labelComentario = new Label(comentario);
         labelComentario.setPrefHeight(10);
         labelComentario.setPrefWidth(500);
         labelComentario.setLayoutX(0);
@@ -205,7 +399,7 @@ public class PaneDinamico  {
         pane.getChildren().addAll(labelComentario);
 
 
-        Label labelFecha  = new Label(fecha+"");
+        Label labelFecha = new Label(fecha + "");
         labelFecha.setPrefHeight(10);
         labelFecha.setPrefWidth(500);
         labelFecha.setLayoutX(0);
@@ -213,13 +407,9 @@ public class PaneDinamico  {
         labelFecha.setAlignment(Pos.TOP_LEFT);
         labelFecha.setFont(Font.font("Arial", FontWeight.EXTRA_LIGHT, 16));
         pane.getChildren().addAll(labelFecha);
-        return  pane;
+        return pane;
 
     }
-
-
-
-
 
 
 }

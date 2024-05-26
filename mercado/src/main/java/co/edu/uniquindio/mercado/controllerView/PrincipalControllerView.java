@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
 
@@ -113,6 +114,7 @@ public class PrincipalControllerView implements Initializable {
     private Administrador administradorGlobal;
     private TreeMap<String, Publicacion>mapaPublicaciones;
 
+    Stage ventanaCrearPublicacion;
     @FXML
     void abrirCrearPublicacion(MouseEvent event) {
 
@@ -120,9 +122,9 @@ public class PrincipalControllerView implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("crearPublicacion.fxml"));
             Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
+            ventanaCrearPublicacion = new Stage();
+            ventanaCrearPublicacion.setScene(new Scene(root));
+            ventanaCrearPublicacion.show();
             CrearPublicacionControllerView controller = loader.getController();
 
         } catch (IOException e) {
@@ -171,6 +173,12 @@ public class PrincipalControllerView implements Initializable {
     @SneakyThrows
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        mostrarMensaje.setVisible(false);
+        mostrarMensajeMisPublicaciones.setVisible(false);
+        mostrarMensajePerfil.setVisible(false);
+        mostrarMensajeChat.setVisible(false);
+        mostrarMensajeCrearPublicacion.setVisible(false);
+        mostrarMensajeNotificaciones.setVisible(false);
         // inicializa valores de componentes de la interfaz
         paneDinamico = new PaneDinamico();
         layaoutXPanePublicaciones = 26;
@@ -206,18 +214,23 @@ public class PrincipalControllerView implements Initializable {
     void cerrarSesion(ActionEvent event) {
         Stage stage = (Stage) PanePrincipal.getScene().getWindow();
         stage.close();
+        if (ventanaBuscarAmigos != null){ventanaBuscarAmigos.close();}
+        if(ventanaCrearPublicacion != null) {ventanaCrearPublicacion.close();}
+        if(ventanaNotificaciones != null){ventanaNotificaciones.close();}
+
+
         abrirLogin();// abre la ventana de login
     }
 
-
+    Stage ventanaLoginview;
     private  void abrirLogin() {
         // sirve para abrir ventanas
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("loginView.fxml"));
             Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
+            ventanaLoginview = new Stage();
+            ventanaLoginview.setScene(new Scene(root));
+            ventanaLoginview.show();
             LoginControllerView loginControllerView = loader.getController();
 
         } catch (IOException e) {
@@ -225,14 +238,16 @@ public class PrincipalControllerView implements Initializable {
         }
 
     }
+
+    Stage ventanaBuscarAmigos;
     @FXML
     void abrirBuscarAmigos(MouseEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("buscarAmigos.fxml"));
             Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
+            ventanaBuscarAmigos = new Stage();
+            ventanaBuscarAmigos.setScene(new Scene(root));
+            ventanaBuscarAmigos.show();
             buscarAmigosControllerView controller2 = loader.getController();
 
         } catch (IOException e) {
@@ -304,9 +319,210 @@ public class PrincipalControllerView implements Initializable {
 
     }
 
+    @FXML
+    private Label mostrarMensaje;
+
     public void automatizar(Publicacion publicacion) {
         agregarPane(paneDinamico.buildPane(publicacion.getTitulo() + "\n" + publicacion.getProducto().getPrecio() + "$", publicacion.getProducto().getUrlImagen(), publicacion.getProducto().getId()));
     }
+
+    @FXML
+    void mostrarMensajeBuscarAmigos(MouseEvent event) {
+        try {
+
+            mostrarMensaje.setText("Buscar amigos");// Establece el texto del mensaje
+            mostrarMensaje.setFont(Font.font("Arial", 14));
+            mostrarMensaje.setStyle("-fx-font-weight: bold;");
+
+            mostrarMensaje.setVisible(true);  // Mostrar el mensaje
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
+        }
+
+
+    }
+    @FXML
+    void noMostrarMensajeBuscarAmigos(MouseEvent event) {
+        mostrarMensaje.setVisible(false);
+
+    }
+
+
+    @FXML
+    private MFXButton btnRefrescar;
+
+
+
+    @FXML
+    private ImageView imgAmigos1;
+    @FXML
+    private ImageView imgMiPerfil;
+
+
+    @FXML
+    private Label mostrarMensajeChat;
+
+    @FXML
+    private Label mostrarMensajeCrearPublicacion;
+
+    @FXML
+    private Label mostrarMensajeMisPublicaciones;
+
+    @FXML
+    private Label mostrarMensajePerfil;
+
+
+
+
+
+
+    @FXML
+    void mostrarMensajeChatear(MouseEvent event) {
+        try {
+
+            mostrarMensajeChat.setText("Chatear");// Establece el texto del mensaje
+            mostrarMensajeChat.setFont(Font.font("Arial", 14));
+            mostrarMensajeChat.setStyle("-fx-font-weight: bold;");
+
+            mostrarMensajeChat.setVisible(true);  // Mostrar el mensaje
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    @FXML
+    void mostrarMensajeCrearPublicacion(MouseEvent event) {
+        try {
+
+        mostrarMensajeCrearPublicacion.setText("Crear Publicacion");// Establece el texto del mensaje
+        mostrarMensajeCrearPublicacion.setFont(Font.font("Arial", 14));
+        mostrarMensajeCrearPublicacion.setStyle("-fx-font-weight: bold;");
+
+        mostrarMensajeCrearPublicacion.setVisible(true);  // Mostrar el mensaje
+    }catch (NullPointerException e){
+        System.out.println(e.getMessage());
+    }
+
+
+    }
+
+    @FXML
+    void mostrarMensajeMiPerfil(MouseEvent event) {
+        try {
+
+            mostrarMensajePerfil.setText("Mi perfil");// Establece el texto del mensaje
+            mostrarMensajePerfil.setFont(Font.font("Arial", 14));
+            mostrarMensajePerfil.setStyle("-fx-background-color: white;-fx-font-weight: bold;");
+
+            mostrarMensajePerfil.setVisible(true);  // Mostrar el mensaje
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
+        }
+
+
+    }
+
+    @FXML
+    void mostrarMensajeMisPublicaciones(MouseEvent event) {
+        try {
+
+            mostrarMensajeMisPublicaciones.setText("Mis publicaciones");// Establece el texto del mensaje
+            mostrarMensajeMisPublicaciones.setFont(Font.font("Arial", 14));
+            mostrarMensajeMisPublicaciones.setStyle("-fx-font-weight: bold;");
+
+            mostrarMensajeMisPublicaciones.setVisible(true);  // Mostrar el mensaje
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
+        }
+
+
+
+    }
+
+
+    @FXML
+    void noMostrarMensajeChatear(MouseEvent event) {
+        mostrarMensajeChat.setVisible(false);
+
+    }
+
+    @FXML
+    void noMostrarMensajeCrearPublicacion(MouseEvent event) {
+        mostrarMensajeCrearPublicacion.setVisible(false);
+
+    }
+
+    @FXML
+    void noMostrarMensajeMiPerfil(MouseEvent event) {
+        mostrarMensajePerfil.setVisible(false);
+
+    }
+
+    @FXML
+    void noMostrarMensajeMisPublicaciones(MouseEvent event) {
+        mostrarMensajeMisPublicaciones.setVisible(false);
+
+    }
+    @FXML
+    void abrirMiPerfil(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("miPerfil.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            MiPerfilControllerView controller =loader.getController();
+//            buscarAmigosControllerView controller2 = loader.getController();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+    @FXML
+    private ImageView Notificaciones;
+    @FXML
+    private Label mostrarMensajeNotificaciones;
+
+    Stage ventanaNotificaciones;
+    @FXML
+    void abrirNotificaciones(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Notificaciones.fxml"));
+            Parent root = loader.load();
+            ventanaNotificaciones = new Stage();
+            ventanaNotificaciones.setScene(new Scene(root));
+            ventanaNotificaciones.show();
+            NotificacionesControllerView notificacionesControllerView =loader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    void mostrarMensajeNotificaciones(MouseEvent event) {
+        try {
+
+            mostrarMensajeNotificaciones.setText("Notificaciones");// Establece el texto del mensaje
+            mostrarMensajeNotificaciones.setFont(Font.font("Arial", 14));
+            mostrarMensajeNotificaciones.setStyle("-fx-font-weight: bold;");
+
+            mostrarMensajeNotificaciones.setVisible(true);  // Mostrar el mensaje
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
+        }
+
+
+    }
+    @FXML
+    void noMostrarMensajeNotificaciones(MouseEvent event) {
+        mostrarMensajeNotificaciones.setVisible(false);
+
+    }
+
 
 
 

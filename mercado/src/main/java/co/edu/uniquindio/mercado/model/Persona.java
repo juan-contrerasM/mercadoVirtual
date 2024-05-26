@@ -13,31 +13,20 @@ import lombok.ToString;
 @ToString // Esta anotación genera automáticamente el método toString para la clase.
 public abstract class Persona {
     private String nombre;
-    private  int edad;
-    private  String correo;
+    private int edad;
+    private String correo;
     private String numeroCelular;
     private TipoUsuario tipoUsuario;
-    private String  cedula;
-    private String urlImg;
+    private String cedula;
 
 
-    private Arbol <Persona> redAmigos = new Arbol<>();
-
-    public Persona(String nombre, int edad,String cedula, String correo, String numeroCelular, String urlImg) {
+    public Persona(String nombre, int edad, String cedula, String correo, String numeroCelular) {
         this.nombre = nombre;
         this.edad = edad;
         this.correo = correo;
         this.numeroCelular = numeroCelular;
         this.tipoUsuario = tipoUsuario;
         this.cedula = cedula;
-        this.urlImg = urlImg;
-    }
-
-    public Arbol<Persona> getRedAmigos() {
-        return redAmigos;
-    }
-
-    public void setRedAmigos(Arbol<Persona> redAmigos) {
-        this.redAmigos = redAmigos;
     }
 }
+
